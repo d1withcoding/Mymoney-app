@@ -1,0 +1,1008 @@
+{
+  "corpus": "seed-corpus.jsonl",
+  "data": {
+    "records": 1290,
+    "transactions": 1200,
+    "non_transactions": 90,
+    "operators": {
+      "airtel_tigo_money": {
+        "n": 400,
+        "families": 274,
+        "families_fine": 282,
+        "top_skeletons": [
+          {
+            "skeleton": "* loan * <<NAME>> from <NAME> has been credited * your wallet <NAME> balance: <<NAME>>.",
+            "count": 8,
+            "share": 0.02
+          },
+          {
+            "skeleton": "<NAME> <ID>. <<NAME>> received from <NAME> * <NAME> balance: <<NAME>>. <NAME> you for using AirtelTigo <NAME>.",
+            "count": 7,
+            "share": 0.0175
+          },
+          {
+            "skeleton": "* loan * <<NAME>> from <NAME> has been credited * your wallet <NAME> balance: <<NAME>>. <NAME>: <ID>",
+            "count": 5,
+            "share": 0.0125
+          },
+          {
+            "skeleton": "<<NAME>> has been reversed * your wallet for the transaction * <NAME> balance: <<NAME>>. <NAME>: <ID>",
+            "count": 5,
+            "share": 0.0125
+          },
+          {
+            "skeleton": "<NAME> <ID>. <<NAME>> sent * <NAME> * AirtelTigo <NAME> balance: <<NAME>>. <NAME> you for using AirtelTigo <NAME>. <NAME> you for using our services.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<NAME> <ID>. <<NAME>> sent * <NAME> * AirtelTigo <NAME> balance: <<NAME>>. <NAME> you for using AirtelTigo <NAME>.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<NAME> <ID>. <<NAME>> sent * <NAME> * <NAME> balance: <<NAME>>. <NAME> you for using AirtelTigo <NAME>. <NAME> your <NAME> secret. <NAME> share * with anyone.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<NAME> <ID>. <<NAME>> sent * <NAME> * <NAME> balance: <<NAME>>. <NAME> you for using AirtelTigo <NAME>.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<NAME> <ID>. <<NAME>> sent * <NAME> * <NAME>: <<NAME>>. <NAME> you for using AirtelTigo <NAME>.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<NAME> <ID>. <<NAME>> received from <NAME> * <NAME>: <<NAME>>. <NAME> you for using AirtelTigo <NAME>.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<NAME> <ID>. <<NAME>> received from <NAME> * AirtelTigo <NAME> balance: <<NAME>>. <NAME> you for using AirtelTigo <NAME>.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<NAME> * <<NAME>> successful. <NAME>: <ID>",
+            "count": 4,
+            "share": 0.01
+          }
+        ],
+        "top_12_coverage": 0.1425,
+        "field_labels": [
+          {
+            "label": "AirtelTigo Money balance",
+            "count": 127
+          },
+          {
+            "label": "New balance",
+            "count": 87
+          },
+          {
+            "label": "Paybill ID",
+            "count": 80
+          },
+          {
+            "label": "Balance",
+            "count": 75
+          },
+          {
+            "label": "Transaction ID",
+            "count": 69
+          },
+          {
+            "label": "Txn ID",
+            "count": 62
+          },
+          {
+            "label": "Fee charged",
+            "count": 52
+          },
+          {
+            "label": "Levy",
+            "count": 33
+          },
+          {
+            "label": "KWABENA OWUSU. Fee charged",
+            "count": 6
+          },
+          {
+            "label": "AGENT ACCRA. Fee charged",
+            "count": 6
+          },
+          {
+            "label": "Telecel customer Balance",
+            "count": 5
+          },
+          {
+            "label": "AGENT KUMASI. Fee charged",
+            "count": 4
+          },
+          {
+            "label": "MTN customer New balance",
+            "count": 4
+          },
+          {
+            "label": "AirtelTigo customer Balance",
+            "count": 4
+          },
+          {
+            "label": "AGENT KUMASI. New balance",
+            "count": 3
+          },
+          {
+            "label": "Telecel customer New balance",
+            "count": 3
+          },
+          {
+            "label": "MTN customer Balance",
+            "count": 3
+          },
+          {
+            "label": "AGENT ACCRA. New balance",
+            "count": 2
+          },
+          {
+            "label": "KWABENA OWUSU. New balance",
+            "count": 2
+          },
+          {
+            "label": "AGENT KWABENA OWUSU. Balance",
+            "count": 2
+          },
+          {
+            "label": "EFUA FRIMPONG New balance",
+            "count": 2
+          },
+          {
+            "label": "MOMO AGENT ACCRA. E-Levy",
+            "count": 1
+          },
+          {
+            "label": "AGENT KWABENA OWUSU. Txn ID",
+            "count": 1
+          },
+          {
+            "label": "SUPER AGENT KUMASI. Balance",
+            "count": 1
+          },
+          {
+            "label": "ABENA QUANSAH New balance",
+            "count": 1
+          },
+          {
+            "label": "EFUA AGYEMAN New balance",
+            "count": 1
+          },
+          {
+            "label": "FIIFI OWUSU Balance",
+            "count": 1
+          },
+          {
+            "label": "EFUA QUANSAH New balance",
+            "count": 1
+          },
+          {
+            "label": "AFIA SARPONG Balance",
+            "count": 1
+          },
+          {
+            "label": "FIIFI DARKO New balance",
+            "count": 1
+          }
+        ],
+        "verbs": {
+          "purchased": 80,
+          "sent": 40,
+          "received": 40,
+          "deposit": 40,
+          "withdraw": 40,
+          "credited": 40,
+          "reversed": 40
+        },
+        "money_styles": {
+          "GHS nosep.2dp": 143,
+          "GH\u20b5 nosep.2dp": 130,
+          "GHSnosep.2dp": 110,
+          "GH\u00a2nosep.2dp": 108,
+          "GH\u00a2 nosep.2dp": 107,
+          "GH\u20b5nosep.2dp": 99,
+          "GHS,.2dp": 31,
+          "GH\u20b5,.2dp": 28,
+          "GHS ,.2dp": 28,
+          "GH\u00a2 ,.2dp": 21,
+          "GH\u20b5 ,.2dp": 21,
+          "GH\u00a2,.2dp": 18
+        },
+        "date_shapes": {
+          "ISO yyyy-mm-dd": 26,
+          "dd/mm/yyyy": 21,
+          "dd-mm-yy": 8
+        },
+        "time_shapes": {
+          "24h hh:mm": 55,
+          "24h hh:mm:ss": 39,
+          "12h am/pm": 1
+        },
+        "trx_id_lengths": {
+          "11": 213
+        },
+        "trx_id_shape": {
+          "leading digits": 165,
+          "starts alpha": 48
+        },
+        "counterparty_styles": {
+          "no counterparty": 165,
+          "paybill/merchant": 80,
+          "name + msisdn": 75,
+          "msisdn only": 75,
+          "name only": 5
+        },
+        "field_presence": {
+          "amount": {
+            "n": 400,
+            "rate": 1.0
+          },
+          "fee": {
+            "n": 68,
+            "rate": 0.17
+          },
+          "levy": {
+            "n": 34,
+            "rate": 0.085
+          },
+          "balance": {
+            "n": 342,
+            "rate": 0.855
+          },
+          "trx_id": {
+            "n": 213,
+            "rate": 0.5325
+          },
+          "reference": {
+            "n": 0,
+            "rate": 0.0
+          },
+          "counterparty_name": {
+            "n": 80,
+            "rate": 0.2
+          },
+          "counterparty_phone": {
+            "n": 150,
+            "rate": 0.375
+          },
+          "paybill_name": {
+            "n": 80,
+            "rate": 0.2
+          },
+          "paybill_account": {
+            "n": 80,
+            "rate": 0.2
+          },
+          "date": {
+            "n": 55,
+            "rate": 0.1375
+          },
+          "time": {
+            "n": 55,
+            "rate": 0.1375
+          },
+          "status": {
+            "n": 400,
+            "rate": 1.0
+          },
+          "channel": {
+            "n": 24,
+            "rate": 0.06
+          },
+          "tx_kind": {
+            "n": 400,
+            "rate": 1.0
+          },
+          "direction": {
+            "n": 400,
+            "rate": 1.0
+          }
+        },
+        "length_median": 137.0,
+        "length_max": 239,
+        "over_160_chars": 89,
+        "over_160_rate": 0.2225,
+        "ambiguous_date_rate": 0.0275
+      },
+      "mtn_momo": {
+        "n": 400,
+        "families": 327,
+        "families_fine": 333,
+        "top_skeletons": [
+          {
+            "skeleton": "<NAME> have purchased <<NAME>> worth * airtime for <<NAME>> for <NAME> customer.",
+            "count": 6,
+            "share": 0.015
+          },
+          {
+            "skeleton": "<NAME> have successfully purchased  * data bundle for <<NAME>> for <<NAME>> <NAME> MoMo balance * <<NAME>>.",
+            "count": 6,
+            "share": 0.015
+          },
+          {
+            "skeleton": "<NAME> have purchased <<NAME>> worth * airtime for <<NAME>> for <NAME> customer <NAME>: <<NAME>>.",
+            "count": 5,
+            "share": 0.0125
+          },
+          {
+            "skeleton": "<NAME> have successfully purchased  * data bundle for <<NAME>> for <<NAME>> <NAME>: <<NAME>>.",
+            "count": 5,
+            "share": 0.0125
+          },
+          {
+            "skeleton": "<NAME> have successfully purchased  * data bundle for <<NAME>> for * <N> <N> <N> <NAME>: <<NAME>>.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "* loan * <<NAME>> from <NAME> has been credited * your wallet <NAME> balance * <<NAME>>. <NAME>: <ID>",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "* loan * <<NAME>> from <NAME> has been credited * your wallet <NAME> balance * <<NAME>>. <NAME> your <NAME> secret. <NAME> share * with anyone.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<<NAME>> has been reversed * your wallet for the transaction * <NAME>: <<NAME>>. <NAME>: <ID>",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<<NAME>> has been reversed * your wallet for the transaction * <NAME> MoMo balance * <<NAME>>.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<NAME> have purchased <<NAME>> worth * airtime for <<NAME>> for <NAME> customer <NAME> balance * <<NAME>>.",
+            "count": 3,
+            "share": 0.0075
+          },
+          {
+            "skeleton": "* loan * <<NAME>> from <NAME> has been credited * your wallet <NAME>: <<NAME>>. <NAME>: <ID> <NAME> your <NAME> secret. <NAME> share * with anyone.",
+            "count": 3,
+            "share": 0.0075
+          },
+          {
+            "skeleton": "* loan * <<NAME>> from <NAME> has been credited * your wallet <NAME>: <<NAME>>. <NAME> your <NAME> secret. <NAME> share * with anyone.",
+            "count": 3,
+            "share": 0.0075
+          }
+        ],
+        "top_12_coverage": 0.1275,
+        "field_labels": [
+          {
+            "label": "Transaction ID",
+            "count": 93
+          },
+          {
+            "label": "Business ID",
+            "count": 80
+          },
+          {
+            "label": "Trans ID",
+            "count": 76
+          },
+          {
+            "label": "Balance",
+            "count": 64
+          },
+          {
+            "label": "Current Balance",
+            "count": 61
+          },
+          {
+            "label": "Fee charged",
+            "count": 58
+          },
+          {
+            "label": "Reference",
+            "count": 38
+          },
+          {
+            "label": "Levy",
+            "count": 21
+          },
+          {
+            "label": "MoMo account. Fee charged",
+            "count": 6
+          },
+          {
+            "label": "AGENT ACCRA. Fee charged",
+            "count": 5
+          },
+          {
+            "label": "MTN customer Current Balance",
+            "count": 5
+          },
+          {
+            "label": "AGENT KUMASI. Fee charged",
+            "count": 4
+          },
+          {
+            "label": "KWABENA OWUSU. Fee charged",
+            "count": 3
+          },
+          {
+            "label": "OWUSU. Current Balance",
+            "count": 3
+          },
+          {
+            "label": "MOMO AGENT ACCRA. E-Levy",
+            "count": 3
+          },
+          {
+            "label": "MoMo account. E-Levy",
+            "count": 3
+          },
+          {
+            "label": "AGENT KWABENA OWUSU. E-Levy",
+            "count": 3
+          },
+          {
+            "label": "AM. Current Balance",
+            "count": 2
+          },
+          {
+            "label": "MOMO AGENT ACCRA. Balance",
+            "count": 2
+          },
+          {
+            "label": "SUPER AGENT KUMASI. Balance",
+            "count": 2
+          },
+          {
+            "label": "MTN customer Balance",
+            "count": 2
+          },
+          {
+            "label": "AMA ADJEI Balance",
+            "count": 2
+          },
+          {
+            "label": "YAW FRIMPONG. Balance",
+            "count": 1
+          },
+          {
+            "label": "QUANSAH. Current Balance",
+            "count": 1
+          },
+          {
+            "label": "AKOSUA BEDIAKO. Balance",
+            "count": 1
+          },
+          {
+            "label": "PM. Reference",
+            "count": 1
+          },
+          {
+            "label": "YAW ANNAN. Reference",
+            "count": 1
+          },
+          {
+            "label": "YAW ANNAN. Fee charged",
+            "count": 1
+          },
+          {
+            "label": "KOFI BOATENG. Balance",
+            "count": 1
+          },
+          {
+            "label": "BOATENG. Current Balance",
+            "count": 1
+          }
+        ],
+        "verbs": {
+          "purchased": 80,
+          "received": 40,
+          "deposit": 40,
+          "withdraw": 40,
+          "credited": 40,
+          "reversed": 40,
+          "sent": 17
+        },
+        "money_styles": {
+          "GH\u20b5 nosep.2dp": 155,
+          "GHS nosep.2dp": 137,
+          "GH\u00a2 nosep.2dp": 133,
+          "GHSnosep.2dp": 101,
+          "GH\u20b5nosep.2dp": 95,
+          "GH\u00a2nosep.2dp": 84,
+          "GHS,.2dp": 29,
+          "GH\u20b5 ,.2dp": 29,
+          "GHS ,.2dp": 25,
+          "GH\u20b5,.2dp": 24,
+          "GH\u00a2 ,.2dp": 24,
+          "GH\u00a2,.2dp": 23
+        },
+        "date_shapes": {
+          "ISO yyyy-mm-dd": 83,
+          "dd/mm/yyyy": 40,
+          "dd-mm-yy": 22
+        },
+        "time_shapes": {
+          "24h hh:mm": 145,
+          "24h hh:mm:ss": 101,
+          "12h am/pm": 13
+        },
+        "trx_id_lengths": {
+          "11": 172
+        },
+        "trx_id_shape": {
+          "leading digits": 138,
+          "starts alpha": 34
+        },
+        "counterparty_styles": {
+          "no counterparty": 171,
+          "paybill/merchant": 80,
+          "msisdn only": 69,
+          "name + msisdn": 60,
+          "name only": 20
+        },
+        "field_presence": {
+          "amount": {
+            "n": 400,
+            "rate": 1.0
+          },
+          "fee": {
+            "n": 81,
+            "rate": 0.2025
+          },
+          "levy": {
+            "n": 30,
+            "rate": 0.075
+          },
+          "balance": {
+            "n": 348,
+            "rate": 0.87
+          },
+          "trx_id": {
+            "n": 172,
+            "rate": 0.43
+          },
+          "reference": {
+            "n": 40,
+            "rate": 0.1
+          },
+          "counterparty_name": {
+            "n": 80,
+            "rate": 0.2
+          },
+          "counterparty_phone": {
+            "n": 129,
+            "rate": 0.3225
+          },
+          "paybill_name": {
+            "n": 80,
+            "rate": 0.2
+          },
+          "paybill_account": {
+            "n": 80,
+            "rate": 0.2
+          },
+          "date": {
+            "n": 145,
+            "rate": 0.3625
+          },
+          "time": {
+            "n": 145,
+            "rate": 0.3625
+          },
+          "status": {
+            "n": 400,
+            "rate": 1.0
+          },
+          "channel": {
+            "n": 27,
+            "rate": 0.0675
+          },
+          "tx_kind": {
+            "n": 400,
+            "rate": 1.0
+          },
+          "direction": {
+            "n": 400,
+            "rate": 1.0
+          }
+        },
+        "length_median": 141.0,
+        "length_max": 244,
+        "over_160_chars": 101,
+        "over_160_rate": 0.2525,
+        "ambiguous_date_rate": 0.06
+      },
+      "telecel_cash": {
+        "n": 400,
+        "families": 288,
+        "families_fine": 302,
+        "top_skeletons": [
+          {
+            "skeleton": "<<NAME>> has been reversed * your wallet for the transaction * <NAME> balance * <<NAME>>. <NAME>: <ID>",
+            "count": 9,
+            "share": 0.0225
+          },
+          {
+            "skeleton": "* loan * <<NAME>> from <NAME> has been credited * your wallet <NAME> balance * <<NAME>>. <NAME>: <ID>",
+            "count": 8,
+            "share": 0.02
+          },
+          {
+            "skeleton": "<NAME> have successfully purchased  * data bundle for <<NAME>> for <<NAME>> <NAME> balance * <<NAME>>.",
+            "count": 7,
+            "share": 0.0175
+          },
+          {
+            "skeleton": "* loan * <<NAME>> from <NAME> has been credited * your wallet <NAME> balance * <<NAME>>.",
+            "count": 7,
+            "share": 0.0175
+          },
+          {
+            "skeleton": "<<NAME>> has been reversed * your wallet for the transaction * <NAME>: <<NAME>>. <NAME>: <ID>",
+            "count": 6,
+            "share": 0.015
+          },
+          {
+            "skeleton": "<NAME> have purchased <<NAME>> worth * airtime for <<NAME>> for <NAME> customer <NAME> balance * <<NAME>>.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<NAME> have successfully purchased  * data bundle for <<NAME>> for <<NAME>>.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<<NAME>> has been reversed * your wallet for the transaction * <NAME> balance * <<NAME>>.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<<NAME>> has been reversed * your wallet for the transaction * <NAME> balance * <<NAME>>. <NAME> * <NAME> <N>.",
+            "count": 4,
+            "share": 0.01
+          },
+          {
+            "skeleton": "<ID> <NAME>. <NAME> have sent <<NAME>> * <<NAME>> * <NAME> * <N>-<N>-<N> * <N>:<N>:<N>. <NAME>: <<NAME>>.",
+            "count": 3,
+            "share": 0.0075
+          },
+          {
+            "skeleton": "<NAME>  * <<NAME>> * <NAME> successful. * <NAME>. <NAME> charged: <<NAME>>. <NAME> balance * <<NAME>>. <NAME>: <ID>",
+            "count": 3,
+            "share": 0.0075
+          },
+          {
+            "skeleton": "<NAME>  * <<NAME>> * <NAME> successful. <NAME> balance * <<NAME>>. <NAME>: <ID> <NAME> you for using our services.",
+            "count": 3,
+            "share": 0.0075
+          }
+        ],
+        "top_12_coverage": 0.155,
+        "field_labels": [
+          {
+            "label": "Fee charged",
+            "count": 81
+          },
+          {
+            "label": "Balance",
+            "count": 76
+          },
+          {
+            "label": "Transaction ID",
+            "count": 69
+          },
+          {
+            "label": "Txn Ref",
+            "count": 60
+          },
+          {
+            "label": "Levy",
+            "count": 26
+          },
+          {
+            "label": "AGENT KUMASI. Fee charged",
+            "count": 7
+          },
+          {
+            "label": "AGENT ACCRA. Fee charged",
+            "count": 7
+          },
+          {
+            "label": "KWABENA OWUSU. Fee charged",
+            "count": 6
+          },
+          {
+            "label": "AirtelTigo customer Balance",
+            "count": 4
+          },
+          {
+            "label": "ACCRA successful. Balance",
+            "count": 3
+          },
+          {
+            "label": "Telecel customer Balance",
+            "count": 3
+          },
+          {
+            "label": "SUPER AGENT KUMASI. E-Levy",
+            "count": 2
+          },
+          {
+            "label": "SUPER AGENT KUMASI. Balance",
+            "count": 2
+          },
+          {
+            "label": "AGENT KWABENA OWUSU. Balance",
+            "count": 2
+          },
+          {
+            "label": "ACCRA successful. Txn Ref",
+            "count": 2
+          },
+          {
+            "label": "MTN customer Balance",
+            "count": 2
+          },
+          {
+            "label": "KOFI MENSAH. Balance",
+            "count": 1
+          },
+          {
+            "label": "KOFI OPOKU. Fee charged",
+            "count": 1
+          },
+          {
+            "label": "ABENA BOATENG. Balance",
+            "count": 1
+          },
+          {
+            "label": "MOMO AGENT ACCRA. E-Levy",
+            "count": 1
+          },
+          {
+            "label": "SUPER AGENT KUMASI. Txn Ref",
+            "count": 1
+          },
+          {
+            "label": "OWUSU successful. E-Levy",
+            "count": 1
+          },
+          {
+            "label": "OWUSU successful. Balance",
+            "count": 1
+          },
+          {
+            "label": "AGENT KWABENA OWUSU. E-Levy",
+            "count": 1
+          },
+          {
+            "label": "AM successful. Fee charged",
+            "count": 1
+          },
+          {
+            "label": "PM successful. Fee charged",
+            "count": 1
+          },
+          {
+            "label": "REVERSAL successful. Balance",
+            "count": 1
+          },
+          {
+            "label": "SHOP successful. Fee charged",
+            "count": 1
+          },
+          {
+            "label": "KWESI OPOKU. Transaction ID",
+            "count": 1
+          },
+          {
+            "label": "KOFI ANNAN Balance",
+            "count": 1
+          }
+        ],
+        "verbs": {
+          "purchased": 80,
+          "sent": 40,
+          "received": 40,
+          "credited": 40,
+          "reversed": 40
+        },
+        "money_styles": {
+          "GH\u00a2 nosep.2dp": 138,
+          "GHS nosep.2dp": 131,
+          "GHSnosep.2dp": 130,
+          "GH\u20b5 nosep.2dp": 114,
+          "GH\u00a2nosep.2dp": 112,
+          "GH\u20b5nosep.2dp": 110,
+          "GH\u20b5,.2dp": 37,
+          "GHS,.2dp": 33,
+          "GH\u00a2,.2dp": 27,
+          "GH\u20b5 ,.2dp": 23,
+          "GH\u00a2 ,.2dp": 18,
+          "GHS ,.2dp": 17
+        },
+        "date_shapes": {
+          "ISO yyyy-mm-dd": 58,
+          "dd/mm/yyyy": 33,
+          "dd-mm-yy": 20
+        },
+        "time_shapes": {
+          "24h hh:mm": 111,
+          "24h hh:mm:ss": 75,
+          "12h am/pm": 8
+        },
+        "trx_id_lengths": {
+          "16": 188
+        },
+        "trx_id_shape": {
+          "leading digits": 188,
+          "ID as message prefix": 56
+        },
+        "counterparty_styles": {
+          "no counterparty": 171,
+          "paybill/merchant": 80,
+          "msisdn only": 69,
+          "name + msisdn": 51,
+          "name only": 29
+        },
+        "field_presence": {
+          "amount": {
+            "n": 400,
+            "rate": 1.0
+          },
+          "fee": {
+            "n": 105,
+            "rate": 0.2625
+          },
+          "levy": {
+            "n": 31,
+            "rate": 0.0775
+          },
+          "balance": {
+            "n": 354,
+            "rate": 0.885
+          },
+          "trx_id": {
+            "n": 188,
+            "rate": 0.47
+          },
+          "reference": {
+            "n": 0,
+            "rate": 0.0
+          },
+          "counterparty_name": {
+            "n": 80,
+            "rate": 0.2
+          },
+          "counterparty_phone": {
+            "n": 120,
+            "rate": 0.3
+          },
+          "paybill_name": {
+            "n": 80,
+            "rate": 0.2
+          },
+          "paybill_account": {
+            "n": 36,
+            "rate": 0.09
+          },
+          "date": {
+            "n": 111,
+            "rate": 0.2775
+          },
+          "time": {
+            "n": 111,
+            "rate": 0.2775
+          },
+          "status": {
+            "n": 400,
+            "rate": 1.0
+          },
+          "channel": {
+            "n": 38,
+            "rate": 0.095
+          },
+          "tx_kind": {
+            "n": 400,
+            "rate": 1.0
+          },
+          "direction": {
+            "n": 400,
+            "rate": 1.0
+          }
+        },
+        "length_median": 143.0,
+        "length_max": 260,
+        "over_160_chars": 116,
+        "over_160_rate": 0.29,
+        "ambiguous_date_rate": 0.0625
+      }
+    },
+    "senders": [
+      {
+        "operator": "mtn_momo",
+        "sender": "MTN-MOMO",
+        "count": 400
+      },
+      {
+        "operator": "telecel_cash",
+        "sender": "TelecelCash",
+        "count": 400
+      },
+      {
+        "operator": "airtel_tigo_money",
+        "sender": "ATMoney",
+        "count": 400
+      },
+      {
+        "operator": "unknown",
+        "sender": "MTN",
+        "count": 90
+      }
+    ],
+    "msisdn_prefix_by_operator": {
+      "20": {
+        "mtn_momo": 18,
+        "telecel_cash": 14,
+        "airtel_tigo_money": 24
+      },
+      "24": {
+        "mtn_momo": 21,
+        "telecel_cash": 12,
+        "airtel_tigo_money": 21
+      },
+      "25": {
+        "mtn_momo": 15,
+        "telecel_cash": 13,
+        "airtel_tigo_money": 17
+      },
+      "27": {
+        "mtn_momo": 10,
+        "telecel_cash": 12,
+        "airtel_tigo_money": 17
+      },
+      "50": {
+        "mtn_momo": 11,
+        "telecel_cash": 8,
+        "airtel_tigo_money": 14
+      },
+      "54": {
+        "mtn_momo": 12,
+        "telecel_cash": 10,
+        "airtel_tigo_money": 11
+      },
+      "55": {
+        "mtn_momo": 13,
+        "telecel_cash": 16,
+        "airtel_tigo_money": 14
+      },
+      "56": {
+        "mtn_momo": 15,
+        "telecel_cash": 17,
+        "airtel_tigo_money": 22
+      },
+      "57": {
+        "mtn_momo": 14,
+        "telecel_cash": 18,
+        "airtel_tigo_money": 10
+      }
+    },
+    "non_transaction_classes": {
+      "credential / security": 18,
+      "promotion / marketing": 18,
+      "payment request": 18,
+      "account lifecycle": 18,
+      "other non-transaction": 18
+    }
+  }
+}

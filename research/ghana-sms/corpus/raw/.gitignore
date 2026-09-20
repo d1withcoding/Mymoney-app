@@ -1,0 +1,6 @@
+# Raw captures are never committed: they contain real phone numbers, real names, real
+# balances and real transaction ids - exactly the PII this study is supposed to remove.
+# Everything in this directory is ignored except the files that explain why.
+*
+!.gitignore
+!README.md

@@ -166,7 +166,14 @@ object BankParserFactory {
         OpayBankParser(),  // Opay (Nigeria)
         MoniepointParser(),  // Moniepoint MFB (Nigeria)
         GTBankParser(),  // Guaranty Trust Bank / GTBank (Nigeria)
-        VFDBankParser()  // VFD Microfinance Bank (Nigeria)
+        VFDBankParser(),  // VFD Microfinance Bank (Nigeria)
+        // Ghana mobile-money wallets (MTN MoMo, Telecel Cash, AirtelTigo Money). Registered last:
+        // their sender IDs are short codes no other parser claims, and each gates parse() on
+        // message content, so ordering costs nothing. Keep them together - they share
+        // GhanaMobileMoneyParser and one specification file.
+        MtnMoMoParser(),  // MTN Mobile Money (Ghana) - GHS
+        TelecelCashParser(),  // Telecel Cash, ex-Vodafone Cash (Ghana) - GHS
+        AirtelTigoMoneyParser()  // AirtelTigo Money / AT Money (Ghana) - GHS
         // Add more bank parsers here as we implement them
     )
 

@@ -1,0 +1,2071 @@
+{
+  "arms": {
+    "rules": {
+      "train": {
+        "n": 840,
+        "accuracy": 0.8405,
+        "macro_f1": 0.7601,
+        "abstentions": 35,
+        "coverage": 0.9583333333333334,
+        "per_class": {
+          "food_dining": {
+            "precision": 0.6470588235294118,
+            "recall": 0.6470588235294118,
+            "f1": 0.6470588235294118,
+            "support": 17,
+            "predicted": 17
+          },
+          "groceries": {
+            "precision": 0.8333333333333334,
+            "recall": 0.5555555555555556,
+            "f1": 0.6666666666666667,
+            "support": 18,
+            "predicted": 12
+          },
+          "transport": {
+            "precision": 0.68,
+            "recall": 1.0,
+            "f1": 0.8095238095238095,
+            "support": 17,
+            "predicted": 25
+          },
+          "utilities": {
+            "precision": 0.7391304347826086,
+            "recall": 1.0,
+            "f1": 0.85,
+            "support": 17,
+            "predicted": 23
+          },
+          "airtime_data": {
+            "precision": 0.8704663212435233,
+            "recall": 1.0,
+            "f1": 0.9307479224376731,
+            "support": 168,
+            "predicted": 193
+          },
+          "shopping": {
+            "precision": 0.6875,
+            "recall": 1.0,
+            "f1": 0.8148148148148148,
+            "support": 11,
+            "predicted": 16
+          },
+          "health": {
+            "precision": 0.21428571428571427,
+            "recall": 1.0,
+            "f1": 0.35294117647058826,
+            "support": 3,
+            "predicted": 14
+          },
+          "education": {
+            "precision": 0.25,
+            "recall": 1.0,
+            "f1": 0.4,
+            "support": 2,
+            "predicted": 8
+          },
+          "rent_housing": {
+            "precision": 0.7857142857142857,
+            "recall": 1.0,
+            "f1": 0.88,
+            "support": 11,
+            "predicted": 14
+          },
+          "entertainment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 10,
+            "predicted": 10
+          },
+          "banking": {
+            "precision": 0.90625,
+            "recall": 1.0,
+            "f1": 0.9508196721311475,
+            "support": 87,
+            "predicted": 96
+          },
+          "cash_agent": {
+            "precision": 0.9545454545454546,
+            "recall": 1.0,
+            "f1": 0.9767441860465117,
+            "support": 168,
+            "predicted": 176
+          },
+          "p2p_transfer": {
+            "precision": 1.0,
+            "recall": 0.2857142857142857,
+            "f1": 0.4444444444444445,
+            "support": 84,
+            "predicted": 24
+          },
+          "income": {
+            "precision": 0.8924731182795699,
+            "recall": 0.9880952380952381,
+            "f1": 0.9378531073446327,
+            "support": 84,
+            "predicted": 93
+          },
+          "other": {
+            "precision": 1.0,
+            "recall": 0.5874125874125874,
+            "f1": 0.7400881057268722,
+            "support": 143,
+            "predicted": 84
+          }
+        },
+        "confusion": {
+          "food_dining": {
+            "health": 6,
+            "food_dining": 11
+          },
+          "groceries": {
+            "groceries": 10,
+            "transport": 6,
+            "shopping": 2
+          },
+          "transport": {
+            "transport": 17
+          },
+          "utilities": {
+            "utilities": 17
+          },
+          "airtime_data": {
+            "airtime_data": 168
+          },
+          "shopping": {
+            "shopping": 11
+          },
+          "health": {
+            "health": 3
+          },
+          "education": {
+            "education": 2
+          },
+          "rent_housing": {
+            "rent_housing": 11
+          },
+          "entertainment": {
+            "entertainment": 10
+          },
+          "banking": {
+            "banking": 87
+          },
+          "cash_agent": {
+            "cash_agent": 168
+          },
+          "p2p_transfer": {
+            "p2p_transfer": 24,
+            "airtime_data": 16,
+            "education": 2,
+            "rent_housing": 3,
+            "ABSTAINED": 35,
+            "health": 2,
+            "transport": 1,
+            "groceries": 1
+          },
+          "income": {
+            "income": 83,
+            "airtime_data": 1
+          },
+          "other": {
+            "cash_agent": 8,
+            "health": 3,
+            "airtime_data": 8,
+            "banking": 9,
+            "food_dining": 6,
+            "income": 10,
+            "utilities": 6,
+            "education": 4,
+            "shopping": 3,
+            "other": 84,
+            "groceries": 1,
+            "transport": 1
+          }
+        }
+      },
+      "dev": {
+        "n": 180,
+        "accuracy": 0.8278,
+        "macro_f1": 0.8175,
+        "abstentions": 7,
+        "coverage": 0.9611111111111111,
+        "per_class": {
+          "food_dining": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3,
+            "predicted": 3
+          },
+          "groceries": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 1
+          },
+          "transport": {
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.888888888888889,
+            "support": 4,
+            "predicted": 5
+          },
+          "utilities": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "support": 4,
+            "predicted": 6
+          },
+          "airtime_data": {
+            "precision": 0.8571428571428571,
+            "recall": 1.0,
+            "f1": 0.923076923076923,
+            "support": 36,
+            "predicted": 42
+          },
+          "shopping": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 1
+          },
+          "health": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 1
+          },
+          "education": {
+            "precision": 0.3333333333333333,
+            "recall": 1.0,
+            "f1": 0.5,
+            "support": 1,
+            "predicted": 3
+          },
+          "rent_housing": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 2
+          },
+          "entertainment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3,
+            "predicted": 3
+          },
+          "banking": {
+            "precision": 0.9565217391304348,
+            "recall": 1.0,
+            "f1": 0.9777777777777777,
+            "support": 22,
+            "predicted": 23
+          },
+          "cash_agent": {
+            "precision": 0.9230769230769231,
+            "recall": 1.0,
+            "f1": 0.9600000000000001,
+            "support": 36,
+            "predicted": 39
+          },
+          "p2p_transfer": {
+            "precision": 1.0,
+            "recall": 0.2222222222222222,
+            "f1": 0.3636363636363636,
+            "support": 18,
+            "predicted": 4
+          },
+          "income": {
+            "precision": 0.8181818181818182,
+            "recall": 1.0,
+            "f1": 0.9,
+            "support": 18,
+            "predicted": 22
+          },
+          "other": {
+            "precision": 1.0,
+            "recall": 0.5142857142857142,
+            "f1": 0.6792452830188679,
+            "support": 35,
+            "predicted": 18
+          }
+        },
+        "confusion": {
+          "food_dining": {
+            "food_dining": 3
+          },
+          "groceries": {},
+          "transport": {
+            "transport": 4
+          },
+          "utilities": {
+            "utilities": 4
+          },
+          "airtime_data": {
+            "airtime_data": 36
+          },
+          "shopping": {},
+          "health": {},
+          "education": {
+            "education": 1
+          },
+          "rent_housing": {},
+          "entertainment": {
+            "entertainment": 3
+          },
+          "banking": {
+            "banking": 22
+          },
+          "cash_agent": {
+            "cash_agent": 36
+          },
+          "p2p_transfer": {
+            "p2p_transfer": 4,
+            "airtime_data": 4,
+            "education": 1,
+            "ABSTAINED": 7,
+            "rent_housing": 2
+          },
+          "income": {
+            "income": 18
+          },
+          "other": {
+            "cash_agent": 3,
+            "utilities": 2,
+            "transport": 1,
+            "shopping": 1,
+            "other": 18,
+            "health": 1,
+            "income": 4,
+            "banking": 1,
+            "airtime_data": 2,
+            "education": 1,
+            "groceries": 1
+          }
+        }
+      },
+      "test": {
+        "n": 180,
+        "accuracy": 0.85,
+        "macro_f1": 0.8684,
+        "abstentions": 10,
+        "coverage": 0.9444444444444444,
+        "per_class": {
+          "food_dining": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 6,
+            "predicted": 6
+          },
+          "groceries": {
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8,
+            "support": 3,
+            "predicted": 2
+          },
+          "transport": {
+            "precision": 0.5714285714285714,
+            "recall": 1.0,
+            "f1": 0.7272727272727273,
+            "support": 4,
+            "predicted": 7
+          },
+          "utilities": {
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "support": 5,
+            "predicted": 6
+          },
+          "airtime_data": {
+            "precision": 0.9230769230769231,
+            "recall": 1.0,
+            "f1": 0.9600000000000001,
+            "support": 36,
+            "predicted": 39
+          },
+          "shopping": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 1
+          },
+          "health": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 1,
+            "predicted": 1
+          },
+          "education": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 1
+          },
+          "rent_housing": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 1
+          },
+          "entertainment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2,
+            "predicted": 2
+          },
+          "banking": {
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "support": 20,
+            "predicted": 24
+          },
+          "cash_agent": {
+            "precision": 0.9473684210526315,
+            "recall": 1.0,
+            "f1": 0.972972972972973,
+            "support": 36,
+            "predicted": 38
+          },
+          "p2p_transfer": {
+            "precision": 1.0,
+            "recall": 0.2777777777777778,
+            "f1": 0.4347826086956522,
+            "support": 18,
+            "predicted": 5
+          },
+          "income": {
+            "precision": 0.9473684210526315,
+            "recall": 1.0,
+            "f1": 0.972972972972973,
+            "support": 18,
+            "predicted": 19
+          },
+          "other": {
+            "precision": 1.0,
+            "recall": 0.5806451612903226,
+            "f1": 0.7346938775510204,
+            "support": 31,
+            "predicted": 18
+          }
+        },
+        "confusion": {
+          "food_dining": {
+            "food_dining": 6
+          },
+          "groceries": {
+            "transport": 1,
+            "groceries": 2
+          },
+          "transport": {
+            "transport": 4
+          },
+          "utilities": {
+            "utilities": 5
+          },
+          "airtime_data": {
+            "airtime_data": 36
+          },
+          "shopping": {},
+          "health": {
+            "health": 1
+          },
+          "education": {},
+          "rent_housing": {},
+          "entertainment": {
+            "entertainment": 2
+          },
+          "banking": {
+            "banking": 20
+          },
+          "cash_agent": {
+            "cash_agent": 36
+          },
+          "p2p_transfer": {
+            "p2p_transfer": 5,
+            "airtime_data": 2,
+            "rent_housing": 1,
+            "ABSTAINED": 10
+          },
+          "income": {
+            "income": 18
+          },
+          "other": {
+            "banking": 4,
+            "utilities": 1,
+            "income": 1,
+            "transport": 2,
+            "other": 18,
+            "cash_agent": 2,
+            "education": 1,
+            "airtime_data": 1,
+            "shopping": 1
+          }
+        }
+      }
+    },
+    "model": {
+      "train": {
+        "n": 840,
+        "accuracy": 1.0,
+        "macro_f1": 1.0,
+        "abstentions": 0,
+        "coverage": 1.0,
+        "per_class": {
+          "food_dining": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 17,
+            "predicted": 17
+          },
+          "groceries": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 18,
+            "predicted": 18
+          },
+          "transport": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 17,
+            "predicted": 17
+          },
+          "utilities": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 17,
+            "predicted": 17
+          },
+          "airtime_data": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 168,
+            "predicted": 168
+          },
+          "shopping": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 11,
+            "predicted": 11
+          },
+          "health": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3,
+            "predicted": 3
+          },
+          "education": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2,
+            "predicted": 2
+          },
+          "rent_housing": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 11,
+            "predicted": 11
+          },
+          "entertainment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 10,
+            "predicted": 10
+          },
+          "banking": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 87,
+            "predicted": 87
+          },
+          "cash_agent": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 168,
+            "predicted": 168
+          },
+          "p2p_transfer": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 84,
+            "predicted": 84
+          },
+          "income": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 84,
+            "predicted": 84
+          },
+          "other": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 143,
+            "predicted": 143
+          }
+        },
+        "confusion": {
+          "food_dining": {
+            "food_dining": 17
+          },
+          "groceries": {
+            "groceries": 18
+          },
+          "transport": {
+            "transport": 17
+          },
+          "utilities": {
+            "utilities": 17
+          },
+          "airtime_data": {
+            "airtime_data": 168
+          },
+          "shopping": {
+            "shopping": 11
+          },
+          "health": {
+            "health": 3
+          },
+          "education": {
+            "education": 2
+          },
+          "rent_housing": {
+            "rent_housing": 11
+          },
+          "entertainment": {
+            "entertainment": 10
+          },
+          "banking": {
+            "banking": 87
+          },
+          "cash_agent": {
+            "cash_agent": 168
+          },
+          "p2p_transfer": {
+            "p2p_transfer": 84
+          },
+          "income": {
+            "income": 84
+          },
+          "other": {
+            "other": 143
+          }
+        }
+      },
+      "dev": {
+        "n": 180,
+        "accuracy": 0.9722,
+        "macro_f1": 0.8939,
+        "abstentions": 0,
+        "coverage": 1.0,
+        "per_class": {
+          "food_dining": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3,
+            "predicted": 3
+          },
+          "groceries": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "transport": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 4,
+            "predicted": 4
+          },
+          "utilities": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 4,
+            "predicted": 4
+          },
+          "airtime_data": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 36,
+            "predicted": 36
+          },
+          "shopping": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "health": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "education": {
+            "precision": null,
+            "recall": 0.0,
+            "f1": null,
+            "support": 1,
+            "predicted": 0
+          },
+          "rent_housing": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "entertainment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3,
+            "predicted": 3
+          },
+          "banking": {
+            "precision": 1.0,
+            "recall": 0.8181818181818182,
+            "f1": 0.9,
+            "support": 22,
+            "predicted": 18
+          },
+          "cash_agent": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 36,
+            "predicted": 36
+          },
+          "p2p_transfer": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 18,
+            "predicted": 18
+          },
+          "income": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 18,
+            "predicted": 18
+          },
+          "other": {
+            "precision": 0.875,
+            "recall": 1.0,
+            "f1": 0.9333333333333333,
+            "support": 35,
+            "predicted": 40
+          }
+        },
+        "confusion": {
+          "food_dining": {
+            "food_dining": 3
+          },
+          "groceries": {},
+          "transport": {
+            "transport": 4
+          },
+          "utilities": {
+            "utilities": 4
+          },
+          "airtime_data": {
+            "airtime_data": 36
+          },
+          "shopping": {},
+          "health": {},
+          "education": {
+            "other": 1
+          },
+          "rent_housing": {},
+          "entertainment": {
+            "entertainment": 3
+          },
+          "banking": {
+            "banking": 18,
+            "other": 4
+          },
+          "cash_agent": {
+            "cash_agent": 36
+          },
+          "p2p_transfer": {
+            "p2p_transfer": 18
+          },
+          "income": {
+            "income": 18
+          },
+          "other": {
+            "other": 35
+          }
+        }
+      },
+      "test": {
+        "n": 180,
+        "accuracy": 0.9667,
+        "macro_f1": 0.9346,
+        "abstentions": 0,
+        "coverage": 1.0,
+        "per_class": {
+          "food_dining": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 6,
+            "predicted": 6
+          },
+          "groceries": {
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8,
+            "support": 3,
+            "predicted": 2
+          },
+          "transport": {
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "support": 4,
+            "predicted": 2
+          },
+          "utilities": {
+            "precision": 1.0,
+            "recall": 0.8,
+            "f1": 0.888888888888889,
+            "support": 5,
+            "predicted": 4
+          },
+          "airtime_data": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 36,
+            "predicted": 36
+          },
+          "shopping": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "health": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 1,
+            "predicted": 1
+          },
+          "education": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "rent_housing": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "entertainment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2,
+            "predicted": 2
+          },
+          "banking": {
+            "precision": 1.0,
+            "recall": 0.9,
+            "f1": 0.9473684210526316,
+            "support": 20,
+            "predicted": 18
+          },
+          "cash_agent": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 36,
+            "predicted": 36
+          },
+          "p2p_transfer": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 18,
+            "predicted": 18
+          },
+          "income": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 18,
+            "predicted": 18
+          },
+          "other": {
+            "precision": 0.8378378378378378,
+            "recall": 1.0,
+            "f1": 0.911764705882353,
+            "support": 31,
+            "predicted": 37
+          }
+        },
+        "confusion": {
+          "food_dining": {
+            "food_dining": 6
+          },
+          "groceries": {
+            "groceries": 2,
+            "other": 1
+          },
+          "transport": {
+            "other": 2,
+            "transport": 2
+          },
+          "utilities": {
+            "utilities": 4,
+            "other": 1
+          },
+          "airtime_data": {
+            "airtime_data": 36
+          },
+          "shopping": {},
+          "health": {
+            "health": 1
+          },
+          "education": {},
+          "rent_housing": {},
+          "entertainment": {
+            "entertainment": 2
+          },
+          "banking": {
+            "banking": 18,
+            "other": 2
+          },
+          "cash_agent": {
+            "cash_agent": 36
+          },
+          "p2p_transfer": {
+            "p2p_transfer": 18
+          },
+          "income": {
+            "income": 18
+          },
+          "other": {
+            "other": 31
+          }
+        }
+      }
+    },
+    "cascade_strict": {
+      "train": {
+        "n": 840,
+        "accuracy": 0.8821,
+        "macro_f1": 0.7855,
+        "abstentions": 0,
+        "coverage": 1.0,
+        "per_class": {
+          "food_dining": {
+            "precision": 0.6470588235294118,
+            "recall": 0.6470588235294118,
+            "f1": 0.6470588235294118,
+            "support": 17,
+            "predicted": 17
+          },
+          "groceries": {
+            "precision": 0.8333333333333334,
+            "recall": 0.5555555555555556,
+            "f1": 0.6666666666666667,
+            "support": 18,
+            "predicted": 12
+          },
+          "transport": {
+            "precision": 0.68,
+            "recall": 1.0,
+            "f1": 0.8095238095238095,
+            "support": 17,
+            "predicted": 25
+          },
+          "utilities": {
+            "precision": 0.7391304347826086,
+            "recall": 1.0,
+            "f1": 0.85,
+            "support": 17,
+            "predicted": 23
+          },
+          "airtime_data": {
+            "precision": 0.8704663212435233,
+            "recall": 1.0,
+            "f1": 0.9307479224376731,
+            "support": 168,
+            "predicted": 193
+          },
+          "shopping": {
+            "precision": 0.6875,
+            "recall": 1.0,
+            "f1": 0.8148148148148148,
+            "support": 11,
+            "predicted": 16
+          },
+          "health": {
+            "precision": 0.21428571428571427,
+            "recall": 1.0,
+            "f1": 0.35294117647058826,
+            "support": 3,
+            "predicted": 14
+          },
+          "education": {
+            "precision": 0.25,
+            "recall": 1.0,
+            "f1": 0.4,
+            "support": 2,
+            "predicted": 8
+          },
+          "rent_housing": {
+            "precision": 0.7857142857142857,
+            "recall": 1.0,
+            "f1": 0.88,
+            "support": 11,
+            "predicted": 14
+          },
+          "entertainment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 10,
+            "predicted": 10
+          },
+          "banking": {
+            "precision": 0.90625,
+            "recall": 1.0,
+            "f1": 0.9508196721311475,
+            "support": 87,
+            "predicted": 96
+          },
+          "cash_agent": {
+            "precision": 0.9545454545454546,
+            "recall": 1.0,
+            "f1": 0.9767441860465117,
+            "support": 168,
+            "predicted": 176
+          },
+          "p2p_transfer": {
+            "precision": 1.0,
+            "recall": 0.7023809523809523,
+            "f1": 0.8251748251748251,
+            "support": 84,
+            "predicted": 59
+          },
+          "income": {
+            "precision": 0.8924731182795699,
+            "recall": 0.9880952380952381,
+            "f1": 0.9378531073446327,
+            "support": 84,
+            "predicted": 93
+          },
+          "other": {
+            "precision": 1.0,
+            "recall": 0.5874125874125874,
+            "f1": 0.7400881057268722,
+            "support": 143,
+            "predicted": 84
+          }
+        },
+        "confusion": {
+          "food_dining": {
+            "health": 6,
+            "food_dining": 11
+          },
+          "groceries": {
+            "groceries": 10,
+            "transport": 6,
+            "shopping": 2
+          },
+          "transport": {
+            "transport": 17
+          },
+          "utilities": {
+            "utilities": 17
+          },
+          "airtime_data": {
+            "airtime_data": 168
+          },
+          "shopping": {
+            "shopping": 11
+          },
+          "health": {
+            "health": 3
+          },
+          "education": {
+            "education": 2
+          },
+          "rent_housing": {
+            "rent_housing": 11
+          },
+          "entertainment": {
+            "entertainment": 10
+          },
+          "banking": {
+            "banking": 87
+          },
+          "cash_agent": {
+            "cash_agent": 168
+          },
+          "p2p_transfer": {
+            "p2p_transfer": 59,
+            "airtime_data": 16,
+            "education": 2,
+            "rent_housing": 3,
+            "health": 2,
+            "transport": 1,
+            "groceries": 1
+          },
+          "income": {
+            "income": 83,
+            "airtime_data": 1
+          },
+          "other": {
+            "cash_agent": 8,
+            "health": 3,
+            "airtime_data": 8,
+            "banking": 9,
+            "food_dining": 6,
+            "income": 10,
+            "utilities": 6,
+            "education": 4,
+            "shopping": 3,
+            "other": 84,
+            "groceries": 1,
+            "transport": 1
+          }
+        }
+      },
+      "dev": {
+        "n": 180,
+        "accuracy": 0.8667,
+        "macro_f1": 0.8534,
+        "abstentions": 0,
+        "coverage": 1.0,
+        "per_class": {
+          "food_dining": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3,
+            "predicted": 3
+          },
+          "groceries": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 1
+          },
+          "transport": {
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.888888888888889,
+            "support": 4,
+            "predicted": 5
+          },
+          "utilities": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "support": 4,
+            "predicted": 6
+          },
+          "airtime_data": {
+            "precision": 0.8571428571428571,
+            "recall": 1.0,
+            "f1": 0.923076923076923,
+            "support": 36,
+            "predicted": 42
+          },
+          "shopping": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 1
+          },
+          "health": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 1
+          },
+          "education": {
+            "precision": 0.3333333333333333,
+            "recall": 1.0,
+            "f1": 0.5,
+            "support": 1,
+            "predicted": 3
+          },
+          "rent_housing": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 2
+          },
+          "entertainment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3,
+            "predicted": 3
+          },
+          "banking": {
+            "precision": 0.9565217391304348,
+            "recall": 1.0,
+            "f1": 0.9777777777777777,
+            "support": 22,
+            "predicted": 23
+          },
+          "cash_agent": {
+            "precision": 0.9230769230769231,
+            "recall": 1.0,
+            "f1": 0.9600000000000001,
+            "support": 36,
+            "predicted": 39
+          },
+          "p2p_transfer": {
+            "precision": 1.0,
+            "recall": 0.6111111111111112,
+            "f1": 0.7586206896551725,
+            "support": 18,
+            "predicted": 11
+          },
+          "income": {
+            "precision": 0.8181818181818182,
+            "recall": 1.0,
+            "f1": 0.9,
+            "support": 18,
+            "predicted": 22
+          },
+          "other": {
+            "precision": 1.0,
+            "recall": 0.5142857142857142,
+            "f1": 0.6792452830188679,
+            "support": 35,
+            "predicted": 18
+          }
+        },
+        "confusion": {
+          "food_dining": {
+            "food_dining": 3
+          },
+          "groceries": {},
+          "transport": {
+            "transport": 4
+          },
+          "utilities": {
+            "utilities": 4
+          },
+          "airtime_data": {
+            "airtime_data": 36
+          },
+          "shopping": {},
+          "health": {},
+          "education": {
+            "education": 1
+          },
+          "rent_housing": {},
+          "entertainment": {
+            "entertainment": 3
+          },
+          "banking": {
+            "banking": 22
+          },
+          "cash_agent": {
+            "cash_agent": 36
+          },
+          "p2p_transfer": {
+            "p2p_transfer": 11,
+            "airtime_data": 4,
+            "education": 1,
+            "rent_housing": 2
+          },
+          "income": {
+            "income": 18
+          },
+          "other": {
+            "cash_agent": 3,
+            "utilities": 2,
+            "transport": 1,
+            "shopping": 1,
+            "other": 18,
+            "health": 1,
+            "income": 4,
+            "banking": 1,
+            "airtime_data": 2,
+            "education": 1,
+            "groceries": 1
+          }
+        }
+      },
+      "test": {
+        "n": 180,
+        "accuracy": 0.9056,
+        "macro_f1": 0.9079,
+        "abstentions": 0,
+        "coverage": 1.0,
+        "per_class": {
+          "food_dining": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 6,
+            "predicted": 6
+          },
+          "groceries": {
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8,
+            "support": 3,
+            "predicted": 2
+          },
+          "transport": {
+            "precision": 0.5714285714285714,
+            "recall": 1.0,
+            "f1": 0.7272727272727273,
+            "support": 4,
+            "predicted": 7
+          },
+          "utilities": {
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "support": 5,
+            "predicted": 6
+          },
+          "airtime_data": {
+            "precision": 0.9230769230769231,
+            "recall": 1.0,
+            "f1": 0.9600000000000001,
+            "support": 36,
+            "predicted": 39
+          },
+          "shopping": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 1
+          },
+          "health": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 1,
+            "predicted": 1
+          },
+          "education": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 1
+          },
+          "rent_housing": {
+            "precision": 0.0,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 1
+          },
+          "entertainment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2,
+            "predicted": 2
+          },
+          "banking": {
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "support": 20,
+            "predicted": 24
+          },
+          "cash_agent": {
+            "precision": 0.9473684210526315,
+            "recall": 1.0,
+            "f1": 0.972972972972973,
+            "support": 36,
+            "predicted": 38
+          },
+          "p2p_transfer": {
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "support": 18,
+            "predicted": 15
+          },
+          "income": {
+            "precision": 0.9473684210526315,
+            "recall": 1.0,
+            "f1": 0.972972972972973,
+            "support": 18,
+            "predicted": 19
+          },
+          "other": {
+            "precision": 1.0,
+            "recall": 0.5806451612903226,
+            "f1": 0.7346938775510204,
+            "support": 31,
+            "predicted": 18
+          }
+        },
+        "confusion": {
+          "food_dining": {
+            "food_dining": 6
+          },
+          "groceries": {
+            "transport": 1,
+            "groceries": 2
+          },
+          "transport": {
+            "transport": 4
+          },
+          "utilities": {
+            "utilities": 5
+          },
+          "airtime_data": {
+            "airtime_data": 36
+          },
+          "shopping": {},
+          "health": {
+            "health": 1
+          },
+          "education": {},
+          "rent_housing": {},
+          "entertainment": {
+            "entertainment": 2
+          },
+          "banking": {
+            "banking": 20
+          },
+          "cash_agent": {
+            "cash_agent": 36
+          },
+          "p2p_transfer": {
+            "p2p_transfer": 15,
+            "airtime_data": 2,
+            "rent_housing": 1
+          },
+          "income": {
+            "income": 18
+          },
+          "other": {
+            "banking": 4,
+            "utilities": 1,
+            "income": 1,
+            "transport": 2,
+            "other": 18,
+            "cash_agent": 2,
+            "education": 1,
+            "airtime_data": 1,
+            "shopping": 1
+          }
+        }
+      }
+    },
+    "cascade": {
+      "train": {
+        "n": 840,
+        "accuracy": 0.9952,
+        "macro_f1": 0.9976,
+        "abstentions": 0,
+        "coverage": 1.0,
+        "per_class": {
+          "food_dining": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 17,
+            "predicted": 17
+          },
+          "groceries": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 18,
+            "predicted": 18
+          },
+          "transport": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 17,
+            "predicted": 17
+          },
+          "utilities": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 17,
+            "predicted": 17
+          },
+          "airtime_data": {
+            "precision": 0.9767441860465116,
+            "recall": 1.0,
+            "f1": 0.988235294117647,
+            "support": 168,
+            "predicted": 172
+          },
+          "shopping": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 11,
+            "predicted": 11
+          },
+          "health": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3,
+            "predicted": 3
+          },
+          "education": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2,
+            "predicted": 2
+          },
+          "rent_housing": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 11,
+            "predicted": 11
+          },
+          "entertainment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 10,
+            "predicted": 10
+          },
+          "banking": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 87,
+            "predicted": 87
+          },
+          "cash_agent": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 168,
+            "predicted": 168
+          },
+          "p2p_transfer": {
+            "precision": 1.0,
+            "recall": 0.9642857142857143,
+            "f1": 0.9818181818181818,
+            "support": 84,
+            "predicted": 81
+          },
+          "income": {
+            "precision": 1.0,
+            "recall": 0.9880952380952381,
+            "f1": 0.9940119760479043,
+            "support": 84,
+            "predicted": 83
+          },
+          "other": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 143,
+            "predicted": 143
+          }
+        },
+        "confusion": {
+          "food_dining": {
+            "food_dining": 17
+          },
+          "groceries": {
+            "groceries": 18
+          },
+          "transport": {
+            "transport": 17
+          },
+          "utilities": {
+            "utilities": 17
+          },
+          "airtime_data": {
+            "airtime_data": 168
+          },
+          "shopping": {
+            "shopping": 11
+          },
+          "health": {
+            "health": 3
+          },
+          "education": {
+            "education": 2
+          },
+          "rent_housing": {
+            "rent_housing": 11
+          },
+          "entertainment": {
+            "entertainment": 10
+          },
+          "banking": {
+            "banking": 87
+          },
+          "cash_agent": {
+            "cash_agent": 168
+          },
+          "p2p_transfer": {
+            "p2p_transfer": 81,
+            "airtime_data": 3
+          },
+          "income": {
+            "income": 83,
+            "airtime_data": 1
+          },
+          "other": {
+            "other": 143
+          }
+        }
+      },
+      "dev": {
+        "n": 180,
+        "accuracy": 0.9889,
+        "macro_f1": 0.9847,
+        "abstentions": 0,
+        "coverage": 1.0,
+        "per_class": {
+          "food_dining": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3,
+            "predicted": 3
+          },
+          "groceries": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "transport": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 4,
+            "predicted": 4
+          },
+          "utilities": {
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.888888888888889,
+            "support": 4,
+            "predicted": 5
+          },
+          "airtime_data": {
+            "precision": 0.972972972972973,
+            "recall": 1.0,
+            "f1": 0.9863013698630138,
+            "support": 36,
+            "predicted": 37
+          },
+          "shopping": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "health": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "education": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 1,
+            "predicted": 1
+          },
+          "rent_housing": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "entertainment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3,
+            "predicted": 3
+          },
+          "banking": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 22,
+            "predicted": 22
+          },
+          "cash_agent": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 36,
+            "predicted": 36
+          },
+          "p2p_transfer": {
+            "precision": 1.0,
+            "recall": 0.9444444444444444,
+            "f1": 0.9714285714285714,
+            "support": 18,
+            "predicted": 17
+          },
+          "income": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 18,
+            "predicted": 18
+          },
+          "other": {
+            "precision": 1.0,
+            "recall": 0.9714285714285714,
+            "f1": 0.9855072463768115,
+            "support": 35,
+            "predicted": 34
+          }
+        },
+        "confusion": {
+          "food_dining": {
+            "food_dining": 3
+          },
+          "groceries": {},
+          "transport": {
+            "transport": 4
+          },
+          "utilities": {
+            "utilities": 4
+          },
+          "airtime_data": {
+            "airtime_data": 36
+          },
+          "shopping": {},
+          "health": {},
+          "education": {
+            "education": 1
+          },
+          "rent_housing": {},
+          "entertainment": {
+            "entertainment": 3
+          },
+          "banking": {
+            "banking": 22
+          },
+          "cash_agent": {
+            "cash_agent": 36
+          },
+          "p2p_transfer": {
+            "p2p_transfer": 17,
+            "airtime_data": 1
+          },
+          "income": {
+            "income": 18
+          },
+          "other": {
+            "other": 34,
+            "utilities": 1
+          }
+        }
+      },
+      "test": {
+        "n": 180,
+        "accuracy": 0.9778,
+        "macro_f1": 0.9681,
+        "abstentions": 0,
+        "coverage": 1.0,
+        "per_class": {
+          "food_dining": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 6,
+            "predicted": 6
+          },
+          "groceries": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3,
+            "predicted": 3
+          },
+          "transport": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "support": 4,
+            "predicted": 6
+          },
+          "utilities": {
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "support": 5,
+            "predicted": 6
+          },
+          "airtime_data": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 36,
+            "predicted": 36
+          },
+          "shopping": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "health": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 1,
+            "predicted": 1
+          },
+          "education": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "rent_housing": {
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "support": 0,
+            "predicted": 0
+          },
+          "entertainment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2,
+            "predicted": 2
+          },
+          "banking": {
+            "precision": 1.0,
+            "recall": 0.95,
+            "f1": 0.9743589743589743,
+            "support": 20,
+            "predicted": 19
+          },
+          "cash_agent": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 36,
+            "predicted": 36
+          },
+          "p2p_transfer": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 18,
+            "predicted": 18
+          },
+          "income": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 18,
+            "predicted": 18
+          },
+          "other": {
+            "precision": 0.9655172413793104,
+            "recall": 0.9032258064516129,
+            "f1": 0.9333333333333333,
+            "support": 31,
+            "predicted": 29
+          }
+        },
+        "confusion": {
+          "food_dining": {
+            "food_dining": 6
+          },
+          "groceries": {
+            "groceries": 3
+          },
+          "transport": {
+            "transport": 4
+          },
+          "utilities": {
+            "utilities": 5
+          },
+          "airtime_data": {
+            "airtime_data": 36
+          },
+          "shopping": {},
+          "health": {
+            "health": 1
+          },
+          "education": {},
+          "rent_housing": {},
+          "entertainment": {
+            "entertainment": 2
+          },
+          "banking": {
+            "banking": 19,
+            "other": 1
+          },
+          "cash_agent": {
+            "cash_agent": 36
+          },
+          "p2p_transfer": {
+            "p2p_transfer": 18
+          },
+          "income": {
+            "income": 18
+          },
+          "other": {
+            "other": 28,
+            "utilities": 1,
+            "transport": 2
+          }
+        }
+      },
+      "test_oracle_upper_bound": {
+        "records_a_third_tier_would_have_to_resolve": 0,
+        "note": "Tier-2 accuracy is NOT measured; a device run of Qwen 2.5 via LiteRT-LM is future work."
+      }
+    }
+  },
+  "meta": {
+    "version": 1,
+    "labels": [
+      "food_dining",
+      "groceries",
+      "transport",
+      "utilities",
+      "airtime_data",
+      "shopping",
+      "health",
+      "education",
+      "rent_housing",
+      "entertainment",
+      "banking",
+      "cash_agent",
+      "p2p_transfer",
+      "income",
+      "other"
+    ],
+    "features": {
+      "word_unigrams": "u:<word>",
+      "word_bigrams": "b:<w1>_<w2>",
+      "char_trigrams_in_word": "c3:<abc>",
+      "merchant_tokens": "m:<token> / M:<full_name>",
+      "structural": [
+        "op:<operator>",
+        "k:<tx_kind>",
+        "d:<direction>",
+        "ch:<channel>",
+        "st:<status>",
+        "amt:<bucket>",
+        "pb:yes|no",
+        "cp:yes|no"
+      ],
+      "weighting": "sublinear tf (1+log tf) x idf, L2 normalised over model vocab",
+      "text_preprocessing": "lowercase, operator boilerplate stripped, split on non-alphanumerics"
+    },
+    "training": {
+      "epochs": 40,
+      "lr0": 0.9,
+      "l2": 0.0003,
+      "min_df": 2,
+      "max_features": 4000,
+      "max_per_label": 400,
+      "seed": 7,
+      "vocab": 3461,
+      "weights_kept": 6000,
+      "weights_dropped_by_truncation": 45915,
+      "train": 840,
+      "dev": 180,
+      "test": 180
+    },
+    "model_bytes": 188983,
+    "idf_entries": 3461,
+    "host_inference_ms_per_record": 0.0704,
+    "corpus": "seed-corpus.jsonl"
+  },
+  "labels": [
+    "food_dining",
+    "groceries",
+    "transport",
+    "utilities",
+    "airtime_data",
+    "shopping",
+    "health",
+    "education",
+    "rent_housing",
+    "entertainment",
+    "banking",
+    "cash_agent",
+    "p2p_transfer",
+    "income",
+    "other"
+  ]
+}

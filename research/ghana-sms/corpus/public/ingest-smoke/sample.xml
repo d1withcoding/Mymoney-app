@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<smses count="2">
+  <sms protocol="0" address="3640" date="1773515040000" type="2" subject="null"
+       body="0000015061132227 Confirmed. You have sent GHS50.00 to 0241234567 - THIRD PARTY on 2026-03-14 at 19:04:07. Your Telecel Cash balance is GHS654.03."
+       toa="null" sender="Telecel-Cash" readable="1" status="null"/>
+  <sms protocol="0" address="MTN-MOMO" date="1773515100000" type="1" subject="null"
+       body="You have bought GHS 12.00 airtime for 0209876543. New balance: GHS 88.00. Ref: 55210093."
+       toa="null" sender="MTN-MOMO" readable="1" status="null"/>
+</smses>

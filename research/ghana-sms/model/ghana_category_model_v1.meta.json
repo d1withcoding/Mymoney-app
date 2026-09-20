@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "labels": [
+    "food_dining",
+    "groceries",
+    "transport",
+    "utilities",
+    "airtime_data",
+    "shopping",
+    "health",
+    "education",
+    "rent_housing",
+    "entertainment",
+    "banking",
+    "cash_agent",
+    "p2p_transfer",
+    "income",
+    "other"
+  ],
+  "features": {
+    "word_unigrams": "u:<word>",
+    "word_bigrams": "b:<w1>_<w2>",
+    "char_trigrams_in_word": "c3:<abc>",
+    "merchant_tokens": "m:<token> / M:<full_name>",
+    "structural": [
+      "op:<operator>",
+      "k:<tx_kind>",
+      "d:<direction>",
+      "ch:<channel>",
+      "st:<status>",
+      "amt:<bucket>",
+      "pb:yes|no",
+      "cp:yes|no"
+    ],
+    "weighting": "sublinear tf (1+log tf) x idf, L2 normalised over model vocab",
+    "text_preprocessing": "lowercase, operator boilerplate stripped, split on non-alphanumerics"
+  },
+  "training": {
+    "epochs": 40,
+    "lr0": 0.9,
+    "l2": 0.0003,
+    "min_df": 2,
+    "max_features": 4000,
+    "max_per_label": 400,
+    "seed": 7,
+    "vocab": 3461,
+    "weights_kept": 6000,
+    "weights_dropped_by_truncation": 45915,
+    "train": 840,
+    "dev": 180,
+    "test": 180
+  },
+  "model_bytes": 188983,
+  "idf_entries": 3461,
+  "host_inference_ms_per_record": 0.0704,
+  "corpus": "seed-corpus.jsonl"
+}

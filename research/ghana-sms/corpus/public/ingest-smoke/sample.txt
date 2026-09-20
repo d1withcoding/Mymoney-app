@@ -1,0 +1,5 @@
+SENDER: MTN-MOMO
+Payment made for GHS 5.00 to FOURTH PARTY for transport. Current Balance: GHS 15.00. Transaction ID: 12345678901.
+
+SENDER: ATM
+TXN 445566778. GHS 1,250.00 sent to FIFTH PARTY (0201122334). Balance: GHS 2,310.75. Thank you for using AirtelTigo Money.

@@ -1,0 +1,117 @@
+{
+  "spec_version": "1.0.0",
+  "title": "Ghana mobile-money spending taxonomy for on-device classification (Objective 3)",
+  "design": "Labels are chosen so that 13 of them map onto PennyWise's shipped category vocabulary (shared/.../DefaultCategoryData.kt); two are country-specific and require the user to create them once in the app ('Custom Categories'). 'other' is the mandatory fall-through. A fee is a *field* (see ghana_patterns.json), not a category, so no 'Fees' label exists.",
+  "split_note": "cash_agent and p2p_transfer are deliberately kept separate from spending categories: an agent cash-out is not consumption, and mixing it into 'Shopping' is the single most common error in MoMo expense trackers. Report them as their own classes.",
+  "labels": [
+    {
+      "id": "food_dining",
+      "app_category": "Food & Dining",
+      "is_income": false,
+      "keywords": ["chop bar", "chopbar", "restaurant", "bistro", "grill", "pizza", "burger", "kfc", "mcDonald", "mocktails", "liberty", "moyo", "cafe", "coffee", "tea", "bakery", "bread", "waakye", "jollof", "banku", "kenkey", "indomie", "eat", "dining", "catering", "juice", "snack"],
+      "merchants": ["KFC GHANA", "MCDONALDS ACCRA", "MOYO RESTAURANT", "LIBERTY PRIME", "PIZZA HUT GHANA", "NUNGUA BISTRO", "CHOP SHOP", "STARBUCKS GHANA"]
+    },
+    {
+      "id": "groceries",
+      "app_category": "Groceries",
+      "is_income": false,
+      "keywords": ["shoprite", "melcom", "library shopping", "provisions", "market", "mall", "supermarket", "mini mart", "minimart", "grocery", "store", "vegetables", "fish", "rice", "oil", "sachet water", "evian", "voltic"],
+      "merchants": ["SHOPRITE GHANA LTD", "MELCOM GHANA LTD", "AKWALEM MARKET", "MAKOLA PROVISIONS", "ADONKO MARKET", "PRIME FRESH MART"]
+    },
+    {
+      "id": "transport",
+      "app_category": "Transportation",
+      "is_income": false,
+      "keywords": ["uber", "bolt", "yango", "heygo", "odofo", "trotro", "taxi", "cab", "fuel", "petrol", "diesel", "ogg", "ogt", "shell", "totalenergies", "total", "esso", "goil", "star oil", "petrobon", "stp", "stc", "vip bus", " TRANSPORT", "parking", "toll", "viage", "voyager", "fuel card", "tyre", "mechanic", "spare parts", "abossey okai"],
+      "merchants": ["UBER GHANA", "BOLT AFRICA", "OGT LIMITED", "SHELL GHANA", "TOTALENERGIES GHANA", "STC GHANA", "VIP TRAVEL AND TOURS", "GOIL PETROL STATION", "AKWAABA PARKING"]
+    },
+    {
+      "id": "utilities",
+      "app_category": "Bills & Utilities",
+      "is_income": false,
+      "keywords": ["ecg", "electricity", "grid", "gwcl", "water", "dwls", "dstv", "startimes", "cablekit", "gotv", "wifi", "internet", "spam", "pst", "geco", "waste", " refuse", "levy rate", "property rate", "bill"],
+      "merchants": ["ECG PAYBILL", "ECG GHANA", "GHANA WATER GWCL", "DSTV GHANA", "MULTICHOICE GHANA", "GT ELECTRIC", "AKSA SPAM", "TEMA WATER"]
+    },
+    {
+      "id": "airtime_data",
+      "app_category": "Mobile",
+      "is_income": false,
+      "keywords": ["airtime", "top up", "topup", "recharge", "data bundle", "bundle", "vtu", "momo data", "5gb", "10gb", "2gb", "1gb", "subscribed", "voice bundle", "roaming", "pin", "scratch card"],
+      "merchants": ["MTN GHANA", "TELECEL GHANA", "AIRTILTIGO GHANA", "GLO GHANA"]
+    },
+    {
+      "id": "shopping",
+      "app_category": "Shopping",
+      "is_income": false,
+      "keywords": ["jumia", "mercadona", "clothing", "fabric", "kente", "shoe", "sandal", "bag", "electronics", "phone", "charger", "laptop", "screen", "makeup", "perfume", "salon", "barber", "cosmetics", "furniture", "home depot", "decathlon", "sport"],
+      "merchants": ["JUMIA GHANA", "Melcom Electronics", "SUZANNA FASHION", "NADIR FURNITURE", "DECATHLON ACCRA"]
+    },
+    {
+      "id": "health",
+      "app_category": "Healthcare",
+      "is_income": false,
+      "keywords": ["pharmacy", "chemist", "drug", "medicine", "clinic", "hospital", "polyclinic", "lab", "test", "doctor", "dental", "optician", "glasses", "nhis", "health insurance", "maternity", "vaccine", "malaria"],
+      "merchants": ["ERNES PHARMACY", "PHARMACARE", "AKAI HOUSE CLINIC", "KORLE BU TEACHING HOSPITAL", "LANCET CLINIC", "MEDI-LAB GHANA"]
+    },
+    {
+      "id": "education",
+      "app_category": "Education",
+      "is_income": false,
+      "keywords": ["school", "school fees", "tuition", "college", "university", "campus", "tutorial", "waec", "wassce", "jamb", "exam", "registration fee", "books", "stationery", "library", "accreditation", "department of"],
+      "merchants": ["UNIVERSITY OF GHANA", "KNUST", "ASHANTI CAM TUTORIAL", "Ghana Education Service", "WASSCE EXAM FEES"]
+    },
+    {
+      "id": "rent_housing",
+      "app_category": "Rent & Housing",
+      "custom_in_app": true,
+      "is_income": false,
+      "keywords": ["rent", "landlord", "tenancy", "advance rent", "housing", "estate", "plot", "rooms rent", "agent fee", "caretaker", "utilities service charge"],
+      "merchants": ["LANDLORD RENT", "ESTATE MANAGER", "HONEY MOON GROVE RENT"]
+    },
+    {
+      "id": "entertainment",
+      "app_category": "Entertainment",
+      "is_income": false,
+      "keywords": ["cinema", "cinematrix", "showmax", "silverbird", "movie", "netflix", "spotify", "youtube premium", "game", "bet", "betway", "sportybet", "airtel betting", "ticket", "concert", "event", "club", "lounge", "karaoke", "bowling"],
+      "merchants": ["CINEMATRIX SILVERBIRD", "SHOWMAX SINCE 1997", "BETWAY GHANA", "NETFLIX", "SPOTIFY AB"]
+    },
+    {
+      "id": "banking",
+      "app_category": "Banking",
+      "is_income": false,
+      "keywords": ["loan", "qwikloan", "advance", "repayment", "savings", "pension", "ssnit", "microfinance", "bank transfer", "interbank", "ghipss", "giip", "momo to bank", "insurance", "premium", "invest", "treasury bill", "cocoa"],
+      "merchants": ["MTN QWIKELOAN", "TRUSTFUND MICROFINANCE", "CALIBER BANK", "ECOBANK GHANA", "STANBIC GHANA", "GCB BANK", "SSNIT"]
+    },
+    {
+      "id": "cash_agent",
+      "app_category": "Cash Agent",
+      "custom_in_app": true,
+      "is_income": false,
+      "keywords": ["deposit", "cash in", "withdraw", "cash out", "atm", "agent", "float", "super agent", "mobile money agent"],
+      "merchants": ["MOMO AGENT", "TELECEL CASH AGENT", "AT MONEY AGENT"]
+    },
+    {
+      "id": "p2p_transfer",
+      "app_category": "P2P Transfer",
+      "custom_in_app": true,
+      "is_income": false,
+      "keywords": ["sent to", "transfer to", "sent money", "p2p", "wallet to wallet", "interoperab", "cross network", "other network"],
+      "merchants": []
+    },
+    {
+      "id": "income",
+      "app_category": "Income",
+      "is_income": true,
+      "keywords": ["received", "credit", "salary", "payroll", "wages", "refund", "cashback", "interest", "dividend", "sponsor", "remittance", "western union", "moneygram", "allowance", "stipend", "beneficiary"],
+      "merchants": ["PAYROLL", "WESTERN UNION", "MOMO INTEREST", "REVERSAL"]
+    },
+    {
+      "id": "other",
+      "app_category": "Others",
+      "is_income": false,
+      "keywords": [],
+      "merchants": [],
+      "fallthrough": true
+    }
+  ]
+}

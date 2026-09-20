@@ -1,0 +1,1310 @@
+{
+  "spec_version": "1.1.0",
+  "title": "Ghana mobile-money SMS extraction specification (MTN MoMo / Telecel Cash / AirtelTigo Money)",
+  "status": "DRAFT - regexes are grounded in published message samples and MUST be re-fitted against the author's collected corpus (see corpus/CORPUS_SCHEMA.md).",
+  "currency": {
+    "code": "GHS",
+    "minor_unit_scale": 2,
+    "note": "Ghanaian messages write the amount as GHS 50.00, GH\u00a250.00, GH\u20b5 50.00 or bare 50.00. Cedi symbol U+20B5, pesewa U+00A2."
+  },
+  "tokens": {
+    "N": "([0-9][0-9,]*(?:[.][0-9]{1,2})?)",
+    "CUR": "(?:GHS|GH[\u00a2\u20b5\u00a2]|\u20b5|GHC|GH|cedis?|sewapes)?\\s*",
+    "NAME": "(?-i:([A-Z][A-Z '\\-&]{1,40}?))",
+    "NAME_LAX": "(?-i:([A-Za-z][A-Za-z '\\-&]{1,40}?))",
+    "PHONE": "(?<![0-9])(?:\\+?233[\\s-]?)?0?([2-5][0-9][\\s-]?[0-9]{3}[\\s-]?[0-9]{4})(?![0-9])",
+    "ID": "([A-Z0-9]{6,20})",
+    "ID16": "([0-9]{16})",
+    "DATE": "([0-9]{4}-[0-9]{2}-[0-9]{2}|[0-9]{1,2}[/.-][0-9]{1,2}[/.-][0-9]{2,4})",
+    "TIME": "([0-9]{1,2}:[0-9]{2}(?::[0-9]{2})?(?:\\s*[APap]\\.?[Mm]\\.?)?)",
+    "REF": "([^.\\n]{2,40}?)",
+    "NDELIM": "(?:\\s*[.](?:\\s|$)|\\s+on\\b|\\s+at\\b|\\s*[(\\[]|\\s+-\\s|\\s*[,;]|\\s*$)",
+    "NDELIM_HARD": "(?:\\s*[.](?:\\s|$)|\\s+on\\b|\\s+at\\b|\\s*[(\\[]|\\s+-\\s|\\s*[,;]|\\s+(?=(?-i:[a-z]))|\\s*$)"
+  },
+  "fields": [
+    "amount",
+    "fee",
+    "levy",
+    "balance",
+    "trx_id",
+    "reference",
+    "counterparty_name",
+    "counterparty_phone",
+    "paybill_name",
+    "paybill_account",
+    "date",
+    "time",
+    "status",
+    "channel",
+    "tx_kind",
+    "direction"
+  ],
+  "kind_to_transaction_type": {
+    "p2p_transfer_out": "EXPENSE",
+    "p2p_transfer_in": "INCOME",
+    "deposit": "INCOME",
+    "withdrawal": "EXPENSE",
+    "merchant_payment": "EXPENSE",
+    "paybill_payment": "EXPENSE",
+    "airtime_purchase": "EXPENSE",
+    "data_bundle": "EXPENSE",
+    "loan_disbursement": "INCOME",
+    "loan_repayment": "EXPENSE",
+    "reversal": "INCOME",
+    "balance_transfer_out": "TRANSFER",
+    "unknown_out": "EXPENSE",
+    "unknown_in": "INCOME"
+  },
+  "skip_rules": [
+    {
+      "id": "otp",
+      "pattern": "\\b(otp|one time password|pin is|verification code|password)\\b",
+      "reason": "credential message, not a transaction"
+    },
+    {
+      "id": "promo",
+      "pattern": "\\b(congratulations|you have won|bonus offer|register now|promo|lottery)\\b",
+      "reason": "promotional message"
+    },
+    {
+      "id": "request_to_pay",
+      "pattern": "(has requested|requests you to pay|pay .* on behalf|approve the payment by)",
+      "reason": "payment request / approval prompt; no money moved yet"
+    },
+    {
+      "id": "loan_marketing",
+      "pattern": "(apply now|you are eligible for a loan|loan offer of)",
+      "reason": "credit marketing, no disbursement"
+    },
+    {
+      "id": "third_party_topup",
+      "pattern": "\\b(airtime|recharge|top[- ]?up)\\b.{0,40}?\\bis ready for (?:your|the)\\b",
+      "reason": "third-party top-up notice: no wallet debit is described",
+      "note": "Third-party top-up credit notice: the money came from someone else and no wallet debit is described. The quantifier must allow a decimal point, and the distinctive 'is ready for your number' phrasing keeps genuine purchases ('You have purchased GHS X worth of airtime') out of it."
+    }
+  ],
+  "status_rules": [
+    {
+      "id": "status.reversal",
+      "pattern": "\\b(reversed|reversal|refunded|credited back)\\b",
+      "status": "SUCCESS",
+      "note": "must precede status.failed: '...reversed for the failed transaction' describes a past failure, not this credit"
+    },
+    {
+      "id": "status.failed",
+      "pattern": "\\b(failed|not successful|unsuccessful|declined|cancelled|canceled|reversed|could not be processed)\\b",
+      "status": "FAILED"
+    },
+    {
+      "id": "status.pending",
+      "pattern": "\\b(pending|processing|awaiting|in progress|to be confirmed|authori[sz]e)\\b",
+      "status": "PENDING"
+    },
+    {
+      "id": "status.success",
+      "pattern": "\\b(successful(?:ly)?|confirmed|credited|debited|paid|received|sent|purchased|bought|recharged|topped up|applied|deducted)\\b",
+      "status": "SUCCESS"
+    }
+  ],
+  "direction_rules": [
+    {
+      "id": "dir.in",
+      "pattern": "(you have received|payment received|received (?:from|a deposit)|credited (?:you|your|to your)|deposit (?:of|received)|you have deposited|money in|you received)",
+      "direction": "IN"
+    },
+    {
+      "id": "dir.out",
+      "pattern": "(you have sent|payment made|payment of|sent to|sent money|debited|debit of|withdraw|you (?:have )?(?:paid|purchased|bought|deposited)|made a payment|cash out|you have successfully purchased)",
+      "direction": "OUT"
+    }
+  ],
+  "shared_fields": {
+    "amount": [
+      {
+        "id": "amt.currency_first",
+        "regex": "(?:GHS|GH[\u00a2\u20b5]|\u20b5)\\s*{N}",
+        "group": 1,
+        "note": "first money token in the message; fee/balance mentions are later in the string, so first-match wins for the transaction amount"
+      },
+      {
+        "id": "amt.after_verb",
+        "regex": "\\b(?:sent|paid|received|withdrawn|deposited|transferred|credited|debited|reversed)\\s+(?:GHS|GH[\u00a2\u20b5]|\u20b5)?\\s*{N}",
+        "group": 1
+      },
+      {
+        "id": "amt.before_verb",
+        "regex": "{N}\\s+(?:was|has been)?\\s*(?:sent|paid|received|withdrawn|deposited|credited|debited)",
+        "group": 1
+      }
+    ],
+    "balance": [
+      {
+        "id": "bal.current_labelled",
+        "regex": "\\b(?:current|new|updated|available|remaining|final)\\s+(?:momo|wallet|cash)?\\s*balance\\b[^0-9]{0,12}{N}",
+        "group": 1
+      },
+      {
+        "id": "bal.possessive",
+        "regex": "\\b(?:your )?(?:momo|telecel cash|aireltigo money|wallet) balance (?:is|was|of)\\b[^0-9]{0,12}{N}",
+        "group": 1
+      },
+      {
+        "id": "bal.bare",
+        "regex": "\\bbalance\\s*[:=]?\\s*(?:GHS|GH[\u00a2\u20b5]|\u20b5)?\\s*{N}",
+        "group": 1
+      }
+    ],
+    "fee": [
+      {
+        "id": "fee.labeled",
+        "regex": "\\b(?:fee(?:\\s+charged)?|service charge|commission|handling fee)\\s*[:=]?\\s*(?:GHS|GH[\u00a2\u20b5]|\u20b5)?\\s*{N}",
+        "group": 1,
+        "note": "must never be mistaken for the transaction amount - Ghana MoMo SMS put Fee after the amount and before the balance"
+      }
+    ],
+    "levy": [
+      {
+        "id": "levy.elevy",
+        "regex": "\\b(?:e[- ]?levy|electronic transfer levy|levy(?:\\s+charged)?)\\s*[:=]?\\s*(?:GHS|GH[\u00a2\u20b5]|\u20b5)?\\s*{N}",
+        "group": 1,
+        "note": "Electronic Transaction Levy (1.5% above the GHS 100 daily cumulative threshold, capped at GHS 150) - appears on some operator alerts"
+      }
+    ],
+    "trx_id": [
+      {
+        "id": "trx.labeled",
+        "regex": "\\b(?:transaction\\s*(?:id|ref(?:erence)?)|txn\\s*id|trx\\s*id|trans\\s*id|tid|txn)\\b\\s*[:#]?\\s*{ID}",
+        "group": 1
+      },
+      {
+        "id": "trx.paren",
+        "regex": "\\b(?:transaction\\s*(?:id|ref(?:erence)?)|txn\\s*id|trx\\s*id|ref)\\b\\s*[:#]?\\s*[(\\[]?([A-Z0-9]{6,20})[)\\]]?",
+        "group": 1
+      }
+    ],
+    "reference": [
+      {
+        "id": "ref.labeled",
+        "regex": "\\b(?:reference|narration|remark|note|description)\\s*[:=]\\s*{REF}[.]?(?:\\s|$)",
+        "group": 1
+      }
+    ],
+    "counterparty_name": [
+      {
+        "id": "cp.to_upper",
+        "regex": "\\b(?:sent to|paid to|made payment to|to)\\s+{NAME}(?={NDELIM})",
+        "note": "upper-case counterparties (MTN/AirtelTigo print names in caps); the lookahead keeps the lazy quantifier from running into the footer"
+      },
+      {
+        "id": "cp.from_upper",
+        "regex": "\\b(?:received from|received a deposit from|from)\\s+{NAME}(?={NDELIM})"
+      },
+      {
+        "id": "cp.dash_name",
+        "regex": "\\b(?:to|from)\\s+{PHONE}\\s*-\\s*{NAME_LAX}(?={NDELIM})",
+        "group": 2
+      },
+      {
+        "id": "cp.to_title",
+        "regex": "\\b(?:sent to|paid to|to|from)\\s+(?-i:([A-Z][A-Za-z'&\\-]{1,20}(?: [A-Z][A-Za-z'&\\-]{1,20}){0,3}))(?={NDELIM})",
+        "note": "Title-case fallback for operators that do not shout; the leading upper-case requirement is what keeps 'Dial *170# to manage your wallet' from being read as a person"
+      }
+    ],
+    "counterparty_phone": [
+      {
+        "id": "ph.parens",
+        "regex": "[(\\[]\\s*{PHONE}\\s*[)\\]]",
+        "group": 1
+      },
+      {
+        "id": "ph.generic",
+        "regex": "\\b(?:to|from|for|number)\\s+{PHONE}\\b",
+        "group": 1
+      },
+      {
+        "id": "ph.loose",
+        "regex": "\\b{PHONE}\\b",
+        "group": 1
+      }
+    ],
+    "paybill_name": [
+      {
+        "id": "pb.name_before_id",
+        "regex": "\\b(?:to|for)\\s+{NAME}(?=\\s*(?:paybill|business|merchant|till|shop|store))",
+        "group": 1
+      },
+      {
+        "id": "pb.to_delimited",
+        "regex": "\\b(?:to|for)\\s+{NAME}(?=\\s*[(\\[](?=[^)]{0,40}(?:paybill|business|merchant|till|\\bid\\b|\\bno\\b)))",
+        "group": 1
+      },
+      {
+        "id": "pb.to_title",
+        "regex": "\\b(?:to|for)\\s+(?-i:([A-Z][A-Za-z'&\\-]{1,20}(?: [A-Z][A-Za-z'&\\-]{1,20}){1,3}))(?=\\s*(?:[(\\[](?=[^)]{0,40}(?:paybill|business|merchant|till|\\bid\\b|\\bno\\b))|paybill|business|merchant|till))",
+        "group": 1,
+        "note": "Title-case merchant names (some AirtelTigo/Telecel alerts do not shout)"
+      }
+    ],
+    "paybill_account": [
+      {
+        "id": "pb.account",
+        "regex": "\\b(?:paybill|business|merchant|till|bill|meter|account)\\s*(?:no|number|id|code|ref)?\\s*[:#]?\\s*([0-9][0-9 /-]{2,19})",
+        "group": 1
+      }
+    ],
+    "date": [
+      {
+        "id": "dt.iso",
+        "regex": "\\bon\\s+([0-9]{4}-[0-9]{2}-[0-9]{2})",
+        "group": 1
+      },
+      {
+        "id": "dt.any",
+        "regex": "([0-9]{4}-[0-9]{2}-[0-9]{2}|[0-9]{1,2}[/.-][0-9]{1,2}[/.-][0-9]{2,4})",
+        "group": 1
+      }
+    ],
+    "time": [
+      {
+        "id": "tm.at",
+        "regex": "\\bat\\s+{TIME}",
+        "group": 1
+      },
+      {
+        "id": "tm.any",
+        "regex": "\\b{TIME}",
+        "group": 1
+      }
+    ],
+    "channel": [
+      {
+        "id": "ch.agent",
+        "regex": "\\b(?:via|through|at|from)\\s+((?:momo |telecel |at )?agent(?:\\s+[A-Z][A-Z .\\-]{0,25})?)",
+        "group": 1,
+        "value": "agent"
+      },
+      {
+        "id": "ch.app",
+        "regex": "\\b(?:via|through|using|on)\\s+(?:the )?(momo app|mobile app|telecel cash app|super app|at money app|my telecel app|momo\\s*app)",
+        "group": 1,
+        "value": "app"
+      },
+      {
+        "id": "ch.ussd",
+        "regex": "\\b(?:via|through|using|dialled|dial)\\s+(\\*[0-9]{2,3}#(?:\\*[0-9]{1,3}#)*)",
+        "group": 1,
+        "value": "ussd",
+        "note": "requires a preposition: bare 'Dial *170# to manage your wallet' is a marketing footer, not this transaction's channel"
+      },
+      {
+        "id": "ch.atm",
+        "regex": "\\b(?:via|at|from)\\s+(atm|cash self[- ]service|self[- ]service machine)",
+        "group": 1,
+        "value": "atm"
+      },
+      {
+        "id": "ch.pos",
+        "regex": "\\b(?:via|using|at)\\s+(pos(?:\\s+(?:terminal|payment))?|momo\\s*pay|merchant terminal)",
+        "group": 1,
+        "value": "pos"
+      }
+    ]
+  },
+  "operators": [
+    {
+      "id": "mtn_momo",
+      "display_name": "MTN Mobile Money (MoMo)",
+      "sender_patterns": [
+        "^MTN([ -]?(MOMO|MOBI|MOMO\\s*PSB|PSB\\s*LTD))?$",
+        "^MOMO(PSB)?$",
+        "^MTN\\s*MO\\s*MO$",
+        "^MO\\s*MONEY$"
+      ],
+      "sender_note": "TODO(verify): MTN alert short codes seen in the wild include 'MTN', 'MTN-MOMO' and 'MoMo PSB Ltd'. The real sender inventory MUST be derived from the author's corpus with tools/taxonomy.py before this list is treated as final - sender IDs are spoofable, so this is a routing hint, never an authenticity check.",
+      "body_markers": [
+        "\\bmtn\\b",
+        "\\bmomo\\b",
+        "\\bmomo psb\\b",
+        "current balance:",
+        "payment made for",
+        "payment received for"
+      ],
+      "templates": [
+        {
+          "id": "mtn.p2p_out.make_payment",
+          "kind": "p2p_transfer_out",
+          "priority": 10,
+          "regex": "^Payment made for\\s+{CUR}{N}\\s+to\\s+{NAME}\\.\\s*(?:.*?Current Balance:\\s*{CUR}{N})?\\s*(?:.*?Reference:\\s*{REF}\\.)?\\s*(?:.*?Transaction ID:\\s*{ID})?\\s*(?:.*?Fee charged:\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 2
+            },
+            {
+              "field": "balance",
+              "idx": 3
+            },
+            {
+              "field": "reference",
+              "idx": 4
+            },
+            {
+              "field": "trx_id",
+              "idx": 5
+            },
+            {
+              "field": "fee",
+              "idx": 6
+            }
+          ]
+        },
+        {
+          "id": "mtn.p2p_in.make_payment",
+          "kind": "p2p_transfer_in",
+          "priority": 10,
+          "regex": "^Payment received for\\s+{CUR}{N}\\s+from\\s+{NAME}{NDELIM_HARD}(?:\\s*[-(]\\s*{PHONE})?\\.\\s*(?:.*?Current Balance:\\s*{CUR}{N})?\\s*(?:.*?Reference:\\s*{REF}\\.)?\\s*(?:.*?Transaction ID:\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 2
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 3
+            },
+            {
+              "field": "balance",
+              "idx": 4
+            },
+            {
+              "field": "reference",
+              "idx": 5
+            },
+            {
+              "field": "trx_id",
+              "idx": 6
+            }
+          ]
+        },
+        {
+          "id": "mtn.p2p_out.classic",
+          "kind": "p2p_transfer_out",
+          "priority": 20,
+          "regex": "^You have sent\\s+{CUR}{N}\\s+to\\s+{NAME}{NDELIM_HARD}(?:\\s*[-(]\\s*{PHONE})?\\s+on\\s+{DATE}(?:\\s+at\\s+{TIME})?\\.?\\s*(?:.*?balance (?:is|of|after transaction)\\s*{CUR}{N})?\\s*(?:.*?Transaction ID:\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 2
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 3
+            },
+            {
+              "field": "date",
+              "idx": 4
+            },
+            {
+              "field": "time",
+              "idx": 5
+            },
+            {
+              "field": "balance",
+              "idx": 6
+            },
+            {
+              "field": "trx_id",
+              "idx": 7
+            }
+          ]
+        },
+        {
+          "id": "mtn.p2p_in.classic",
+          "kind": "p2p_transfer_in",
+          "priority": 20,
+          "regex": "^You have received\\s+{CUR}{N}\\s+from\\s+{NAME}{NDELIM_HARD}(?:\\s*[-(]\\s*{PHONE})?\\s+on\\s+{DATE}(?:\\s+at\\s+{TIME})?\\.?\\s*(?:.*?balance (?:is|of|after transaction)\\s*{CUR}{N})?\\s*(?:.*?Transaction ID:\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 2
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 3
+            },
+            {
+              "field": "date",
+              "idx": 4
+            },
+            {
+              "field": "time",
+              "idx": 5
+            },
+            {
+              "field": "balance",
+              "idx": 6
+            },
+            {
+              "field": "trx_id",
+              "idx": 7
+            }
+          ]
+        },
+        {
+          "id": "mtn.deposit.agent",
+          "kind": "deposit",
+          "priority": 20,
+          "regex": "^(?:Deposit of\\s+{CUR}{N}(?:\\s+from\\s+{NAME}{NDELIM_HARD})?|You have deposited\\s+{CUR}{N}\\s+into your\\s+(?:momo\\s+)?(?:wallet|account))(?:\\s+\\w+\\s+\\S+)?(?:\\s+at\\s+{NAME}{NDELIM_HARD})?\\s*(?:.{0,40}?successful|\\.\\s*)?(?:.*?(?:new|current|your) balance (?:is|of|after transaction)?:?\\s*{CUR}{N})?\\s*(?:.*?Transaction ID:\\s*{ID})?\\s*(?:.*?Fee(?:\\s+charged)?:?\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 2
+            },
+            {
+              "field": "balance",
+              "idx": 3
+            },
+            {
+              "field": "trx_id",
+              "idx": 4
+            },
+            {
+              "field": "fee",
+              "idx": 5
+            }
+          ]
+        },
+        {
+          "id": "mtn.withdrawal.agent",
+          "kind": "withdrawal",
+          "priority": 20,
+          "regex": "^You have (?:withdrawn|made a cash out of)\\s+{CUR}{N}.*?(?:.*?(?:new|current) balance (?:is|of)?:?\\s*{CUR}{N})?\\s*(?:.*?Transaction ID:\\s*{ID})?\\s*(?:.*?Fee(?:\\s+charged)?:?\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "balance",
+              "idx": 2
+            },
+            {
+              "field": "trx_id",
+              "idx": 3
+            },
+            {
+              "field": "fee",
+              "idx": 4
+            }
+          ]
+        },
+        {
+          "id": "mtn.paybill.payment",
+          "kind": "paybill_payment",
+          "priority": 15,
+          "regex": "^Payment of\\s+{CUR}{N}\\s+to\\s+{NAME}\\s*[(\\[]?\\s*(?:(?:paybill|business|merchant|till|account)\\s*(?:no|id|number|code)?\\s*[:#]?\\s*([A-Z0-9 -]{3,20}))\\s*[)\\]]?[^.]*\\.?\\s*(?:.*?balance\\s*(?:is|of|after transaction)?\\s*[:=]?\\s*{CUR}{N})?\\s*(?:.*?Transaction ID:\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "paybill_name",
+              "idx": 2
+            },
+            {
+              "field": "paybill_account",
+              "idx": 3
+            },
+            {
+              "field": "balance",
+              "idx": 4
+            },
+            {
+              "field": "trx_id",
+              "idx": 5
+            }
+          ]
+        },
+        {
+          "id": "mtn.momo_pay.merchant",
+          "kind": "merchant_payment",
+          "priority": 15,
+          "regex": "^You have paid\\s+{CUR}{N}\\s+to\\s+{NAME}{NDELIM_HARD}.*?(?:.*?balance\\s*(?:is|of|after transaction)?:?\\s*{CUR}{N})?\\s*(?:.*?(?:Transaction|Merchant|Terminal)\\s*ID:\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "paybill_name",
+              "idx": 2
+            },
+            {
+              "field": "balance",
+              "idx": 3
+            },
+            {
+              "field": "trx_id",
+              "idx": 4
+            }
+          ]
+        },
+        {
+          "id": "mtn.airtime.purchase",
+          "kind": "airtime_purchase",
+          "priority": 12,
+          "regex": "^You have (?:bought|purchased|recharged)\\s+{CUR}{N}\\s+(?:worth of )?(?:airtime|credit|recharge)(?:\\s+for\\s+{PHONE})?.*?(?:.*?balance\\s*[:=]?\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 2
+            },
+            {
+              "field": "balance",
+              "idx": 3
+            }
+          ]
+        },
+        {
+          "id": "mtn.data_bundle.purchase",
+          "kind": "data_bundle",
+          "priority": 12,
+          "regex": "^You have (?:successfully )?(?:bought|purchased|subscribed to)\\s+(?:a\\s+)?(?:[0-9.]+\\s*[KMGT]?B\\s+)?data (?:bundle|plan|package)(?:\\s+(?:of|for)\\s*{CUR}{N})?.*?(?:.*?(?:for|to)\\s+(?:\\+?233\\s?)?0?[2-5][0-9]{8})?(?:.*?balance\\s*(?:is|of)?\\s*[:=]?\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 2
+            },
+            {
+              "field": "balance",
+              "idx": 3
+            }
+          ]
+        },
+        {
+          "id": "mtn.loan.disbursement",
+          "kind": "loan_disbursement",
+          "priority": 18,
+          "regex": "^A (?:loan|advance) (?:of|amounting to)\\s+{CUR}{N}\\s+has been (?:credited|disbursed).*?(?:.*?balance\\s*[:=]?\\s*{CUR}{N})?\\s*(?:.*?(?:Loan|Transaction)\\s*ID:\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "balance",
+              "idx": 2
+            },
+            {
+              "field": "trx_id",
+              "idx": 3
+            }
+          ]
+        },
+        {
+          "id": "mtn.reversal.credit",
+          "kind": "reversal",
+          "priority": 18,
+          "regex": "{N}\\s+has been reversed (?:to|into) your (?:momo )?wallet.*?(?:.*?balance\\s*[:=]?\\s*{CUR}{N})?\\s*(?:.*?Transaction ID:\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "balance",
+              "idx": 2
+            },
+            {
+              "field": "trx_id",
+              "idx": 3
+            }
+          ]
+        }
+      ],
+      "fields": {
+        "balance": [
+          {
+            "id": "mtn.bal.current_balance",
+            "regex": "Current Balance:\\s*{CUR}{N}",
+            "group": 1
+          },
+          {
+            "id": "mtn.bal.momo_balance",
+            "regex": "Your MoMo balance is\\s*{CUR}{N}",
+            "group": 1
+          }
+        ],
+        "amount": [
+          {
+            "id": "mtn.amt.payment_for",
+            "regex": "^Payment (?:made|received) for\\s+{CUR}{N}",
+            "group": 1
+          }
+        ],
+        "fee": [
+          {
+            "id": "mtn.fee.charged",
+            "regex": "Fee charged:\\s*{CUR}{N}",
+            "group": 1
+          }
+        ],
+        "trx_id": [
+          {
+            "id": "mtn.trx.id",
+            "regex": "Transaction ID:\\s*{ID}",
+            "group": 1
+          }
+        ],
+        "reference": [
+          {
+            "id": "mtn.ref.text",
+            "regex": "Reference:\\s*{REF}[.]",
+            "group": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "telecel_cash",
+      "display_name": "Telecel Cash",
+      "sender_patterns": [
+        "^TELECEL( ?CASH)?$",
+        "^TC ?CASH$",
+        "^TELECEL ?MOBI ?MONEY$",
+        "^VODAFONE( ?CASH)?$",
+        "^VCASH$"
+      ],
+      "sender_note": "Telecel Ghana rebranded the Vodafone Cash product in 2023; older captures in a corpus may therefore carry 'Vodafone' senders and 'Vodafone Cash' wording. Both are routed to this parser.",
+      "body_markers": [
+        "\\btelecel cash\\b",
+        "\\bvodafone cash\\b",
+        "your telecel cash balance",
+        "^[0-9]{16} confirmed"
+      ],
+      "templates": [
+        {
+          "id": "tc.p2p_out.tid_prefixed",
+          "kind": "p2p_transfer_out",
+          "priority": 5,
+          "regex": "^{ID16}\\s+Confirmed\\.\\s*You have sent\\s+{CUR}{N}\\s+to\\s+{PHONE}\\s*-\\s*{NAME}{NDELIM_HARD}\\s+on\\s+{DATE}\\s+at\\s+{TIME}\\.?\\s*(?:Your Telecel Cash balance is\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "trx_id",
+              "idx": 1
+            },
+            {
+              "field": "amount",
+              "idx": 2
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 3
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 4
+            },
+            {
+              "field": "date",
+              "idx": 5
+            },
+            {
+              "field": "time",
+              "idx": 6
+            },
+            {
+              "field": "balance",
+              "idx": 7
+            }
+          ]
+        },
+        {
+          "id": "tc.p2p_in.tid_prefixed",
+          "kind": "p2p_transfer_in",
+          "priority": 5,
+          "regex": "^{ID16}\\s+Confirmed\\.\\s*You have received\\s+{CUR}{N}\\s+from\\s+{PHONE}\\s*-\\s*{NAME}{NDELIM_HARD}\\s+on\\s+{DATE}\\s+at\\s+{TIME}\\.?\\s*(?:Your Telecel Cash balance is\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "trx_id",
+              "idx": 1
+            },
+            {
+              "field": "amount",
+              "idx": 2
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 3
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 4
+            },
+            {
+              "field": "date",
+              "idx": 5
+            },
+            {
+              "field": "time",
+              "idx": 6
+            },
+            {
+              "field": "balance",
+              "idx": 7
+            }
+          ]
+        },
+        {
+          "id": "tc.p2p_out.short",
+          "kind": "p2p_transfer_out",
+          "priority": 25,
+          "regex": "^You have sent\\s+{CUR}{N}\\s+to\\s+(?:{PHONE}\\s*-\\s*)?{NAME}{NDELIM_HARD}.*?(?:on\\s+{DATE})?(?:\\s+at\\s+{TIME})?\\.?\\s*(?:.*?Telecel Cash balance is\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 2
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 3
+            },
+            {
+              "field": "date",
+              "idx": 4
+            },
+            {
+              "field": "time",
+              "idx": 5
+            },
+            {
+              "field": "balance",
+              "idx": 6
+            }
+          ]
+        },
+        {
+          "id": "tc.p2p_in.short",
+          "kind": "p2p_transfer_in",
+          "priority": 25,
+          "regex": "^You have received\\s+{CUR}{N}\\s+from\\s+(?:{PHONE}\\s*-\\s*)?{NAME}{NDELIM_HARD}.*?(?:on\\s+{DATE})?(?:\\s+at\\s+{TIME})?\\.?\\s*(?:.*?Telecel Cash balance is\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 2
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 3
+            },
+            {
+              "field": "date",
+              "idx": 4
+            },
+            {
+              "field": "time",
+              "idx": 5
+            },
+            {
+              "field": "balance",
+              "idx": 6
+            }
+          ]
+        },
+        {
+          "id": "tc.deposit.cash_in",
+          "kind": "deposit",
+          "priority": 20,
+          "regex": "^Cash (?:in|deposit) of\\s+{CUR}{N}\\s+(?:by|from)\\s+{NAME}{NDELIM_HARD}.*?(?:was|is) successful.*?(?:.*?balance (?:is|of|after transaction)?:?\\s*{CUR}{N})?\\s*(?:.*?Transaction (?:ID|no)\\s*[:#]?\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 2
+            },
+            {
+              "field": "balance",
+              "idx": 3
+            },
+            {
+              "field": "trx_id",
+              "idx": 4
+            }
+          ]
+        },
+        {
+          "id": "tc.withdrawal.cash_out",
+          "kind": "withdrawal",
+          "priority": 20,
+          "regex": "^You have withdrawn\\s+{CUR}{N}\\s+from your (?:telecel cash|wallet) account.*?(?:.*?balance (?:is|of|after transaction)?:?\\s*{CUR}{N})?\\s*(?:.*?Transaction (?:ID|no)\\s*[:#]?\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "balance",
+              "idx": 2
+            },
+            {
+              "field": "trx_id",
+              "idx": 3
+            }
+          ]
+        },
+        {
+          "id": "tc.paybill.payment",
+          "kind": "paybill_payment",
+          "priority": 15,
+          "regex": "^Payment of\\s+{CUR}{N}\\s+to\\s+{NAME}{NDELIM_HARD}\\s*(?:\\(\\s*(?:paybill|business|merchant|till|account)\\s*(?:no|id|number)?\\s*[:#]?\\s*([A-Z0-9 -]{2,20})\\s*\\)|for\\s+account\\s*[:#]?\\s*([0-9][0-9 -]{2,19}))?\\s*(?:.*?(?:was|is)\\s+successful)?.*?(?:on\\s+{DATE})?(?:.*?balance\\s*(?:is|of|after transaction)?\\s*[:=]?\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "paybill_name",
+              "idx": 2
+            },
+            {
+              "field": "paybill_account",
+              "idx": 3
+            },
+            {
+              "field": "paybill_account",
+              "idx": 4
+            },
+            {
+              "field": "date",
+              "idx": 5
+            },
+            {
+              "field": "balance",
+              "idx": 6
+            }
+          ]
+        },
+        {
+          "id": "tc.airtime.purchase",
+          "kind": "airtime_purchase",
+          "priority": 12,
+          "regex": "^You have (?:successfully )?(?:topped up|recharged|bought|purchased)\\s+{CUR}{N}(?:\\s+(?:worth of |of )?(?:airtime|credit))?(?:\\s+for\\s+{PHONE})?(?:\\s+for\\s+(?:an? )?(?:MTN|Telecel|AirtelTigo|Glo)\\s+customer)?.*?(?:.*?balance\\s*(?:is|of)?\\s*[:=]?\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 2
+            },
+            {
+              "field": "balance",
+              "idx": 3
+            }
+          ]
+        },
+        {
+          "id": "tc.reversal.credit",
+          "kind": "reversal",
+          "priority": 18,
+          "regex": "{N}\\s+has been (?:reversed|refunded) (?:to|into) your (?:telecel cash )?wallet.*?(?:.*?balance\\s*[:=]?\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "balance",
+              "idx": 2
+            }
+          ]
+        }
+      ],
+      "fields": {
+        "balance": [
+          {
+            "id": "tc.bal.telecel_cash_is",
+            "regex": "Your (?:Telecel Cash|Vodafone Cash) balance is\\s*{CUR}{N}",
+            "group": 1
+          }
+        ],
+        "trx_id": [
+          {
+            "id": "tc.trx.leading_tid",
+            "regex": "^[0-9]{16}(?= confirmed)",
+            "group": 0,
+            "whole_match": true
+          }
+        ],
+        "amount": [
+          {
+            "id": "tc.amt.sent_received",
+            "regex": "You have (?:sent|received|withdrawn|paid)\\s+{CUR}{N}",
+            "group": 1
+          }
+        ],
+        "date": [
+          {
+            "id": "tc.dt.on",
+            "regex": "on\\s+{DATE}",
+            "group": 1
+          }
+        ],
+        "time": [
+          {
+            "id": "tc.tm.at",
+            "regex": "at\\s+{TIME}",
+            "group": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtel_tigo_money",
+      "display_name": "AirtelTigo Money",
+      "sender_patterns": [
+        "^AIRTELTIGO( ?MONEY)?$",
+        "^AT( ?MONEY)?$",
+        "^AT\\s*TIGO(\\s*MONEY)?$",
+        "^AIRTEL ?TIGO ?MONEY$",
+        "^ATMONEY$",
+        "^AT ?PSB ?LTD$"
+      ],
+      "sender_note": "TODO(verify): AirtelTigo rebranded to 'AT' and its licence situation changed in 2024; if the collected corpus has no AT captures (or only pre-shutdown ones) say so explicitly in the paper and reduce Objective 1 to a two-operator study.",
+      "body_markers": [
+        "\\baireltigo\\b",
+        "\\bat money\\b",
+        "thank you for using airteltigo",
+        "^txn [0-9]{6,20}\\."
+      ],
+      "templates": [
+        {
+          "id": "at.p2p_out.txn_prefixed",
+          "kind": "p2p_transfer_out",
+          "priority": 5,
+          "regex": "^TXN\\s*{ID}\\.\\s*{CUR}{N}\\s+sent to\\s+{NAME}\\s*[(\\[]{PHONE}[)\\]]?\\.?\\s*(?:Balance:\\s*{CUR}{N})?.*?(?:Thank you for using AirtelTigo Money\\.?)?$",
+          "groups": [
+            {
+              "field": "trx_id",
+              "idx": 1
+            },
+            {
+              "field": "amount",
+              "idx": 2
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 3
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 4
+            },
+            {
+              "field": "balance",
+              "idx": 5
+            }
+          ]
+        },
+        {
+          "id": "at.p2p_in.txn_prefixed",
+          "kind": "p2p_transfer_in",
+          "priority": 5,
+          "regex": "^TXN\\s*{ID}\\.\\s*{CUR}{N}\\s+(?:received|credited)(?: to you)? from\\s+{NAME}\\s*[(\\[]{PHONE}[)\\]]?\\.?\\s*(?:Balance:\\s*{CUR}{N})?.*$",
+          "groups": [
+            {
+              "field": "trx_id",
+              "idx": 1
+            },
+            {
+              "field": "amount",
+              "idx": 2
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 3
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 4
+            },
+            {
+              "field": "balance",
+              "idx": 5
+            }
+          ]
+        },
+        {
+          "id": "at.p2p_in.classic",
+          "kind": "p2p_transfer_in",
+          "priority": 20,
+          "regex": "^You have received\\s+{CUR}{N}\\s+from\\s+{NAME}\\s*[(\\[]?{PHONE}[)\\]]?\\.?\\s*(?:.*?AirtelTigo Money balance:?\\s*{CUR}{N})?\\s*(?:.*?(?:Txn|Transaction)\\s*(?:ID|Ref)\\s*[:#]?\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 2
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 3
+            },
+            {
+              "field": "balance",
+              "idx": 4
+            },
+            {
+              "field": "trx_id",
+              "idx": 5
+            }
+          ]
+        },
+        {
+          "id": "at.p2p_out.classic",
+          "kind": "p2p_transfer_out",
+          "priority": 20,
+          "regex": "^You have sent\\s+{CUR}{N}\\s+to\\s+{NAME}\\s*[(\\[]?{PHONE}[)\\]]?\\.?\\s*(?:.*?AirtelTigo Money balance:?\\s*{CUR}{N})?\\s*(?:.*?(?:Txn|Transaction)\\s*(?:ID|Ref)\\s*[:#]?\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 2
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 3
+            },
+            {
+              "field": "balance",
+              "idx": 4
+            },
+            {
+              "field": "trx_id",
+              "idx": 5
+            }
+          ]
+        },
+        {
+          "id": "at.deposit.cash_in",
+          "kind": "deposit",
+          "priority": 18,
+          "regex": "^Deposit of\\s+{CUR}{N}\\s+successful\\.?\\s*(?:Fee\\s*[:=]?\\s*{CUR}{N})?\\s*(?:New balance\\s*[:=]?\\s*{CUR}{N})?\\s*(?:Ref\\s*[:#]?\\s*{ID})?\\s*(?:.*?for account holder {NAME}{NDELIM_HARD})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "fee",
+              "idx": 2
+            },
+            {
+              "field": "balance",
+              "idx": 3
+            },
+            {
+              "field": "trx_id",
+              "idx": 4
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 5
+            }
+          ]
+        },
+        {
+          "id": "at.withdrawal.cash_out",
+          "kind": "withdrawal",
+          "priority": 18,
+          "regex": "^Withdrawal of\\s+{CUR}{N}\\s+(?:at (?:agent|ATM)\\s*{NAME}{NDELIM_HARD} )?successful\\.?\\s*(?:.*?New balance\\s*[:=]?\\s*{CUR}{N})?\\s*(?:.*?Ref\\s*[:#]?\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_name",
+              "idx": 2
+            },
+            {
+              "field": "balance",
+              "idx": 3
+            },
+            {
+              "field": "trx_id",
+              "idx": 4
+            }
+          ]
+        },
+        {
+          "id": "at.merchant.payment",
+          "kind": "merchant_payment",
+          "priority": 15,
+          "regex": "^Payment of\\s+{CUR}{N}\\s+to\\s+{NAME}\\s*[(\\[]?(?:Paybill|Merchant|Till)\\s*(?:ID|No|Number)?\\s*[:#]?\\s*([A-Z0-9 -]{3,20})[)\\]]?\\s*(?:.*?successful)?(?:.*)?(?:.*?Balance\\s*[:=]?\\s*{CUR}{N})?\\s*(?:.*?(?:Txn|Transaction)\\s*(?:ID)?\\s*[:#]?\\s*{ID})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "paybill_name",
+              "idx": 2
+            },
+            {
+              "field": "paybill_account",
+              "idx": 3
+            },
+            {
+              "field": "balance",
+              "idx": 4
+            },
+            {
+              "field": "trx_id",
+              "idx": 5
+            }
+          ]
+        },
+        {
+          "id": "at.airtime.purchase",
+          "kind": "airtime_purchase",
+          "priority": 12,
+          "regex": "^You have (?:successfully )?(?:topped up|recharged|bought|purchased)\\s+{CUR}{N}(?:\\s+(?:worth of |of )?(?:airtime|credit))?(?:\\s+for\\s+{PHONE})?(?:\\s+for\\s+(?:an? )?(?:MTN|Telecel|AirtelTigo|Glo)\\s+customer)?.*?(?:.*?balance\\s*(?:is|of)?\\s*[:=]?\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "counterparty_phone",
+              "idx": 2
+            },
+            {
+              "field": "balance",
+              "idx": 3
+            }
+          ]
+        },
+        {
+          "id": "at.loan.disbursement",
+          "kind": "loan_disbursement",
+          "priority": 18,
+          "regex": "(?:Your )?(?:AT )?(?:loan|cash advance) (?:of|for)\\s+{CUR}{N}\\s+has been (?:credited|disbursed).*?(?:.*?balance\\s*[:=]?\\s*{CUR}{N})?",
+          "groups": [
+            {
+              "field": "amount",
+              "idx": 1
+            },
+            {
+              "field": "balance",
+              "idx": 2
+            }
+          ]
+        }
+      ],
+      "fields": {
+        "balance": [
+          {
+            "id": "at.bal.labeled",
+            "regex": "\\b(?:AirtelTigo Money|AT Money|Wallet) balance\\s*[:=]?\\s*{CUR}{N}",
+            "group": 1
+          },
+          {
+            "id": "at.bal.new",
+            "regex": "New balance\\s*[:=]?\\s*{CUR}{N}",
+            "group": 1
+          }
+        ],
+        "trx_id": [
+          {
+            "id": "at.trx.txn_prefix",
+            "regex": "^TXN\\s*([0-9A-Z]{6,20})\\.",
+            "group": 1
+          }
+        ],
+        "amount": [
+          {
+            "id": "at.amt.sent_received",
+            "regex": "\\b(?:sent|received|Deposit|Withdrawal|Payment) of\\s+{CUR}{N}",
+            "group": 1
+          }
+        ]
+      }
+    }
+  ],
+  "kind_to_direction": {
+    "p2p_transfer_in": "IN",
+    "p2p_transfer_out": "OUT",
+    "deposit": "IN",
+    "withdrawal": "OUT",
+    "merchant_payment": "OUT",
+    "paybill_payment": "OUT",
+    "airtime_purchase": "OUT",
+    "data_bundle": "OUT",
+    "loan_disbursement": "IN",
+    "loan_repayment": "OUT",
+    "reversal": "IN",
+    "balance_transfer_out": "OUT",
+    "unknown_in": "IN",
+    "unknown_out": "OUT"
+  },
+  "token_note": "(?-i:...) re-disables the global IGNORECASE inside name captures: Ghana operators print counterparties in upper case, and that is what bounds the lazy quantifier. Mixed-case names are therefore out of coverage for v1 and are counted as a tag in the evaluation. NDELIM*_HARD's lowercase-word terminator is wrapped in (?-i:...) on purpose: the whole pattern runs case-insensitively, and an unprotected [a-z] lookahead would also fire before UPPERCASE words, truncating 'NADIR FURNITURE' to 'NADIR'.",
+  "boilerplate_patterns": [
+    "dial\\s+\\*?[0-9#*]+\\s*#?[^.]{0,40}(?:to manage|to stay connected|to buy|to apply|for more)[^.]*\\.",
+    "keep your pin secret[^.]*\\.",
+    "never share (?:it|your pin)[^.]*\\.",
+    "do not reply to this message[^.]*\\.",
+    "not you\\?[^.]{0,40}\\.",
+    "thank you for using[^.]*\\.",
+    "top up more at any agent[^.]*\\.",
+    "visit any agent[^.]*\\.",
+    "download the [a-z0-9 ]+app[^.]*\\."
+  ],
+  "boilerplate_note": "Operator boilerplate sentences. Left in place they poison field extraction ('Dial *170# to manage your wallet' reads as a USSD channel, 'Top up more at any agent' as an agent cash-in). Templates are ^-anchored and unaffected, so this is stripped only for the per-field pass. Shared by normalize.py and the generated Kotlin."
+}

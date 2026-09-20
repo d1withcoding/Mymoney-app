@@ -1,0 +1,3 @@
+# Python bytecode from the research harness - regenerate, never commit.
+__pycache__/
+*.pyc
