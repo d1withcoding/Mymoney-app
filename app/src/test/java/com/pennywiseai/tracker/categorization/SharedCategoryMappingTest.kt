@@ -155,4 +155,69 @@ class SharedCategoryMappingTest {
         assertCategory("Others", "SHREE GANESH GENERAL STORES")
         assertCategory("Mobile", "SHARMA MOBILE STORES")
     }
+
+    @Test
+    fun `Ghanaian merchants and staples are recognised`() {
+        assertCategory("Food & Dining", "PAPAYE FAST FOOD")
+        assertCategory("Food & Dining", "PIZZAMAN CHICKENMAN")
+        assertCategory("Food & Dining", "EDDYS PIZZA")
+        assertCategory("Food & Dining", "MARWAKO RESTAURANT")
+        assertCategory("Healthcare", "ERNEST CHEMIST RING ROAD")
+        assertCategory("Investments", "DATABANK MFUND")
+        assertCategory("Transportation", "GOIL AIRPORT CITY")
+        assertCategory("Transportation", "BOLT RIDE ACCRA")
+        assertCategory("Bills & Utilities", "ECG PREPAID")
+        assertCategory("Bills & Utilities", "ICGC CHRIST TEMPLE")
+        assertCategory("Groceries", "MELCOM PLUS KANESHIE")
+    }
+
+    @Test
+    fun `Ghanaian mobile money P2P references dictate category over counterparty name`() {
+        // When sending to a person, counterparty is a name, but reference holds the real intent
+        assertEquals(
+            "Food & Dining",
+            SharedCategoryMapping.determineCategory("KOFI MENSAH", "EXPENSE", "lunch")
+        )
+        assertEquals(
+            "Food & Dining",
+            SharedCategoryMapping.determineCategory("0244123456", "EXPENSE", "waakye")
+        )
+        assertEquals(
+            "Transportation",
+            SharedCategoryMapping.determineCategory("KWAME ADDO", "EXPENSE", "trotro")
+        )
+        assertEquals(
+            "Transportation",
+            SharedCategoryMapping.determineCategory("0558123456", "EXPENSE", "trip to airport")
+        )
+        assertEquals(
+            "Education",
+            SharedCategoryMapping.determineCategory("AMA SERWAA", "EXPENSE", "school fees")
+        )
+        assertEquals(
+            "Bills & Utilities",
+            SharedCategoryMapping.determineCategory("KWAKU BOATENG", "EXPENSE", "tithe and offering")
+        )
+        assertEquals(
+            "Investments",
+            SharedCategoryMapping.determineCategory("0201234567", "EXPENSE", "monthly savings")
+        )
+        assertEquals(
+            "Healthcare",
+            SharedCategoryMapping.determineCategory("0244000000", "EXPENSE", "medicine")
+        )
+        assertEquals(
+            "Groceries",
+            SharedCategoryMapping.determineCategory("KOFI MENSAH", "EXPENSE", "provisions")
+        )
+        assertEquals(
+            "Mobile",
+            SharedCategoryMapping.determineCategory("0540000000", "EXPENSE", "airtime")
+        )
+        // Without a reference or known merchant, falls back safely to Others
+        assertEquals(
+            "Others",
+            SharedCategoryMapping.determineCategory("KOFI MENSAH", "EXPENSE", null)
+        )
+    }
 }

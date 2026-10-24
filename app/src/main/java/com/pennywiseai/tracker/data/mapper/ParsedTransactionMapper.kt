@@ -35,7 +35,7 @@ fun ParsedTransaction.toEntity(): TransactionEntity {
         id = 0, // Auto-generated
         amount = amount,
         merchantName = normalizedMerchant ?: "Unknown Merchant",
-        category = determineCategory(merchant, entityType),
+        category = determineCategory(merchant, reference, smsBody, entityType),
         transactionType = entityType,
         dateTime = dateTime,
         description = null,
@@ -120,12 +120,22 @@ private fun normalizeMerchantName(name: String): String {
 }
 
 /**
- * Determines the category based on merchant name and transaction type.
+ * Determines the category based on merchant name, reference note, SMS body, and transaction type.
  * Delegates to SharedCategoryMapping (single source of truth).
  */
-private fun determineCategory(merchant: String?, type: TransactionType): String {
-    val merchantName = merchant ?: return "Others"
-    return BuiltinCategoryNames.current(SharedCategoryMapping.determineCategory(merchantName, type.name))
+private fun determineCategory(
+    merchant: String?,
+    reference: String?,
+    smsBody: String?,
+    type: TransactionType
+): String {
+    val category = SharedCategoryMapping.determineCategory(
+        merchantName = merchant,
+        transactionType = type.name,
+        reference = reference,
+        smsBody = smsBody
+    )
+    return BuiltinCategoryNames.current(category)
 }
 
 /**

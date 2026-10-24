@@ -169,13 +169,33 @@ class MTNMoMoGhanaParser : BankParser() {
 
     override fun extractReference(message: String): String? {
         REFERENCE_PATTERN.findAll(message).mapNotNull { m ->
-            val raw = m.groupValues.getOrNull(1)?.trim()?.trimEnd('.', ',', ';', '-')
-            if (raw.isNullOrEmpty() || raw.lowercase() in JUNK_REFS) null else raw
+            cleanGhanaReference(m.groupValues.getOrNull(1))
         }.toList().let { refs ->
             // Prefer non-"Transfer From" refs
             return refs.lastOrNull { !it.startsWith("Transfer From", ignoreCase = true) }
                 ?: refs.firstOrNull()
         }
+    }
+
+    private fun cleanGhanaReference(raw: String?): String? {
+        if (raw == null) return null
+        var cleaned = raw.trim().trimEnd('.', ',', ';', '-')
+        if (cleaned.isEmpty()) return null
+
+        // Check if composite format: "RECIPIENT_NAME, PHONE_NUMBER, USER_NOTE"
+        val compositeMatch = Regex("""^[^,]+,\s*\+?(?:233|0)[0-9]{9,}\s*,\s*(.*)$""").find(cleaned)
+        if (compositeMatch != null) {
+            cleaned = compositeMatch.groupValues[1].trim().trimEnd('.', ',', ';', '-')
+        }
+
+        // Strip trailing provider info like "Food from VODAFONE" -> "Food"
+        cleaned = cleaned.replace(Regex("""\s+from\s+(?:VODAFONE|TELECEL|MTN|AIRTELTIGO|T-CASH)$""", RegexOption.IGNORE_CASE), "").trim()
+
+        val lower = cleaned.lowercase()
+        if (lower in JUNK_REFS) {
+            return null
+        }
+        return cleaned.takeIf { it.isNotEmpty() }
     }
 
     // ---- Helpers ----

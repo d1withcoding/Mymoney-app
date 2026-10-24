@@ -250,7 +250,13 @@ object SharedCategoryMapping {
         "cake",
         "falafel",
         "kunafa",
-        "knafeh"
+        "knafeh",
+        // Ghana
+        "waakye", "jollof", "gob3", "gobe", "kelewele", "ampesi", "kontomire", "shitor",
+        "kenkey", "fufu", "banku", "papaye", "chop bar", "chop", "koko", "koose", "bofrot",
+        "tuo zaafi", "suya", "pizzaman", "chickenman", "eddys pizza", "eddy's pizza", "marwako",
+        "starbites", "frankies", "lunch", "dinner", "breakfast", "meal", "beans", "spaghetti",
+        "indomie", "noodles", "meat pie", "buka", "red red", "hausa koko", "tombrown"
     )
 
     private val GROCERY = setOf(
@@ -344,7 +350,10 @@ object SharedCategoryMapping {
         "safeway",
         "sameh mall",
         "military consumer",
-        "civil consumer"
+        "civil consumer",
+        // Ghana
+        "melcom", "shoprite", "maxmart", "koala", "palace mall", "china mall",
+        "provisions", "provision", "yam", "plantain"
     )
 
     private val TRANSPORT = setOf(
@@ -391,7 +400,9 @@ object SharedCategoryMapping {
         "transport",
         "taxi",
         "jett",
-        "jopetrol"
+        "jopetrol",
+        // Ghana
+        "trotro", "fare", "bolt", "yango", "goil", "okada", "star oil", "petrosol", "stc", "vip", "ride", "driver", "airport"
     )
 
     private val SHOPPING = setOf(
@@ -573,7 +584,11 @@ object SharedCategoryMapping {
         "ceypetco",
         "mobitel",
         "slt",
-        "dialog axiata"
+        "dialog axiata",
+        // Ghana
+        "ecg", "prepaid", "electricity", "meter", "light", "power", "ghana water", "gwcl",
+        "dstv", "gotv", "startimes", "rent", "landlord", "zoomlion", "church", "tithe",
+        "tithes", "offering", "harvest", "donation", "ayie", "funeral", "icgc", "pentecost"
     )
 
     private val ENTERTAINMENT = setOf(
@@ -622,12 +637,19 @@ object SharedCategoryMapping {
         "union chemists",
         // Kept in step with SHOPPING_EXCLUDE — a merchant we pull out of
         // Shopping for being clinical has to land somewhere (#678).
-        "chemist", "chemists", "diagnostic", "diagnostics"
+        "chemist", "chemists", "diagnostic", "diagnostics",
+        // Ghana
+        "drugs", "meds", "medicine", "pharmacy", "hospital", "clinic", "nhis", "doctor",
+        "korle bu", "ridge hospital", "37 military", "nyaho", "lekma",
+        "ernest chemist", "ernest chemists", "top-up pharmacy", "unichem"
     )
 
     private val INVESTMENT = setOf(
         "groww", "zerodha", "upstox", "kuvera", "paytm money", "coin",
-        "smallcase", "mutual fund", "sip", "angel", "5paisa", "etmoney"
+        "smallcase", "mutual fund", "sip", "angel", "5paisa", "etmoney",
+        // Ghana
+        "savings", "saving", "investment", "invest", "susu", "databank", "mutual fund", "fixed deposit", "ssnit", "enterprise life",
+        "glico", "old mutual", "t-bill", "treasury"
     )
 
     private val BANKING = setOf(
@@ -646,7 +668,11 @@ object SharedCategoryMapping {
         "inward remittance",
         "transfer to",
         "transfer from",
-        "transfer: "
+        "transfer: ",
+        // Ghana
+        "cash out", "cash-out", "cash in", "cash-in", "qwikloan", "fido", "bosea", "xtracash",
+        "gcb", "gcb bank", "absa", "adb", "cbg", "calbank", "fidelity bank", "ecobank",
+        "stanbic", "uba", "zenith bank"
     )
 
     private val PERSONAL_CARE = setOf(
@@ -680,7 +706,10 @@ object SharedCategoryMapping {
     private val EDUCATION = setOf(
         "byju", "unacademy", "vedantu", "coursera", "udemy", "upgrade",
         "school", "college", "university", "toppr", "udacity", "simplilearn",
-        "whitehat", "great learning"
+        "whitehat", "great learning",
+        // Ghana
+        "school fees", "tuition", "school", "waec", "campus", "hostel",
+        "knust", "legon", "ucc", "ashesi", "gimpa", "upsa", "presec", "adisadel", "mfantsipim"
     )
 
     private val MOBILE = setOf(
@@ -688,7 +717,9 @@ object SharedCategoryMapping {
         "etisalat",
         // Jordan. "zain" alone is also a first name, and a transfer to a
         // person must not land in Mobile.
-        "umniah", "zain website", "zain jordan", "orange jordan"
+        "umniah", "zain website", "zain jordan", "orange jordan",
+        // Ghana
+        "airtime", "bundle", "mtn airtime", "telecel push", "data bundle", "caller tune", "crbt"
     )
 
     private val FITNESS = setOf(
@@ -717,7 +748,9 @@ object SharedCategoryMapping {
         "ministry of interior",
         "abu dhabi judicial dep",
         "sharjah finance depart",
-        "smartdxbgov-ded"
+        "smartdxbgov-ded",
+        // Ghana
+        "e-levy", "elevy", "gra"
     )
 
     private val BANK_CHARGE = setOf(
@@ -919,22 +952,54 @@ object SharedCategoryMapping {
     }
 
     /**
-     * Determines the category based on merchant name and transaction type.
-     * Handles income-specific logic (salary, refund, cashback, interest, dividend).
+     * Determines the category based on merchant name, optional reference note,
+     * optional SMS body, and transaction type.
+     *
+     * In mobile money and P2P transfers (e.g. Ghana MTN MoMo, Telecel Cash), the
+     * transaction's explicit purpose is specified in the [reference] note (e.g. "lunch",
+     * "groceries", "trotro", "school fees", "tithe"). This gives the reference first
+     * priority, followed by merchant name and full text.
      */
-    fun determineCategory(merchantName: String, transactionType: String): String {
+    fun determineCategory(
+        merchantName: String?,
+        transactionType: String,
+        reference: String? = null,
+        smsBody: String? = null
+    ): String {
         if (transactionType == "INCOME") {
-            val merchantLower = merchantName.lowercase()
+            val combined = listOfNotNull(reference, merchantName, smsBody).joinToString(" ").lowercase()
             return when {
-                merchantLower.contains("salary") -> "Salary"
-                merchantLower.contains("refund") -> "Refunds"
-                merchantLower.contains("cashback") -> "Cashback"
-                merchantLower.contains("interest") -> "Interest"
-                merchantLower.contains("dividend") -> "Dividends"
+                combined.contains("salary") -> "Salary"
+                combined.contains("refund") -> "Refunds"
+                combined.contains("cashback") -> "Cashback"
+                combined.contains("interest") -> "Interest"
+                combined.contains("dividend") -> "Dividends"
                 else -> "Income"
             }
         }
 
-        return getCategory(merchantName)
+        // 1. User-provided reference note (highest signal for mobile money P2P)
+        if (!reference.isNullOrBlank()) {
+            val refCat = getCategory(reference)
+            if (refCat != "Others") return refCat
+        }
+
+        // 2. Merchant / counterparty name
+        if (!merchantName.isNullOrBlank()) {
+            val merchCat = getCategory(merchantName)
+            if (merchCat != "Others") return merchCat
+        }
+
+        // 3. SMS body (e.g. for action phrases like "airtime", "cash out", "meter")
+        if (!smsBody.isNullOrBlank()) {
+            val bodyCat = getCategory(smsBody)
+            if (bodyCat != "Others") return bodyCat
+        }
+
+        return "Others"
     }
+
+    /** Overload for backward compatibility */
+    fun determineCategory(merchantName: String, transactionType: String): String =
+        determineCategory(merchantName, transactionType, null, null)
 }
