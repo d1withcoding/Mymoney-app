@@ -1,6 +1,6 @@
 {
-  "totalBanks": 168,
-  "totalCountries": 26,
+  "totalBanks": 171,
+  "totalCountries": 27,
   "countries": [
     {
       "country": "India",
@@ -121,6 +121,14 @@
       "symbol": "$",
       "bankCount": 3,
       "banks": ["Banco Agricola", "Banco Cuscatlan", "Banco Promerica"]
+    },
+    {
+      "country": "Ghana",
+      "flag": "🇬🇭",
+      "currency": "GHS",
+      "symbol": "GH₵",
+      "bankCount": 3,
+      "banks": ["ECG Prepaid", "MTN Mobile Money", "Telecel Cash"]
     },
     {
       "country": "Bangladesh",

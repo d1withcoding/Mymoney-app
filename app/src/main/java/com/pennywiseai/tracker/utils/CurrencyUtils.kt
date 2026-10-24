@@ -106,7 +106,7 @@ object CurrencyUtils {
             // Americas
             "CAD", "MXN", "COP", "BRL", "ARS", "CLP", "UYU",
             // Africa
-            "ETB", "KES", "NGN", "TZS", "MZN", "EGP",
+            "ETB", "KES", "NGN", "TZS", "MZN", "EGP", "GHS",
             // Europe
             "BYN", "CZK", "RUB", "TRY"
         )

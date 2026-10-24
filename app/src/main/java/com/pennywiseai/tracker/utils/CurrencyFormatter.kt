@@ -98,6 +98,7 @@ object CurrencyFormatter {
         "SAR" to "SR",
         "BYN" to "Br",
         "COP" to "COL$",
+        "GHS" to "GH₵",
         // South American pesos (#654) — prefixed like MX$/COL$ so a peso figure
         // can never be misread as USD in a mixed-currency list.
         "ARS" to "AR$",
@@ -138,7 +139,8 @@ object CurrencyFormatter {
         "LKR" to Locale.Builder().setLanguage("en").setRegion("LK").build(),
         "ARS" to Locale.Builder().setLanguage("es").setRegion("AR").build(),
         "CLP" to Locale.Builder().setLanguage("es").setRegion("CL").build(),
-        "UYU" to Locale.Builder().setLanguage("es").setRegion("UY").build()
+        "UYU" to Locale.Builder().setLanguage("es").setRegion("UY").build(),
+        "GHS" to Locale.Builder().setLanguage("en").setRegion("GH").build()
     )
 
     /**

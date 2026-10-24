@@ -177,7 +177,10 @@ object BankParserFactory {
         OpayBankParser(),  // Opay (Nigeria)
         MoniepointParser(),  // Moniepoint MFB (Nigeria)
         GTBankParser(),  // Guaranty Trust Bank / GTBank (Nigeria)
-        VFDBankParser()  // VFD Microfinance Bank (Nigeria)
+        VFDBankParser(),  // VFD Microfinance Bank (Nigeria)
+        ECGPrepaidGhanaParser(),  // ECG Prepaid (Ghana) — electricity meter recharge; narrow canHandle, so placed before MTN/Telecel
+        MTNMoMoGhanaParser(),  // MTN Mobile Money (Ghana) — largest mobile money platform
+        TelecelCashGhanaParser()  // Telecel Cash (Ghana) — formerly Vodafone Cash
         // Add more bank parsers here as we implement them
     )
 

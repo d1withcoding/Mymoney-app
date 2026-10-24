@@ -51,6 +51,7 @@ class SupportedBanksDocTest {
         "JOD" to CountryMeta("Jordan", "🇯🇴", "JD"),
         "EUR" to CountryMeta("Eurozone", "🇪🇺", "€"),
         "GBP" to CountryMeta("United Kingdom", "🇬🇧", "£"),
+        "GHS" to CountryMeta("Ghana", "🇬🇭", "GH₵"),
     )
 
     // A currency maps 1:1 to a country for every bank we support — except where a

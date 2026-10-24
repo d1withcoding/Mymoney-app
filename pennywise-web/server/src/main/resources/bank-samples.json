@@ -429,6 +429,17 @@
       "reference": "February 21, 2025",
       "balance": null
     },
+    "ECG Prepaid": {
+      "sender": "ECG Prepaid",
+      "message": "Recharge request of GHS 100.00 for meter 87654321 (AMA MENSAH) has been processed. Txn ID: ECQ02345678",
+      "currency": "GHS",
+      "amount": "100.00",
+      "type": "EXPENSE",
+      "merchant": "AMA MENSAH",
+      "accountLast4": null,
+      "reference": "ECQ02345678",
+      "balance": null
+    },
     "Emirates Islamic": {
       "sender": "EI SMS",
       "message": "Online Banking Transfer From Account: 123XXX12XXX12 Amount: AED 12,123.00 Date: 21/12/2024 20:12 Available Balance: AED 123,123.12",
@@ -758,6 +769,17 @@
       "accountLast4": null,
       "reference": "DET0KAIXP5E",
       "balance": "1234.56"
+    },
+    "MTN Mobile Money": {
+      "sender": "MobileMoney",
+      "message": "You have received GHS 100.00 from JOHN DOE. Your new balance is GHS 500.00. Reference: lunch money",
+      "currency": "GHS",
+      "amount": "100.00",
+      "type": "INCOME",
+      "merchant": "JOHN DOE",
+      "accountLast4": null,
+      "reference": "lunch money",
+      "balance": "500.00"
     },
     "Machchhapuchchhre Bank": {
       "sender": "MBL_ALERT",
@@ -1165,6 +1187,17 @@
       "accountLast4": "1111",
       "reference": "628200000001",
       "balance": "1234.73"
+    },
+    "Telecel Cash": {
+      "sender": "Telecel",
+      "message": "GHS 100.00 sent to 0502345678 - KOFI MENSAH. Fee charged was GHS 0.50. Your new balance is GHS 400.00",
+      "currency": "GHS",
+      "amount": "100.00",
+      "type": "EXPENSE",
+      "merchant": "KOFI MENSAH",
+      "accountLast4": null,
+      "reference": null,
+      "balance": "400.00"
     },
     "Tigo Pesa": {
       "sender": "TIGOPESA(smsfp)",
