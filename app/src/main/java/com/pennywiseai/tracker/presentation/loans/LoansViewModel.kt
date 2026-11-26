@@ -27,7 +27,7 @@ data class LoansUiState(
     val people: List<LoanPerson> = emptyList(),
     val totalLentRemaining: BigDecimal = BigDecimal.ZERO,
     val totalBorrowedRemaining: BigDecimal = BigDecimal.ZERO,
-    val summaryCurrency: String = "INR",
+    val summaryCurrency: String = "GHS",
     val isLoading: Boolean = true,
     val showSettledLoans: Boolean = false
 )

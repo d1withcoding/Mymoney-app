@@ -5,7 +5,6 @@ enum AppTab: String, CaseIterable {
     case home = "Home"
     case transactions = "Transactions"
     case analytics = "Analytics"
-    case chat = "Chat"
     case settings = "Settings"
 
     var icon: String {
@@ -13,7 +12,6 @@ enum AppTab: String, CaseIterable {
         case .home: "house.fill"
         case .transactions: "list.bullet"
         case .analytics: "chart.bar.fill"
-        case .chat: "sparkles"
         case .settings: "gearshape.fill"
         }
     }
@@ -28,16 +26,6 @@ struct MainTabView: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.scenePhase) private var scenePhase
-    // Re-read on every return to the app: the user may have just turned Apple Intelligence on.
-    @State private var aiStatus = OnDeviceAI.status
-
-    /// The Chat tab exists only while the on-device model can run.
-    private var showsChat: Bool {
-        #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("-PennyAIDemo") { return true }
-        #endif
-        return aiStatus == .available
-    }
 
     private var isAmoled: Bool {
         themeManager.isAmoledActive(for: colorScheme)
@@ -76,18 +64,6 @@ struct MainTabView: View {
                     }
                     .tag(AppTab.analytics)
 
-                    #if canImport(FoundationModels)
-                    if #available(iOS 26.0, *), showsChat {
-                        NavigationStack {
-                            ChatScreen()
-                        }
-                        .tabItem {
-                            Label(AppTab.chat.rawValue, systemImage: AppTab.chat.icon)
-                        }
-                        .tag(AppTab.chat)
-                    }
-                    #endif
-
                     NavigationStack {
                         SettingsScreen()
                     }
@@ -125,8 +101,6 @@ struct MainTabView: View {
             .preferredColorScheme(themeManager.colorScheme)
             .onChange(of: scenePhase) { phase in
                 guard phase == .active else { return }
-                aiStatus = OnDeviceAI.status
-                if !showsChat && selectedTab == .chat { selectedTab = .home }
                 // Bank texts the model couldn't read in the background.
                 Task { await PendingAiSms.processAll() }
             }

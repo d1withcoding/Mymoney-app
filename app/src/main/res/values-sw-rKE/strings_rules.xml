@@ -59,93 +59,89 @@
     <string name="unrecognized_suggestion_credit">%1$s zimeingia</string>
     <string name="unrecognized_suggestion_add">Ongeza</string>
     <!-- ══ Import statement ══ -->
-    <string name="import_statement_title">Ingiza Taarifa ya Benki</string>
-    <string name="import_statement_back">Rudi</string>
-    <string name="import_statement_description">Ingiza taarifa ya PDF kutoka Google Pay, PhonePe, Paytm, slice au ICICI Bank, au taarifa ya Excel (.xlsx) au CSV ya benki yoyote. Utaona kilicho kipya kabla chochote hakijaongezwa.</string>
-    <string name="import_statement_select_pdf">Chagua Taarifa ya PDF</string>
-    <string name="import_statement_loading_title">Inaingiza miamala...</string>
-    <string name="import_statement_loading_body">Inasoma taarifa na kuangalia nakala zilizojirudia</string>
-    <string name="import_statement_complete">Uingizaji Umekamilika</string>
-    <string name="import_statement_result_imported">Miamala iliyoingizwa</string>
-    <string name="import_statement_result_enriched">Miamala iliyoboreshwa</string>
-    <string name="import_statement_result_total_parsed">Safu kwenye taarifa</string>
-    <string name="import_statement_result_duplicates">Zilizojirudia zilizorukwa: %1$d</string>
-    <string name="import_statement_result_exact">Zilizoingizwa tena hasa</string>
-    <string name="import_statement_result_by_reference">Kwa kumbukumbu ya UPI</string>
-    <string name="import_statement_result_by_amount_date">Kwa kiasi &amp; tarehe</string>
-    <string name="import_statement_import_another">Ingiza Nyingine</string>
-    <string name="import_statement_done">Imekamilika</string>
-    <string name="import_statement_failed">Uingizaji Umeshindwa</string>
-    <string name="import_statement_try_again">Jaribu Tena</string>
-    <string name="import_statement_error_unsupported">Muundo wa taarifa hautumiki. Zinazotumika sasa: Google Pay, PhonePe, Paytm, slice, ICICI Bank. Kwa benki nyingine yoyote, ingiza taarifa yake ya Excel (.xlsx) au CSV.</string>
-    <string name="import_statement_error_no_transactions">Hakuna miamala iliyopatikana kwenye taarifa.</string>
-    <string name="import_statement_error_failed">Imeshindwa kuingiza taarifa.</string>
-    <string name="import_statement_error_read">Imeshindwa kusoma faili hili.</string>
-    <string name="import_statement_error_too_large">Faili hili ni kubwa mno kuingizwa.</string>
-    <string name="import_statement_error_no_rows">Faili hili halina safu zozote.</string>
-    <string name="import_statement_error_too_many_rows">Taarifa hii ina zaidi ya safu %1$d. Hamisha kipindi kifupi zaidi kisha ukiingize.</string>
-    <string name="import_statement_error_date_1904">Kitabu hiki kinatumia mfumo wa tarehe wa 1904. Kihifadhi kama .csv kisha ukiingize.</string>
-    <string name="import_statement_password_title">PDF yenye nenosiri</string>
-    <string name="import_statement_password_body">Taarifa hii imefungwa. Weka nenosiri ulilopewa na benki yako. Linatumika kufungua faili tu na halihifadhiwi.</string>
-    <string name="import_statement_password_label">Nenosiri la PDF</string>
-    <string name="import_statement_password_wrong">Nenosiri si sahihi. Jaribu tena.</string>
-    <string name="import_statement_password_open">Fungua</string>
-    <string name="import_statement_password_cancel">Ghairi</string>
-    <string name="import_statement_select_spreadsheet">Chagua Taarifa ya Excel au CSV</string>
-    <string name="import_statement_xls_hint">Faili la zamani la .xls? Lihifadhi kama .xlsx au .csv kwanza.</string>
-    <string name="import_statement_map_title">Linganisha safu wima</string>
-    <string name="import_statement_map_body">Iambie PennyWise safu wima ipi ni ipi. Itakumbuka hili kwa taarifa ijayo yenye safu wima zilezile.</string>
-    <string name="import_statement_header_row">Safu ya vichwa: %1$d</string>
-    <string name="import_statement_header_row_up">Safu iliyotangulia</string>
-    <string name="import_statement_header_row_down">Safu inayofuata</string>
-    <string name="import_statement_col_date">Tarehe</string>
-    <string name="import_statement_col_date_format">Muundo wa tarehe</string>
-    <string name="import_statement_date_auto">Tambua kiotomatiki</string>
-    <string name="import_statement_date_auto_found">Tambua kiotomatiki (%1$s)</string>
-    <string name="import_statement_col_description">Maelezo</string>
-    <string name="import_statement_amount_split">Kutoka &amp; kuingia</string>
-    <string name="import_statement_amount_single">Kiasi kimoja</string>
-    <string name="import_statement_col_debit">Debit (pesa zilizotoka)</string>
-    <string name="import_statement_col_credit">Credit (pesa zilizoingia)</string>
-    <string name="import_statement_col_amount">Kiasi (hasi au Dr = pesa zilizotoka)</string>
-    <string name="import_statement_col_type">Safu wima ya Dr/Cr (si lazima)</string>
-    <string name="import_statement_col_balance">Salio (si lazima)</string>
-    <string name="import_statement_col_reference">Kumbukumbu / UTR (si lazima)</string>
-    <string name="import_statement_date_excel">Tarehe ya Excel</string>
-    <string name="import_statement_col_none">Hakuna</string>
-    <string name="import_statement_column_label">Safu wima %1$s</string>
-    <string name="import_statement_account">Akaunti</string>
-    <string name="import_statement_account_none">Haijaunganishwa na akaunti</string>
-    <string name="import_statement_sample_title">Jinsi safu zinavyosomwa</string>
-    <string name="import_statement_sample_count">Miamala %1$d imepatikana, safu %2$d zimerukwa (tupu, jumla, maelezo ya chini)</string>
-    <string name="import_statement_sample_empty">Bado hakuna miamala kwa mpangilio huu. Angalia safu ya vichwa, safu wima ya Tarehe na muundo wake, na safu wima za kiasi.</string>
-    <string name="import_statement_preview_button">Hakiki uingizaji</string>
-    <string name="import_statement_cancel">Ghairi</string>
-    <string name="import_statement_preview_title">Kagua kabla ya kuingiza</string>
-    <string name="import_statement_preview_new">Mpya</string>
-    <string name="import_statement_preview_matched">Tayari ipo kwenye PennyWise</string>
-    <string name="import_statement_preview_account">Akaunti: %1$s</string>
-    <string name="import_statement_preview_new_rows">Miamala mipya</string>
-    <string name="import_statement_preview_new_rows_hint">Ondoa tiki kwa yoyote usiyotaka iongezwe.</string>
-    <string name="import_statement_preview_all_matched">Kila safu kwenye taarifa hii tayari ipo kwenye PennyWise.</string>
-    <plurals name="import_statement_confirm">
-        <item quantity="one">Ingiza muamala %1$d</item>
-        <item quantity="other">Ingiza miamala %1$d</item>
-    </plurals>
-    <string name="import_statement_confirm_nothing">Endelea</string>
-    <string name="import_statement_edit_mapping">Hariri ulinganishaji wa safu wima</string>
-    <string name="import_statement_balance_title">Ukaguzi wa salio la mwisho</string>
-    <string name="import_statement_balance_subtitle">%1$s tarehe %2$s</string>
-    <string name="import_statement_balance_statement">Taarifa inasema</string>
-    <string name="import_statement_balance_app">PennyWise inasema</string>
-    <string name="import_statement_balance_difference">Tofauti</string>
-    <string name="import_statement_balance_unknown_note">PennyWise haina salio la akaunti hii kufikia %1$s, kwa hiyo bado hakuna cha kulinganisha nacho.</string>
-    <string name="import_statement_balance_match">Salio linalingana.</string>
-    <string name="import_statement_balance_set">Weka salio kuwa %1$s</string>
-    <string name="import_statement_balance_set_note">Salio la taarifa pamoja na kile PennyWise ilirekodi baada ya taarifa kuisha.</string>
-    <string name="import_statement_balance_applied">Salio limesasishwa kuwa %1$s.</string>
-    <string name="import_statement_balance_newer">Benki yako imeripoti salio jipya zaidi tangu taarifa hii, kwa hiyo PennyWise inabaki na hilo.</string>
-    <!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
     <string name="upgrade_subtitle_member">Uwezo wote wa Pro unatumika</string>
     <string name="upgrade_subtitle_upgrade">Kila kitu kinafunguliwa kwa ufunguo wa leseni</string>
     <string name="upgrade_enter_license_key">Weka ufunguo wa leseni</string>

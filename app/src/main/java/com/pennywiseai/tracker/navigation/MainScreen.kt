@@ -49,8 +49,6 @@ import com.pennywiseai.tracker.presentation.settings.AppearanceScreen
 import com.pennywiseai.tracker.presentation.settings.FAQScreen
 import com.pennywiseai.tracker.presentation.settings.SettingsScreen
 import com.pennywiseai.tracker.presentation.settings.SettingsSectionScreen
-import com.pennywiseai.tracker.presentation.statement.ImportStatementScreen
-import com.pennywiseai.tracker.presentation.statement.ImportStatementViewModel
 import com.pennywiseai.tracker.presentation.subscriptions.SubscriptionsScreen
 import com.pennywiseai.tracker.presentation.transactions.TransactionsScreen
 import com.pennywiseai.tracker.ui.animations.pwPop
@@ -72,7 +70,6 @@ private fun tabOf(key: NavKey?): BottomNavItem? = when (key) {
     Home -> BottomNavItem.Home
     is Transactions -> BottomNavItem.Transactions
     Analytics -> BottomNavItem.Analytics
-    Chat -> BottomNavItem.Chat
     else -> null
 }
 
@@ -81,7 +78,6 @@ private fun rootOf(tab: BottomNavItem): NavKey = when (tab) {
     BottomNavItem.Home -> Home
     BottomNavItem.Transactions -> Transactions()
     BottomNavItem.Analytics -> Analytics
-    BottomNavItem.Chat -> Chat
 }
 
 /** Pops this stack back to its first screen, which becomes [root]. */
@@ -138,7 +134,6 @@ fun MainScreen(
         BottomNavItem.Home to rememberNavBackStack(Home),
         BottomNavItem.Transactions to rememberNavBackStack(Transactions()),
         BottomNavItem.Analytics to rememberNavBackStack(Analytics),
-        BottomNavItem.Chat to rememberNavBackStack(Chat),
     )
     var currentTabRoute by rememberSaveable { mutableStateOf(BottomNavItem.Home.route) }
     val currentTab = BottomNavItem.all.firstOrNull { it.route == currentTabRoute } ?: BottomNavItem.Home
@@ -178,7 +173,7 @@ fun MainScreen(
             tabStacks.getValue(target).resetTo(fresh)
             currentTabRoute = target.route
         } else if (target != null && target != tab && key == rootOf(target)) {
-            // A plain tab root from another tab (e.g. Chat from Analytics): switch to it, don't duplicate it.
+            // A plain tab root from another tab: switch to it, don't duplicate it.
             currentTabRoute = target.route
         } else {
             tabStacks.getValue(tab).navigate(key)
@@ -187,7 +182,7 @@ fun MainScreen(
 
     // What a Settings row opens lives either in this tab's graph or above the tabs.
     fun openFromSettings(tab: BottomNavItem, key: NavKey) = when (key) {
-        Rules, Loans, RecurringTransactions, ExchangeRates, TransactionGroups, Webhooks, AiAccess, BackgroundAccess, LearnedCategories,
+        Rules, Loans, RecurringTransactions, ExchangeRates, TransactionGroups, BackgroundAccess, LearnedCategories,
         is BudgetGroups -> openRoot(key)
         else -> open(tab, key)
     }
@@ -371,11 +366,6 @@ fun MainScreen(
 
         entry<Analytics> { key ->
             com.pennywiseai.tracker.presentation.analytics.AnalyticsScreen(
-                onNavigateToChat = {
-                    if (BottomNavItem.Chat.route !in themeState.hiddenNavTabs) {
-                        open(tab, Chat)
-                    }
-                },
                 onNavigateToTransactions = { drill ->
                     open(
                         tab,
@@ -396,19 +386,6 @@ fun MainScreen(
                     selectTab(BottomNavItem.Home)
                 }
             )
-        }
-
-        entry<Chat> { key ->
-            // Hidden AI tab: don't start the chat (and its model) for
-            // the frame before the fallback to Home lands.
-            if (BottomNavItem.Chat.route !in themeState.hiddenNavTabs) {
-                com.pennywiseai.tracker.presentation.chat.ChatScreen(
-                    modifier = Modifier.imePadding(),
-                    onNavigateToSettings = {
-                        open(tab, SettingsPage(SettingsSection.AI))
-                    }
-                )
-            }
         }
 
         entry<Settings> { key ->
@@ -486,16 +463,6 @@ fun MainScreen(
             )
         }
 
-        entry<ImportStatement> { key ->
-            val viewModel: ImportStatementViewModel = hiltViewModel()
-            ImportStatementScreen(
-                viewModel = viewModel,
-                onNavigateBack = {
-                    backFrom(tab, key)
-                }
-            )
-        }
-
         entry<AddAccount> { key ->
             val viewModel: ManageAccountsViewModel = hiltViewModel()
             AddAccountScreen(
@@ -554,7 +521,7 @@ fun MainScreen(
             // Wait for prefs so a hidden tab never flashes in on launch.
             // A pushed screen hides the bar with its own exit (it never slides with
             // the screen); it keeps the last tab selected while it leaves.
-            val onTabScreen = baseRoute in listOf("home", "transactions", "analytics", "chat")
+            val onTabScreen = baseRoute in listOf("home", "transactions", "analytics")
             val lastTabRoute = remember { arrayOf(baseRoute) }
             if (onTabScreen) lastTabRoute[0] = baseRoute
             if (!themeState.isLoading) {
@@ -562,7 +529,7 @@ fun MainScreen(
                     selectedRoute = lastTabRoute[0],
                     onTabSelected = ::onTabClick,
                     navBarStyle = themeState.navBarStyle,
-                    // Step aside while typing (Transactions search, Chat) rather
+                    // Step aside while typing (Transactions search) rather
                     // than sit under the keyboard with the docked action.
                     visible = onTabScreen && !WindowInsets.isImeVisible && !hideNavBar.value,
                     hiddenTabs = hiddenTabs,

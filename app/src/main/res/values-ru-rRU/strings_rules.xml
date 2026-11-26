@@ -65,95 +65,89 @@
     <string name="unrecognized_suggestion_credit">%1$s зачисление</string>
     <string name="unrecognized_suggestion_add">Добавить</string>
     <!-- ══ Import statement ══ -->
-    <string name="import_statement_title">Импортировать отчёт</string>
-    <string name="import_statement_back">Назад</string>
-    <string name="import_statement_description">Импортируйте PDF-выписку из Google Pay, PhonePe, Paytm, slice или ICICI Bank либо выписку любого банка в Excel (.xlsx) или CSV. Перед добавлением вы увидите, что нового.</string>
-    <string name="import_statement_select_pdf">Выберите PDF-файл</string>
-    <string name="import_statement_loading_title">Импорт транзакций...</string>
-    <string name="import_statement_loading_body">Читаем выписку и проверяем дубликаты</string>
-    <string name="import_statement_complete">Импорт завершен</string>
-    <string name="import_statement_result_imported">Транзакции импортированы</string>
-    <string name="import_statement_result_enriched">Транзакции обогащены</string>
-    <string name="import_statement_result_total_parsed">Строк в выписке</string>
-    <string name="import_statement_result_duplicates">Дубликаты пропущены: %1$d</string>
-    <string name="import_statement_result_exact">Точный повторный импорт</string>
-    <string name="import_statement_result_by_reference">По ссылке UPI</string>
-    <string name="import_statement_result_by_amount_date">Сумма &amp; даты</string>
-    <string name="import_statement_import_another">Импорт другого</string>
-    <string name="import_statement_done">Готово</string>
-    <string name="import_statement_failed">Не удалось импортировать</string>
-    <string name="import_statement_try_again">Попробовать ещё раз</string>
-    <string name="import_statement_error_unsupported">Формат выписки не поддерживается. Сейчас поддерживаются: Google Pay, PhonePe, Paytm, slice, ICICI Bank. Для других банков импортируйте выписку в Excel (.xlsx) или CSV.</string>
-    <string name="import_statement_error_no_transactions">В выписке не найдено транзакций.</string>
-    <string name="import_statement_error_failed">Не удалось импортировать выписку.</string>
-    <string name="import_statement_error_read">Не удалось прочитать этот файл.</string>
-    <string name="import_statement_error_too_large">Этот файл слишком большой для импорта.</string>
-    <string name="import_statement_error_no_rows">В этом файле нет строк.</string>
-    <string name="import_statement_error_too_many_rows">В этой выписке больше %1$d строк. Экспортируйте более короткий период и импортируйте его.</string>
-    <string name="import_statement_error_date_1904">Эта книга использует систему дат 1904. Сохраните её как .csv и импортируйте.</string>
-    <string name="import_statement_password_title">PDF с паролем</string>
-    <string name="import_statement_password_body">Эта выписка защищена. Введите пароль, который выдал банк. Он нужен только чтобы открыть файл и не сохраняется.</string>
-    <string name="import_statement_password_label">Пароль PDF</string>
-    <string name="import_statement_password_wrong">Неверный пароль. Попробуйте снова.</string>
-    <string name="import_statement_password_open">Открыть</string>
-    <string name="import_statement_password_cancel">Отмена</string>
-    <string name="import_statement_select_spreadsheet">Выберите выписку Excel или CSV</string>
-    <string name="import_statement_xls_hint">Старый файл .xls? Сначала сохраните его как .xlsx или .csv.</string>
-    <string name="import_statement_map_title">Сопоставьте столбцы</string>
-    <string name="import_statement_map_body">Укажите PennyWise, какой столбец что означает. Приложение запомнит это для следующей выписки с такими же столбцами.</string>
-    <string name="import_statement_header_row">Строка заголовков: %1$d</string>
-    <string name="import_statement_header_row_up">Предыдущая строка</string>
-    <string name="import_statement_header_row_down">Следующая строка</string>
-    <string name="import_statement_col_date">Дата</string>
-    <string name="import_statement_col_date_format">Формат даты</string>
-    <string name="import_statement_date_auto">Автоопределение</string>
-    <string name="import_statement_date_auto_found">Автоопределение (%1$s)</string>
-    <string name="import_statement_col_description">Описание</string>
-    <string name="import_statement_amount_split">Списание и зачисление</string>
-    <string name="import_statement_amount_single">Одна сумма</string>
-    <string name="import_statement_col_debit">Списание (расход)</string>
-    <string name="import_statement_col_credit">Зачисление (приход)</string>
-    <string name="import_statement_col_amount">Сумма (минус или Dr = расход)</string>
-    <string name="import_statement_col_type">Столбец Dr/Cr (необязательно)</string>
-    <string name="import_statement_col_balance">Баланс (необязательно)</string>
-    <string name="import_statement_col_reference">Номер операции / UTR (необязательно)</string>
-    <string name="import_statement_date_excel">Дата Excel</string>
-    <string name="import_statement_col_none">Нет</string>
-    <string name="import_statement_column_label">Столбец %1$s</string>
-    <string name="import_statement_account">Счет</string>
-    <string name="import_statement_account_none">Без привязки к счету</string>
-    <string name="import_statement_sample_title">Как читаются строки</string>
-    <string name="import_statement_sample_count">Найдено транзакций: %1$d, пропущено строк: %2$d (пустые, итоги, подвал)</string>
-    <string name="import_statement_sample_empty">С таким сопоставлением транзакций пока нет. Проверьте строку заголовков, столбец «Дата» и его формат, а также столбцы сумм.</string>
-    <string name="import_statement_preview_button">Предпросмотр импорта</string>
-    <string name="import_statement_cancel">Отмена</string>
-    <string name="import_statement_preview_title">Проверьте перед импортом</string>
-    <string name="import_statement_preview_new">Новые</string>
-    <string name="import_statement_preview_matched">Уже есть в PennyWise</string>
-    <string name="import_statement_preview_account">Счет: %1$s</string>
-    <string name="import_statement_preview_new_rows">Новые транзакции</string>
-    <string name="import_statement_preview_new_rows_hint">Снимите отметку с тех, которые не нужно добавлять.</string>
-    <string name="import_statement_preview_all_matched">Все строки этой выписки уже есть в PennyWise.</string>
-    <plurals name="import_statement_confirm">
-        <item quantity="one">Импортировать %1$d транзакцию</item>
-        <item quantity="few">Импортировать %1$d транзакции</item>
-        <item quantity="many">Импортировать %1$d транзакций</item>
-        <item quantity="other">Импортировать %1$d транзакции</item>
-    </plurals>
-    <string name="import_statement_confirm_nothing">Продолжить</string>
-    <string name="import_statement_edit_mapping">Изменить сопоставление</string>
-    <string name="import_statement_balance_title">Проверка конечного баланса</string>
-    <string name="import_statement_balance_subtitle">%1$s на %2$s</string>
-    <string name="import_statement_balance_statement">По выписке</string>
-    <string name="import_statement_balance_app">По PennyWise</string>
-    <string name="import_statement_balance_difference">Разница</string>
-    <string name="import_statement_balance_unknown_note">У PennyWise нет баланса по этому счету на %1$s или раньше, поэтому сравнивать пока не с чем.</string>
-    <string name="import_statement_balance_match">Балансы совпадают.</string>
-    <string name="import_statement_balance_set">Установить баланс %1$s</string>
-    <string name="import_statement_balance_set_note">Баланс по выписке плюс то, что PennyWise записал после ее окончания.</string>
-    <string name="import_statement_balance_applied">Баланс обновлен до %1$s.</string>
-    <string name="import_statement_balance_newer">После этой выписки банк уже сообщил более свежий баланс, поэтому PennyWise оставляет его.</string>
-    <!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
     <string name="upgrade_title">PennyWise Pro</string>
     <string name="upgrade_subtitle_member">Все возможности Pro активны</string>
     <string name="upgrade_subtitle_upgrade">Всё разблокировано с лицензионным ключом</string>

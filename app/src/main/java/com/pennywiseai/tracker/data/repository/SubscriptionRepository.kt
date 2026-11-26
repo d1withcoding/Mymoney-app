@@ -7,10 +7,6 @@ import com.pennywiseai.tracker.data.database.entity.TransactionEntity
 import com.pennywiseai.tracker.data.database.entity.SubscriptionState
 import com.pennywiseai.tracker.data.database.entity.SubscriptionDirection
 import com.pennywiseai.tracker.domain.spending.RecurringCharge
-import com.pennywiseai.parser.core.bank.HDFCBankParser
-import com.pennywiseai.parser.core.bank.IndianBankParser
-import com.pennywiseai.parser.core.bank.SBIBankParser
-import com.pennywiseai.parser.core.bank.FederalBankParser
 import com.pennywiseai.parser.core.MandateInfo
 import com.pennywiseai.shared.domain.mapping.SharedCategoryMapping
 import kotlinx.coroutines.flow.Flow
@@ -86,15 +82,6 @@ class SubscriptionRepository @Inject constructor(
     
     suspend fun deleteSubscription(id: Long) = 
         subscriptionDao.deleteSubscriptionById(id)
-    
-    /**
-     * Creates or updates a subscription from HDFC E-Mandate info
-     */
-    suspend fun createOrUpdateFromEMandate(
-        eMandateInfo: HDFCBankParser.EMandateInfo,
-        bankName: String = "HDFC Bank",
-        smsBody: String? = null
-    ): Long = createOrUpdateFromMandate(eMandateInfo, bankName, smsBody)
     
     /**
      * Active EXPENSE subscriptions billed by [merchantName] in [currency]. Merchant
@@ -179,33 +166,6 @@ class SubscriptionRepository @Inject constructor(
         subscriptionDao.markPaid(subscriptionId, paidAt, nextPaymentDate)
     
     
-    /**
-     * Creates or updates a subscription from Indian Bank Mandate info
-     */
-    suspend fun createOrUpdateFromIndianBankMandate(
-        mandateInfo: IndianBankParser.IndianMandateInfo,
-        bankName: String = "Indian Bank",
-        smsBody: String? = null
-    ): Long = createOrUpdateFromMandate(mandateInfo, bankName, smsBody)
-    
-    /**
-     * Creates or updates a subscription from SBI UPI-Mandate info
-     */
-    suspend fun createOrUpdateFromSBIMandate(
-        upiMandateInfo: SBIBankParser.UPIMandateInfo,
-        bankName: String = "SBI",
-        smsBody: String? = null
-    ): Long = createOrUpdateFromMandate(upiMandateInfo, bankName, smsBody)
-
-    /**
-     * Creates or updates a subscription from Federal Bank E-Mandate info
-     */
-    suspend fun createOrUpdateFromFederalBankMandate(
-        mandateInfo: FederalBankParser.EMandateInfo,
-        bankName: String = "Federal Bank",
-        smsBody: String? = null
-    ): Long = createOrUpdateFromMandate(mandateInfo, bankName, smsBody)
-
     /**
      * Creates or updates a subscription from any MandateInfo implementation.
      * This is the unified method that can handle mandates from any bank.

@@ -34,7 +34,7 @@ enum class GoalFieldError { NAME_BLANK, TARGET_INVALID, DUE_NOT_AFTER_TODAY, ALR
 data class GoalForm(
     val name: String = "",
     val target: String = "",
-    val currency: String = "INR",
+    val currency: String = "GHS",
     val dueDate: LocalDate? = null,
     val color: String = "#1565C0",
     val alreadySaved: String = "",

@@ -305,14 +305,6 @@ dependencies {
     // Kotlin Serialization
     implementation(libs.kotlinx.serialization.json)
 
-    // Ktor for HTTP requests
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.kotlinx.json)
-    // AI access: WebSocket line to the relay (ADR 0002). The WebSockets plugin ships
-    // in ktor-client-core; ktor-client-websockets is an empty artifact.
-    implementation(libs.ktor.client.okhttp) // platform TLS; CIO rejects Cloudflare certs
-
     // DataStore
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.documentfile)
@@ -348,15 +340,8 @@ dependencies {
     // LiteRT-LM for on-device LLM inference
     implementation(libs.litertlm.android)
 
-    // Google Play In-App Updates (only for standard flavor)
-    "standardImplementation"(libs.app.update)
-
-    // Google Play In-App Reviews (only for standard flavor)
-    "standardImplementation"(libs.review)
-
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.ktor.client.mock)
     testImplementation(libs.junit)
     testImplementation(libs.androidx.room.testing)
     // Architecture guardrails (ArchitectureTest): parses app sources, test-only.
@@ -386,14 +371,6 @@ dependencies {
 
     // OpenCSV for CSV export
     implementation(libs.opencsv)
-
-    // PDFBox Android for PDF statement parsing
-    implementation(libs.pdfbox.android)
-
-    // Google Play Billing — STANDARD FLAVOR ONLY. F-Droid forbids the
-    // proprietary library; its build keeps Pro features unlocked via the
-    // FdroidBillingGateway stub and does not need the dep.
-    "standardImplementation"(libs.billing.ktx)
 
     testImplementation(kotlin("test"))
 }

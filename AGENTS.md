@@ -1,134 +1,112 @@
-# PennyWise — Agent Guide
+# Ghana Mobile Money App Guide
 
-PennyWise is a privacy-first, AI-powered expense tracker that extracts
-transactions from bank SMS **entirely on-device**. The primary app is Android
-(Jetpack Compose + Material 3); the repo also contains a Kotlin Multiplatform
-`shared` module, an `iosApp`, and a `pennywise-web` frontend.
+This repository is being adapted into a Ghana-only personal finance app. Treat
+the thesis and the user's requirements in this repository's active task as the
+product specification when they differ from the inherited PennyWise feature
+set.
 
-**This file is a router, not a manual.** Read the linked topic doc when a task
-touches its area. Everything under **Hard Constraints** is non-negotiable.
+## Product scope
 
-**Apply judgment to feature/bug requests — an issue is input, not a spec.** When
-an issue lists several asks, evaluate each on its own merit: ship the clear wins,
-and leave out (with a short note on the issue/PR saying why) the parts that
-reshape a core figure/flow or aren't clearly worth it. Don't implement everything
-an issue lists by default — bias to the smallest change that solves the real
-complaint.
+- Support Ghana and GHS only. The current supported SMS providers are MTN MoMo
+  and Telecel Cash. Add AirtelTigo only when a supplied Ghana corpus sample
+  demonstrates its message format. Do not retain or add rules for other
+  countries, banks, currencies, or mobile-money services.
+- Keep the Home, Transactions, Analytics, and Settings screens. Remove unrelated
+  inherited features when they conflict with the Ghana-only thesis or the
+  user's instructions.
+- Keep SMS parsing, transaction storage, and analytics on-device.
+- The source and fork are committed to AGPL-3.0. Preserve the license and
+  attribution obligations in source files and distribution materials.
 
-## Hard Constraints (never violate)
-1. **Money is always currency-tagged.** Format with
-   `CurrencyFormatter.formatCurrency(amount, currencyCode)` (or the
-   `formatBalance()` / `formatAmount()` entity extensions) — never the
-   currency-less overload (it defaults to ₹ and is `@Deprecated(ERROR)`, so it
-   won't compile). It returns `••••` while the user hides amounts
-   (`AmountPrivacy`); anything that leaves the screen or is stored
-   (notifications, AI prompts/chat text, logs, widgets) passes
-   `maskIfHidden = false`.
-2. **Never sum amounts across currencies.** "₹500 + $10" is not 510 of anything.
-   Total a possibly-mixed list with `Iterable.sumByCurrency({ it.currency },
-   { it.amount })` (`utils/MoneyTotals.kt`) → `Map<currency, Money>`, and render
-   with `CurrencyFormatter.formatByCurrency(...)`. `Money.+` throws on a currency
-   mismatch. A single-figure total is only valid after filtering/converting to
-   one currency. (Both rules guarded by `CurrencyFormatterTest`.)
-3. **Every backup-serialized field must have a Kotlin default value** — Room
-   entity columns *and* the wrapper models in `BackupModels.kt`. Dropping a
-   default re-introduces the "can't restore old backup" bug (#414);
-   `BackupSchemaGuardTest` enforces this. Use `@Contextual` for
-   `BigDecimal`/`LocalDate`/`LocalDateTime`, `@Serializable` for enums. See
-   `docs/backup-format.md` or the **backup-maintainer** skill before touching
-   entities or `data/backup/`.
-4. **Never put PII in code, comments, tests, or anywhere.**
-5. **Never hand-edit the version or changelogs.** `scripts/release.sh` owns
-   `versionCode` / `versionName` and `fastlane/.../changelogs/*` (see Releasing).
-6. **Parser tests use the shared `ParserTestUtils` helpers** — see
-   `docs/parser-test-standards.md`.
-7. **New bank parsers** extend the correct base class (`BaseIndianBankParser` /
-   `UAEBankParser` / `BankParser`) and are registered in `BankParserFactory` —
-   see `docs/adding-bank-parsers.md`.
-8. **Migration SQL must run on the oldest SQLite we support.** minSdk 26 ships
-   SQLite 3.18; Android 13 ships 3.32. The JVM and our new-Android emulators
-   are newer and accept syntax old phones reject: 2.22.0's `HAVING` without
-   `GROUP BY` (3.39+) crashed every launch on Android ≤13. Before merging or
-   releasing a migration, run the update path on the `Api26_Migration` AVD —
-   see `docs/database-migrations.md`.
+## Network and privacy requirements
 
-## Verification — Definition of Done
-Run **`./init.sh`** before claiming a change is done — it runs the same
-format/compile/test gate CI applies (CI's App Compile job additionally assembles a
-debug APK, so a change that compiles but breaks assembly will still surface
-there). Scope it to what you touched:
+- The app must not request Android `INTERNET`, `ACCESS_NETWORK_STATE`, or
+  `CHANGE_NETWORK_STATE` permissions. Keep manifest merge-removal declarations
+  when dependencies contribute these permissions, and inspect the merged
+  manifest whenever an Android SDK is available.
+- Do not add outbound clients, network workers, or SDKs for exchange rates,
+  model downloads, SMS/problem reports, billing, webhooks, AI relays, analytics,
+  or telemetry. Remove dormant clients and their UI, not just their permission
+  or entry point.
+- External links opened in the system browser are not app network clients, but
+  do not use them to submit SMS content or financial data.
+- When auditing, search Android and iOS source for HTTP clients, URLs, URL
+  sessions, workers, and feature flags; also inspect manifest-merger output and
+  dependencies for network-capable components. A source manifest removal rule
+  alone does not prove the final APK has no network permission.
 
-| Change | Command |
-|---|---|
-| Formatting only | `./init.sh format` (every target runs it first) |
-| Parser (`parser-core`) | `./init.sh parser` |
-| App (Kotlin) | `./init.sh app` |
-| Everything | `./init.sh` (default) |
-| Runtime / UI | plus an on-device check (use the **emulator-verify** skill) |
-| DB migration | plus the old-Android update check in `docs/database-migrations.md` |
+## SMS parsing rules
 
-`init.sh` sets `JAVA_HOME` to a JDK 21 (it tries `JAVA_HOME`, macOS `java_home`,
-Android Studio's JBR, SDKMAN, then a Gradle-downloaded JDK). Run the raw
-`./gradlew` tasks it wraps only if you need finer control. `./gradlew build` and
-`lint` are heavier and **not** part of the gate — don't use them to verify.
-Android Lint runs in CI (`./gradlew :app:lintStandardDebug`, ~2–4 min) and fails
-only on errors missing from `app/lint-baseline.xml`. Fix new errors; refresh the
-baseline only after fixing old ones: `./gradlew :app:updateLintBaselineStandardDebug`.
+- Parser implementations live in `parser-core` and must remain pure Kotlin with
+  no Android dependencies. Register supported Ghana services only in
+  `BankParserFactory` and the server parser registry.
+- Write provider rules from the supplied Ghana corpus. Add one unit test per
+  configured template, using synthetic or anonymized examples. Assert amount,
+  `GHS`, transaction direction, and the available balance, counterparty, and
+  reference fields. Include negative/non-transaction cases where applicable.
+- Use shared parser test helpers and conventions in
+  `docs/parser-test-standards.md`.
+- `momo-parse` 0.1.0 is an unlicensed, broken PyPI package: its wheel omits its
+  template configuration, and its README example produced `unknown` with zero
+  confidence. Treat it as a black-box baseline only. Do not copy or re-express
+  its rules or code as an implementation source.
+- `cedikit` 1.3.0 is MIT-licensed and covers MTN and Telecel only. If its
+  templates are re-expressed, retain clear attribution in the parser source.
+  One failed sample is only one observation; do not make broader performance
+  claims from it. It provides no AirtelTigo rules.
+- Derive AirtelTigo rules only from the study corpus. Do not infer its formats
+  from another provider.
+- Do not fold E-Levy into the transaction amount. Parse only explicit amounts
+  and fees represented by the message template and thesis.
+- Keep `docs/BANK_SUPPORT.md`, `docs/supported-banks.json`, generated README
+  support text, and server parser registry aligned with the implemented Ghana
+  parsers. Regenerate generated catalogs with their documented script.
 
-A format failure means `./gradlew spotlessApply`, then review and commit the
-diff. It checks whole files changed since `origin/main`, so touching a legacy
-file means formatting all of it. A lint error marked "no autocorrection" (e.g. a
-comment inside the import list) needs a manual edit first. Opt-in pre-push hook
-with the same check: `git config --local core.hooksPath .githooks` (this
-replaces `.git/hooks`, so move any existing hooks there first).
+## Classifier and AI requirements
 
-## Architecture at a glance
-- **Stack:** Kotlin · Jetpack Compose + Material 3 · MVVM + Clean Architecture ·
-  StateFlow (unidirectional data flow) · Hilt DI · Room · WorkManager (background
-  SMS scanning) · Google AI Edge LiteRT-LM (Qwen 2.5) for on-device AI.
-- **Modules:** `app` (Android) · `parser-core` (pure-Kotlin bank SMS parsers, no
-  Android deps) · `shared` (KMP) · `iosApp` · `pennywise-web`.
-- **UI:** Material You dynamic color (Android 12+), full light/dark with semantic
-  color roles, 8dp grid, Material 3 type scale. All screens use
-  `PennyWiseScaffold` for consistent system-bar / TopAppBar handling. Always
-  check both light and dark themes.
-- **Versioning:** SemVer (MAJOR breaking / MINOR features / PATCH fixes). The
-  live version is in `app/build.gradle.kts`.
+- The thesis specifies a TFLite classifier, not a Qwen 2.5 conversational
+  assistant or a multi-gigabyte model download. Do not add or restore Qwen chat,
+  model-download UI, download workers, or LLM-based classification.
+- The inherited codebase still contains Qwen/model-related implementation in
+  places. Consider the classifier migration and complete removal of those
+  remnants unfinished until they are replaced or removed and verified.
+- Do not claim that the classifier requirement is met by the existing rule
+  parser or SMS scan heuristics. Keep classifier decisions local and testable.
+- SQLCipher support/checking is also a thesis requirement that must be
+  implemented and verified before claiming completion. Do not claim Room data
+  is encrypted by SQLCipher unless the database open path actually uses it and
+  a test/check verifies that configuration.
 
-## Topic Docs — read when the task touches the area
-| Area | Doc | Read when |
-|---|---|---|
-| Architecture / layers | `docs/architecture.md` | Changing layer responsibilities, DI, data flow |
-| Design system | `docs/design.md` | Any UI work — colors, typography, components |
-| State management | `docs/state-management.md` | ViewModels, StateFlow, UI state |
-| Backup & Restore | `docs/backup-format.md` | Touching backed-up entities or `data/backup/` |
-| Adding a bank parser | `docs/adding-bank-parsers.md` | New/changed parser in `parser-core` |
-| Parser tests | `docs/parser-test-standards.md` | Writing parser tests |
-| DB migrations | `docs/database-migrations.md` | Room schema changes |
-| Performance | `docs/performance.md` | Baseline Profiles, Macrobenchmark, startup/scroll/memory/APK-size report (`scripts/perf-report.sh`), leak checks |
-| Supported banks | `docs/BANK_SUPPORT.md`, `docs/supported-banks.json` | Which banks/patterns are covered (170 banks, 26 countries) |
-| AI access (MCP relay, dashboard) | `docs/ai-access.md`, `relay/README.md`, `docs/adr/0002-*` | Touching `aiaccess/`, the relay or the dashboard |
-| Roadmap / requirements | `docs/planned-features.md`, `docs/prd-unified-currency.md` | Feature scope / intent |
+## Persistence and currency constraints
 
-**Skills** (in `.agents/skills/`, shared by every agent; `.claude/skills/` only
-forwards to them): `backup-maintainer` (any persistence change) ·
-`parser-author` (write/fix a parser end-to-end) · `parser-triage` (assess a
-fresh `[BANK]` issue) · `emulator-verify` (on-device check).
+- Keep all money currency-tagged. In this product, default and supported
+  transaction currency is `GHS`; do not silently interpret foreign-currency
+  input as cedis.
+- Never sum amounts with different currencies. If legacy currency support
+  remains in persistence, preserve currency-aware totals and ensure the user
+  interface does not offer unsupported currencies.
+- Every backup-serialized field needs a Kotlin default. Use `@Contextual` for
+  `BigDecimal`, `LocalDate`, and `LocalDateTime`, and `@Serializable` for enums.
+  Read `docs/backup-format.md` before changing entities or backup models.
+- Do not put real SMS content, phone numbers, names, account identifiers, or
+  other PII in code, comments, fixtures, or logs. Use synthetic examples.
+- Database migrations must work on the oldest supported Android SQLite. Follow
+  `docs/database-migrations.md` for migration review and device checks.
 
-## Scope & commits
-- Stay on the task and match the surrounding code. Report unrelated problems
-  instead of fixing them in the same change.
-- One concern per commit, and each commit compiles on its own. Conventional
-  titles in the style of the history, e.g. `fix(parser): …`, `feat(backup): …`.
+## Working and verification conventions
 
-## Releasing
-For a routine release: merge the PRs, then — from an up-to-date `main` with a
-clean tree — run `./scripts/release.sh patch|minor|major --yes` (preview first
-with `--dry-run`). It commits/tags the current branch and pushes `main`, so it
-refuses to run off `main` or from a dirty or stale tree.
-`scripts/release.sh` is the single source of truth — it bumps the version,
-generates changelogs + release notes, builds the APKs (standard flavor signed;
-the F-Droid APK stays unsigned for IzzyOnDroid), tags, pushes, and cuts the
-GitHub release. Full flag reference in `docs/RELEASE.md`.
-`--web` needs Docker (OrbStack) running and `bun install` done in
-`pennywise-web/` — a fresh worktree has no `node_modules`.
+- Read the relevant topic docs before changing app architecture, UI, parser
+  rules, backups, or migrations. Keep changes focused and review generated
+  output after regeneration.
+- Use Java 21 and the installed Gradle distribution. The Gradle wrapper may be
+  pinned to a different version; use the installed `gradle` command when
+  wrapper downloads are unavailable.
+- Parser changes: run `gradle :parser-core:test --console=plain` (or the
+  documented parser gate). App changes: run the app compile gate and inspect
+  the merged manifest. Run tests that cover changed behavior and report any
+  verification that the local environment prevented.
+- The Android compile currently requires SDK Build Tools 36.0.0 and platform
+  37.0 in this checkout. SDK packages and licenses must be available and
+  writable before Gradle can complete Android compilation.
+- Do not hand-edit version numbers or release changelogs; use the repository's
+  release tooling.

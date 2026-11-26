@@ -10,23 +10,23 @@ class OnboardingCurrencyDetectionTest {
     private val supported = CurrencyUtils.getAllSupportedCurrencies()
 
     @Test
-    fun `supported SIM country currency is picked`() {
-        assertEquals("JOD", detectCurrency(listOf("jo", "jo", "US"), supported))
+    fun `Ghana SIM country currency is picked`() {
+        assertEquals("GHS", detectCurrency(listOf("gh", "gh", "US"), supported))
     }
 
     @Test
     fun `unsupported SIM currency falls back to the device locale`() {
         // Swiss SIM (CHF isn't supported), no network country, en_US locale.
-        assertEquals("USD", detectCurrency(listOf("ch", "", "US"), supported))
+        assertEquals("GHS", detectCurrency(listOf("us", "", "US"), supported))
     }
 
     @Test
     fun `network country is tried before the device locale`() {
-        assertEquals("AED", detectCurrency(listOf(null, "ae", "US"), supported))
+        assertEquals("GHS", detectCurrency(listOf(null, "gh", "US"), supported))
     }
 
     @Test
     fun `nothing usable falls back to the default base currency`() {
-        assertEquals("INR", detectCurrency(listOf(null, "", "CH"), supported))
+        assertEquals("GHS", detectCurrency(listOf(null, "", "US"), supported))
     }
 }

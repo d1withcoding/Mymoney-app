@@ -37,7 +37,7 @@ object BudgetWidgetDataStore {
                 netSavings = prefs[NET_SAVINGS]?.toBigDecimalOrNull() ?: BigDecimal.ZERO,
                 savingsRate = prefs[SAVINGS_RATE] ?: 0f,
                 savingsDelta = prefs[SAVINGS_DELTA]?.takeIf { it.isNotBlank() }?.toBigDecimalOrNull(),
-                currency = prefs[CURRENCY] ?: "INR"
+                currency = prefs[CURRENCY] ?: "GHS"
             )
         }
             // A failed read (corrupt file, unknown enum) shows the empty widget

@@ -34,7 +34,6 @@ import com.pennywiseai.tracker.presentation.common.getCycleAwareDateRange
 import com.pennywiseai.tracker.presentation.common.getDateRangeForPeriod
 import com.pennywiseai.tracker.ui.UiText
 import com.pennywiseai.tracker.utils.CurrencyUtils
-import com.pennywiseai.tracker.utils.SmsReportUrlBuilder
 import com.pennywiseai.tracker.utils.dateQueryWindow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -140,7 +139,7 @@ class TransactionsViewModel @Inject constructor(
     private val _sortOption = MutableStateFlow(SortOption.DATE_NEWEST)
     val sortOption: StateFlow<SortOption> = _sortOption.asStateFlow()
 
-    private val _selectedCurrency = MutableStateFlow("INR") // Will be initialized from preferences
+    private val _selectedCurrency = MutableStateFlow("GHS") // Will be initialized from preferences
     val selectedCurrency: StateFlow<String> = _selectedCurrency.asStateFlow()
 
     private val _isUnifiedMode = MutableStateFlow(false)
@@ -1404,9 +1403,6 @@ class TransactionsViewModel @Inject constructor(
         return dates.first.atStartOfDay() to dates.second.atTime(23, 59, 59)
     }
 
-    fun getReportUrl(transaction: TransactionEntity): String {
-        return SmsReportUrlBuilder.buildUrl(context, transaction.smsBody, transaction.smsSender)
-    }
 }
 
 data class TransactionsUiState(

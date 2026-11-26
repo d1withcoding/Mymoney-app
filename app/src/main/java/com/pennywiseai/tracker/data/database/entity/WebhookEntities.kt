@@ -21,7 +21,7 @@ data class WebhookProfileEntity(
     @ColumnInfo(name = "data_types", defaultValue = "SUMMARY,TRANSACTIONS,BUDGETS,ACCOUNTS,SUBSCRIPTIONS")
     val dataTypes: String = "SUMMARY,TRANSACTIONS,BUDGETS,ACCOUNTS,SUBSCRIPTIONS",
     @ColumnInfo(name = "headers_json", defaultValue = "[]") val headersJson: String = "[]",
-    @ColumnInfo(name = "currency", defaultValue = "INR") val currency: String = "INR",
+    @ColumnInfo(name = "currency", defaultValue = "INR") val currency: String = "GHS",
     @ColumnInfo(name = "last_error") val lastError: String? = null,
     @ColumnInfo(name = "consecutive_failures", defaultValue = "0") val consecutiveFailures: Int = 0,
     @ColumnInfo(name = "last_synced_at") val lastSyncedAt: LocalDateTime? = null,

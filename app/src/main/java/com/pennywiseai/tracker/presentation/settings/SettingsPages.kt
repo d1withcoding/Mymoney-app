@@ -27,7 +27,6 @@ fun SettingsSectionScreen(
         SettingsSection.NOTIFICATIONS -> R.string.settings_notifications_section to R.string.settings_notifications_intro
         SettingsSection.SECURITY -> R.string.settings_security_section to R.string.settings_security_intro
         SettingsSection.DATA -> R.string.settings_data_section to R.string.settings_data_intro
-        SettingsSection.AI -> R.string.settings_ai_section to R.string.settings_ai_intro
         SettingsSection.DEVELOPER -> R.string.settings_developer_section to R.string.settings_developer_intro
     }
     SettingsPageScaffold(
@@ -45,8 +44,7 @@ fun SettingsSectionScreen(
             SettingsSection.NOTIFICATIONS -> NotificationsPage()
             SettingsSection.SECURITY -> SecurityPage()
             SettingsSection.DATA -> DataPage(onNavigate)
-            SettingsSection.AI -> AiPage(onNavigate)
-            SettingsSection.DEVELOPER -> DeveloperPage(onNavigate)
+            SettingsSection.DEVELOPER -> DeveloperPage()
         }
     }
 }

@@ -16,7 +16,6 @@ import com.pennywiseai.tracker.ui.icons.CategoryMapping
 import com.pennywiseai.tracker.utils.AmountPrivacy
 import com.pennywiseai.tracker.utils.AppDates
 import com.pennywiseai.tracker.utils.CurrencyFormatter
-import com.pennywiseai.tracker.worker.WebhookSyncScheduler
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -50,9 +49,6 @@ class PennyWiseApplication : Application(), Configuration.Provider {
 
     @Inject
     lateinit var scheduledFolderBackupScheduler: com.pennywiseai.tracker.worker.ScheduledFolderBackupScheduler
-
-    @Inject
-    lateinit var webhookSyncScheduler: WebhookSyncScheduler
 
     @Inject
     lateinit var goalRepository: com.pennywiseai.tracker.data.repository.GoalRepository
@@ -131,7 +127,10 @@ class PennyWiseApplication : Application(), Configuration.Provider {
                 userPreferencesRepository.weeklySummaryEnabled.first()
             )
         }
-        applicationScope.launch { webhookSyncScheduler.observeSchedule() }
+        applicationScope.launch {
+            androidx.work.WorkManager.getInstance(this@PennyWiseApplication)
+                .cancelUniqueWork("pennywise_webhook_periodic_sync")
+        }
 
         // Goal widgets (#914): one hook for every goal write (screens, Add to goal,
         // restore, a linked transaction edited or deleted) instead of one per call site.

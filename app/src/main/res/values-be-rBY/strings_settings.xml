@@ -111,9 +111,8 @@
     <string name="settings_import_data_subtitle">Аднавіць даныя з рэзервовай копіі</string>
     <string name="settings_import_csv_title">Імпарт транзакцый (CSV)</string>
     <string name="settings_import_csv_subtitle">Імпарт з экспарту PennyWise у CSV</string>
-    <string name="settings_import_statement_title">Імпарт выпіскі</string>
-    <string name="settings_import_statement_subtitle">Банкаўскія выпіскі (Excel, CSV) або PDF з UPI-праграм</string>
-    <string name="settings_unrecognized_sms_title">Нераспазнаныя SMS</string>
+
+<string name="settings_unrecognized_sms_title">Нераспазнаныя SMS</string>
     <string name="settings_unrecognized_sms_subtitle">Праглядайце непадтрымліваемыя банкаўскія паведамленні і дасылайце іх нам</string>
     <string name="settings_delete_all_title">Выдаліць усе транзакцыі</string>
     <string name="settings_delete_all_subtitle">Ачысціць гісторыю транзакцый — рахункі і бюджэты застануцца</string>

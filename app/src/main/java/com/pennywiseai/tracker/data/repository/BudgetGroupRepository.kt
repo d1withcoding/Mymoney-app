@@ -275,10 +275,11 @@ class BudgetGroupRepository @Inject constructor(
 
         // Default amounts based on typical monthly spending
         // Users can customize these after creation
-        val isINR = baseCurrency.uppercase() == "INR" || baseCurrency == "₹"
+        val isGHS = baseCurrency.uppercase() == "GHS" || baseCurrency == "GH₵"
 
-        // Multiplier: INR defaults vs USD/other defaults
-        val m = if (isINR) BigDecimal.ONE else BigDecimal("0.012") // ~1 USD = 83 INR
+        // Default groups are expressed in the Ghanaian cedi; other currencies
+        // retain the existing fallback until the user changes their budget currency.
+        val m = if (isGHS) BigDecimal.ONE else BigDecimal("0.012")
 
         fun amount(inrAmount: Long): BigDecimal =
             BigDecimal(inrAmount).multiply(m).setScale(0, RoundingMode.HALF_UP)

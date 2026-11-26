@@ -197,7 +197,7 @@ open class AccountBalanceRepository @Inject constructor(
         timestamp: LocalDateTime,
         smsSource: String? = null,
         sourceType: String? = null,
-        currency: String = "INR"
+        currency: String = "GHS"
     ): Long {
         val existing = getLatestBalance(bankName, accountLast4)
         val balanceEntity = AccountBalanceEntity(
@@ -829,7 +829,7 @@ open class AccountBalanceRepository @Inject constructor(
                 // stored INR default. See [CurrencyFormatter.resolveAccountCurrency].
                 currency = CurrencyFormatter.resolveAccountCurrency(
                     sourceType = latestBalance?.sourceType,
-                    storedCurrency = latestBalance?.currency ?: "INR",
+                    storedCurrency = latestBalance?.currency ?: "GHS",
                     bankName = bankName
                 ),
                 accountType = latestBalance?.accountType,

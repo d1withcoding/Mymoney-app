@@ -1,9 +1,8 @@
 import SwiftUI
 
-/// The project's GitHub links, in one place so they can't drift apart.
+/// The project's GitHub repository link.
 enum AppLinks {
     static let repo = "https://github.com/sarim2000/pennywiseai-tracker"
-    static let newIssue = repo + "/issues/new/choose"
 }
 
 struct AboutScreen: View {
@@ -57,20 +56,6 @@ struct AboutScreen: View {
                     }
                 }
 
-                Button {
-                    if let url = URL(string: AppLinks.newIssue) {
-                        UIApplication.shared.open(url)
-                    }
-                } label: {
-                    Label {
-                        Text("Report an Issue")
-                            .font(AppTypography.body)
-                            .foregroundStyle(.primary)
-                    } icon: {
-                        Image(systemName: "exclamationmark.bubble")
-                            .foregroundStyle(.orange)
-                    }
-                }
             }
 
             Section {

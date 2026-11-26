@@ -13,23 +13,7 @@ import com.pennywiseai.parser.core.bank.BankParserFactory
  */
 object BankNotificationConfig {
 
-    internal val allowedPackages: Map<String, String> = mapOf(
-        // Faysal Bank (Pakistan) – alias must match FaysalBankParser.canHandle()
-        "com.avanza.ambitwizfbl" to "FaysalBank",
-        // Enpara (Turkey) – alias must match EnparaBankParser.canHandle()
-        "finansbank.enpara" to "Enpara",      // Enpara.com Cep Şubesi (personal, older brand)
-        "com.enparabank.retail" to "Enpara",  // Enpara Bank Cep Şube (personal, post-rebrand)
-        // slice (India) – alias must match SliceParser.canHandle()
-        "indwin.c3.shareapp" to "slice",
-        // Notification-only providers (UK) – aliases must match their parsers
-        "com.chase.intl" to "ChaseUK",        // Chase UK — distinct from the US Chase parser
-        "com.avuscapital.trading212" to "Trading212",
-        // Huntington (USA) – app notifications use the same wording as its texts;
-        // alias must match HuntingtonBankParser.canHandle()
-        "com.huntington.m" to "Huntington",   // Huntington Mobile Banking
-        // Dubai First (UAE credit cards, a FAB brand) – alias must match DubaiFirstParser.canHandle()
-        "com.bankfab.pbg.ae.dubaifirst" to "DubaiFirst"
-    )
+    internal val allowedPackages: Map<String, String> = emptyMap()
 
     /** Sender aliases notification-booked transactions are saved under. */
     val notificationAliases: Set<String> by lazy { allowedPackages.values.toSet() }

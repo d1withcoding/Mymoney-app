@@ -16,7 +16,7 @@ data class ParsedTransaction(
     val bankName: String,
     val transactionHash: String? = null,
     val isFromCard: Boolean = false,
-    val currency: String = "INR",
+    val currency: String = "GHS",
     val fromAccount: String? = null,
     val toAccount: String? = null,
     // Mobile-money wallet (e.g. eMola, M-Pesa Mozambique): the SMS carries a

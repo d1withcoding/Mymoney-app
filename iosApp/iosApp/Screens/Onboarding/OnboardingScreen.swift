@@ -7,7 +7,7 @@ struct OnboardingScreen: View {
     @ObservedObject private var themeManager = ThemeManager.shared
     @Environment(\.isAmoledActive) private var isAmoled
 
-    private let totalSteps = 3
+    private let totalSteps = 2
 
     var body: some View {
         VStack(spacing: 0) {
@@ -18,8 +18,6 @@ struct OnboardingScreen: View {
                 ProfileStep()
                     .tag(1)
 
-                ImportStep(viewModel: viewModel)
-                    .tag(2)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)

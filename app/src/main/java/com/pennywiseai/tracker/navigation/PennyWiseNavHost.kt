@@ -184,18 +184,6 @@ fun PennyWiseNavHost(
                         )
                     }
 
-                    entry<AiAccess> { key ->
-                        com.pennywiseai.tracker.presentation.settings.aiaccess.AiAccessScreen(
-                            onNavigateBack = { backStack.pop(key) }
-                        )
-                    }
-
-                    entry<Webhooks> { key ->
-                        com.pennywiseai.tracker.presentation.settings.webhooks.WebhooksScreen(
-                            onNavigateBack = { backStack.pop(key) }
-                        )
-                    }
-
                     // Settings opens it inside its tab; a taught message's notification opens it here.
                     entry<UnrecognizedSms> { key ->
                         com.pennywiseai.tracker.presentation.unrecognized.UnrecognizedSmsScreen(

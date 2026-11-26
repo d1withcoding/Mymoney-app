@@ -65,95 +65,89 @@
     <string name="unrecognized_suggestion_credit">Залічэнне %1$s</string>
     <string name="unrecognized_suggestion_add">Дадаць</string>
     <!-- ══ Import statement ══ -->
-    <string name="import_statement_title">Імпарт выпіскі</string>
-    <string name="import_statement_back">Назад</string>
-    <string name="import_statement_description">Імпартуйце PDF-выпіску з Google Pay, PhonePe, Paytm, slice ці ICICI Bank або выпіску любога банка ў Excel (.xlsx) ці CSV. Перад даданнем вы ўбачыце, што новае.</string>
-    <string name="import_statement_select_pdf">Выбраць PDF-выпіску</string>
-    <string name="import_statement_loading_title">Імпарт транзакцый...</string>
-    <string name="import_statement_loading_body">Чытаем выпіску і шукаем дублікаты</string>
-    <string name="import_statement_complete">Імпарт завершаны</string>
-    <string name="import_statement_result_imported">Імпартавана транзакцый</string>
-    <string name="import_statement_result_enriched">Дапоўнена транзакцый</string>
-    <string name="import_statement_result_total_parsed">Радкоў у выпісцы</string>
-    <string name="import_statement_result_duplicates">Прапушчана дублікатаў: %1$d</string>
-    <string name="import_statement_result_exact">Паўторны імпарт</string>
-    <string name="import_statement_result_by_reference">Па нумары UPI</string>
-    <string name="import_statement_result_by_amount_date">Па суме і даце</string>
-    <string name="import_statement_import_another">Імпартаваць яшчэ</string>
-    <string name="import_statement_done">Гатова</string>
-    <string name="import_statement_failed">Памылка імпарту</string>
-    <string name="import_statement_try_again">Паспрабаваць зноў</string>
-    <string name="import_statement_error_unsupported">Фармат выпіскі не падтрымліваецца. Зараз падтрымліваюцца: Google Pay, PhonePe, Paytm, slice, ICICI Bank. Для іншых банкаў імпартуйце выпіску ў Excel (.xlsx) або CSV.</string>
-    <string name="import_statement_error_no_transactions">У выпісцы не знойдзена транзакцый.</string>
-    <string name="import_statement_error_failed">Не ўдалося імпартаваць выпіску.</string>
-    <string name="import_statement_error_read">Не ўдалося прачытаць гэты файл.</string>
-    <string name="import_statement_error_too_large">Гэты файл занадта вялікі для імпарту.</string>
-    <string name="import_statement_error_no_rows">У гэтым файле няма радкоў.</string>
-    <string name="import_statement_error_too_many_rows">У гэтай выпісцы больш за %1$d радкоў. Экспартуйце карацейшы перыяд і імпартуйце яго.</string>
-    <string name="import_statement_error_date_1904">Гэтая кніга выкарыстоўвае сістэму дат 1904. Захавайце яе як .csv і імпартуйце.</string>
-    <string name="import_statement_password_title">PDF з паролем</string>
-    <string name="import_statement_password_body">Гэтая выпіска заблакіравана. Увядзіце пароль, які даў вам банк. Ён патрэбны толькі каб адкрыць файл і не захоўваецца.</string>
-    <string name="import_statement_password_label">Пароль PDF</string>
-    <string name="import_statement_password_wrong">Няправільны пароль. Паспрабуйце яшчэ раз.</string>
-    <string name="import_statement_password_open">Адкрыць</string>
-    <string name="import_statement_password_cancel">Скасаваць</string>
-    <string name="import_statement_select_spreadsheet">Выбраць выпіску Excel або CSV</string>
-    <string name="import_statement_xls_hint">Стары файл .xls? Спачатку захавайце яго як .xlsx або .csv.</string>
-    <string name="import_statement_map_title">Супаставіць слупкі</string>
-    <string name="import_statement_map_body">Пакажыце PennyWise, які слупок што азначае. Ён запомніць гэта для наступнай выпіскі з такімі ж слупкамі.</string>
-    <string name="import_statement_header_row">Радок загалоўка: %1$d</string>
-    <string name="import_statement_header_row_up">Папярэдні радок</string>
-    <string name="import_statement_header_row_down">Наступны радок</string>
-    <string name="import_statement_col_date">Дата</string>
-    <string name="import_statement_col_date_format">Фармат даты</string>
-    <string name="import_statement_date_auto">Аўтавызначэнне</string>
-    <string name="import_statement_date_auto_found">Аўтавызначэнне (%1$s)</string>
-    <string name="import_statement_col_description">Апісанне</string>
-    <string name="import_statement_amount_split">Спісанне і залічэнне</string>
-    <string name="import_statement_amount_single">Адна сума</string>
-    <string name="import_statement_col_debit">Спісанне (расход)</string>
-    <string name="import_statement_col_credit">Залічэнне (прыход)</string>
-    <string name="import_statement_col_amount">Сума (адмоўная або Dr = расход)</string>
-    <string name="import_statement_col_type">Слупок Dr/Cr (неабавязкова)</string>
-    <string name="import_statement_col_balance">Баланс (неабавязкова)</string>
-    <string name="import_statement_col_reference">Нумар аперацыі / UTR (неабавязкова)</string>
-    <string name="import_statement_date_excel">Дата Excel</string>
-    <string name="import_statement_col_none">Няма</string>
-    <string name="import_statement_column_label">Слупок %1$s</string>
-    <string name="import_statement_account">Рахунак</string>
-    <string name="import_statement_account_none">Не прывязана да рахунку</string>
-    <string name="import_statement_sample_title">Як чытаюцца радкі</string>
-    <string name="import_statement_sample_count">Знойдзена транзакцый: %1$d, прапушчана радкоў: %2$d (пустыя, вынікі, ніжнія калантытулы)</string>
-    <string name="import_statement_sample_empty">З такімі наладамі транзакцый пакуль няма. Праверце радок загалоўка, слупок даты і яго фармат, а таксама слупкі сум.</string>
-    <string name="import_statement_preview_button">Папярэдні прагляд</string>
-    <string name="import_statement_cancel">Скасаваць</string>
-    <string name="import_statement_preview_title">Праверце перад імпартам</string>
-    <string name="import_statement_preview_new">Новыя</string>
-    <string name="import_statement_preview_matched">Ужо ёсць у PennyWise</string>
-    <string name="import_statement_preview_account">Рахунак: %1$s</string>
-    <string name="import_statement_preview_new_rows">Новыя транзакцыі</string>
-    <string name="import_statement_preview_new_rows_hint">Зніміце адзнаку з тых, якія не трэба дадаваць.</string>
-    <string name="import_statement_preview_all_matched">Усе радкі гэтай выпіскі ўжо ёсць у PennyWise.</string>
-    <plurals name="import_statement_confirm">
-        <item quantity="one">Імпартаваць %1$d транзакцыю</item>
-        <item quantity="few">Імпартаваць %1$d транзакцыі</item>
-        <item quantity="many">Імпартаваць %1$d транзакцый</item>
-        <item quantity="other">Імпартаваць %1$d транзакцыі</item>
-    </plurals>
-    <string name="import_statement_confirm_nothing">Працягнуць</string>
-    <string name="import_statement_edit_mapping">Змяніць супастаўленне слупкоў</string>
-    <string name="import_statement_balance_title">Праверка выніковага балансу</string>
-    <string name="import_statement_balance_subtitle">%1$s на %2$s</string>
-    <string name="import_statement_balance_statement">У выпісцы</string>
-    <string name="import_statement_balance_app">У PennyWise</string>
-    <string name="import_statement_balance_difference">Розніца</string>
-    <string name="import_statement_balance_unknown_note">У PennyWise няма балансу гэтага рахунку на %1$s ці раней, таму пакуль няма з чым параўнаць.</string>
-    <string name="import_statement_balance_match">Балансы супадаюць.</string>
-    <string name="import_statement_balance_set">Задаць баланс %1$s</string>
-    <string name="import_statement_balance_set_note">Баланс з выпіскі плюс тое, што PennyWise запісаў пасля заканчэння выпіскі.</string>
-    <string name="import_statement_balance_applied">Баланс абноўлены: %1$s.</string>
-    <string name="import_statement_balance_newer">Пасля гэтай выпіскі банк паведаміў пра навейшы баланс, таму PennyWise пакідае яго.</string>
-    <!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
     <string name="upgrade_subtitle_member">Усе магчымасці Pro актыўныя</string>
     <string name="upgrade_subtitle_upgrade">Усё адкрываецца ліцэнзійным ключом</string>
     <string name="upgrade_enter_license_key">Увесці ліцэнзійны ключ</string>

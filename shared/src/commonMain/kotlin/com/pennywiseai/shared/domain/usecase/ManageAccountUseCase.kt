@@ -8,7 +8,7 @@ import com.pennywiseai.shared.data.util.currentTimeMillis
 class ManageAccountUseCase(
     private val repository: SharedAccountRepository
 ) {
-    suspend fun addBalance(bankName: String, accountLast4: String, balanceMinor: Long, currency: String = "INR"): Long {
+    suspend fun addBalance(bankName: String, accountLast4: String, balanceMinor: Long, currency: String = "GHS"): Long {
         val now = currentTimeMillis()
         return repository.insertBalance(
             SharedAccountBalanceEntity(

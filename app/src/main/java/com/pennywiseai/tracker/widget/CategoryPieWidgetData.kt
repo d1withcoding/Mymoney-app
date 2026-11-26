@@ -24,7 +24,7 @@ data class CategoryPieSlice(
 data class CategoryPieWidgetData(
     /** The cycle's first day, ISO (2026-10-01); blank in snapshots from before it. */
     val cycleStart: String = "",
-    val currency: String = "INR",
+    val currency: String = "GHS",
     /** Plain decimal ("241.198"); blank in snapshots from before it. */
     val total: String = "",
     val slices: List<CategoryPieSlice> = emptyList()

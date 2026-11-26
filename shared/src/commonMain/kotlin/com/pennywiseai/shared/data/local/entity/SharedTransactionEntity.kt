@@ -30,7 +30,7 @@ data class SharedTransactionEntity(
     @ColumnInfo(name = "note")
     val note: String? = null,
     @ColumnInfo(name = "currency", defaultValue = "INR")
-    val currency: String = "INR",
+    val currency: String = "GHS",
     @ColumnInfo(name = "transaction_hash")
     val transactionHash: String? = null,
     @ColumnInfo(name = "reference")

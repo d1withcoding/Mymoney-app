@@ -36,7 +36,7 @@ class AddTransactionUseCase @Inject constructor(
         isRecurring: Boolean = false,
         bankName: String? = null,
         accountLast4: String? = null,
-        currency: String = "INR",
+        currency: String = "GHS",
         receiptPath: String? = null,
         budgetCategory: String? = null,
         budgetImpactType: BudgetImpactType? = null
@@ -156,7 +156,7 @@ class AddTransactionUseCase @Inject constructor(
         notes: String? = null,
         reference: String? = null,
         tags: List<String> = emptyList(),
-        currency: String = "INR",
+        currency: String = "GHS",
         fromBankName: String,
         fromLast4: String,
         toBankName: String,

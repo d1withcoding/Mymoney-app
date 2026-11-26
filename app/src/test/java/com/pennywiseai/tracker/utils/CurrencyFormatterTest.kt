@@ -247,26 +247,11 @@ class CurrencyFormatterTest {
         )
     }
 
-    // ── South American pesos (#654) ──
-
     @Test
-    fun `ARS CLP UYU are selectable and carry non-USD symbols`() {
-        // Every peso must be in the pickers' source list…
-        listOf("ARS", "CLP", "UYU").forEach { code ->
-            assertTrue(
-                "$code missing from CurrencyFormatter.getSupportedCurrencies()",
-                code in CurrencyFormatter.getSupportedCurrencies()
-            )
-            assertTrue(
-                "$code missing from CurrencyUtils.getAllSupportedCurrencies()",
-                code in CurrencyUtils.getAllSupportedCurrencies()
-            )
-        }
-        // …and no peso may render as a bare "$" — that reads as USD in a
-        // mixed-currency list (the reporter's exact workaround-pain in #654).
-        assertEquals("AR$", CurrencyFormatter.getCurrencySymbol("ARS"))
-        assertEquals("CL$", CurrencyFormatter.getCurrencySymbol("CLP"))
-        assertEquals("\$U", CurrencyFormatter.getCurrencySymbol("UYU"))
+    fun `Ghana cedi is the only selectable currency`() {
+        assertEquals(listOf("GHS"), CurrencyUtils.getAllSupportedCurrencies())
+        assertEquals(listOf("GHS"), CurrencyUtils.sortCurrencies(listOf("USD", "GHS", "INR")))
+        assertEquals("GH₵", CurrencyFormatter.getCurrencySymbol("GHS"))
     }
 
     @Test

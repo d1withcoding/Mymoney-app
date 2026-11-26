@@ -6,7 +6,6 @@ import com.pennywiseai.shared.data.local.entity.SharedBudgetEntity
 import com.pennywiseai.shared.data.local.entity.SharedSubscriptionEntity
 import com.pennywiseai.shared.data.model.SharedTransaction
 import com.pennywiseai.shared.data.model.SharedTransactionType
-import com.pennywiseai.shared.data.statement.SharedStatementImportResult
 import com.pennywiseai.shared.data.util.currentTimeMillis
 import com.pennywiseai.shared.data.util.monthStartEpochMillis
 import com.pennywiseai.shared.data.util.monthStartEpochMillisIST
@@ -20,7 +19,6 @@ import com.pennywiseai.shared.domain.usecase.AiSmsReading
 import com.pennywiseai.shared.domain.usecase.BankSmsImportResult
 import com.pennywiseai.shared.domain.usecase.CreateManualTransactionUseCase
 import com.pennywiseai.shared.domain.usecase.ImportBankSmsUseCase
-import com.pennywiseai.shared.domain.usecase.ImportStatementUseCase
 import com.pennywiseai.shared.domain.usecase.ManualTransactionInput
 import com.pennywiseai.shared.domain.usecase.TransactionMutationResult
 import com.pennywiseai.shared.domain.usecase.UpdateManualTransactionUseCase
@@ -144,10 +142,6 @@ class PennyWiseSharedFacade {
     private val graph by lazy { SharedDataGraph.getInstance() }
     private val createUseCase by lazy { CreateManualTransactionUseCase(graph.transactionRepository, graph.accountRepository) }
     private val updateUseCase by lazy { UpdateManualTransactionUseCase(graph.transactionRepository, graph.accountRepository) }
-    private val importStatementUseCase by lazy {
-        ImportStatementUseCase(graph.transactionRepository, graph.accountRepository, graph.ruleRepository)
-    }
-
     private val importBankSmsUseCase by lazy {
         ImportBankSmsUseCase(
             graph.transactionRepository,
@@ -226,7 +220,7 @@ class PennyWiseSharedFacade {
         category: String,
         amountMinor: Long,
         note: String? = null,
-        currency: String = "INR"
+        currency: String = "GHS"
     ): SharedHomeSnapshot = safeSnapshot {
         addTransactionAndLoadHome(
             merchantName = merchantName,
@@ -246,7 +240,7 @@ class PennyWiseSharedFacade {
         category: String,
         amountMinor: Long,
         note: String? = null,
-        currency: String = "INR",
+        currency: String = "GHS",
         transactionType: String = "EXPENSE",
         occurredAtEpochMillis: Long,
         bankName: String? = null,
@@ -281,7 +275,7 @@ class PennyWiseSharedFacade {
         category: String,
         amountMinor: Long,
         note: String? = null,
-        currency: String = "INR"
+        currency: String = "GHS"
     ): SharedHomeSnapshot = safeSnapshot {
         updateTransactionAndLoadHome(
             transactionId = transactionId,
@@ -303,7 +297,7 @@ class PennyWiseSharedFacade {
         category: String,
         amountMinor: Long,
         note: String? = null,
-        currency: String = "INR",
+        currency: String = "GHS",
         transactionType: String = "EXPENSE",
         occurredAtEpochMillis: Long,
         bankName: String? = null,
@@ -329,31 +323,6 @@ class PennyWiseSharedFacade {
                 is TransactionMutationResult.Success -> loadHomeSnapshot()
                 is TransactionMutationResult.ValidationError -> loadHomeSnapshot(result.message)
                 is TransactionMutationResult.NotFound -> loadHomeSnapshot(result.message)
-            }
-        }
-    }
-
-    fun importStatementTextAndLoadHome(statementText: String): SharedHomeSnapshot = safeSnapshot {
-        runBlocking {
-            // Debug: parse and print first 3 transactions with timestamps
-            val debugParser = com.pennywiseai.shared.data.statement.SharedStatementParserFactory.getParser(statementText)
-            if (debugParser != null) {
-                val debugParsed = debugParser.parse(statementText)
-                debugParsed.take(3).forEachIndexed { i, tx ->
-                    println("[PennyWise DEBUG] Tx #${i + 1}: merchant=${tx.merchant}, amount=${tx.amountMinor}, timestamp=${tx.timestampEpochMillis}, type=${tx.transactionType}, bank=${tx.bankName}")
-                }
-            }
-
-            when (val result = importStatementUseCase.importFromText(statementText)) {
-                is SharedStatementImportResult.Success -> {
-                    loadHomeSnapshot(
-                        lastError = null,
-                        imported = result.imported,
-                        parsed = result.totalParsed,
-                        skipped = result.skippedDuplicates
-                    )
-                }
-                is SharedStatementImportResult.Error -> loadHomeSnapshot(result.message)
             }
         }
     }
@@ -526,7 +495,7 @@ class PennyWiseSharedFacade {
         startEpochMillis: Long,
         endEpochMillis: Long,
         groupType: String = "LIMIT",
-        currency: String = "INR",
+        currency: String = "GHS",
         categoryLimits: List<SharedBudgetCategoryBreakdown> = emptyList()
     ): Long {
         return try {
@@ -572,7 +541,7 @@ class PennyWiseSharedFacade {
         startEpochMillis: Long,
         endEpochMillis: Long,
         groupType: String = "LIMIT",
-        currency: String = "INR",
+        currency: String = "GHS",
         categoryLimits: List<SharedBudgetCategoryBreakdown> = emptyList()
     ): Boolean {
         return try {
@@ -637,7 +606,7 @@ class PennyWiseSharedFacade {
         accountLast4: String,
         accountType: String = "SAVINGS",
         balanceMinor: Long = 0L,
-        currency: String = "INR"
+        currency: String = "GHS"
     ): Boolean {
         return try {
             runBlocking {
@@ -783,7 +752,7 @@ class PennyWiseSharedFacade {
         merchantName: String,
         amountMinor: Long,
         category: String? = null,
-        currency: String = "INR"
+        currency: String = "GHS"
     ): SharedHomeSnapshot = safeSnapshot {
         runBlocking {
             val now = com.pennywiseai.shared.data.util.currentTimeMillis()
@@ -817,7 +786,7 @@ class PennyWiseSharedFacade {
         merchantName: String,
         amountMinor: Long,
         category: String? = null,
-        currency: String = "INR"
+        currency: String = "GHS"
     ): Boolean {
         return try {
             runBlocking {
@@ -844,7 +813,7 @@ class PennyWiseSharedFacade {
         merchantName: String,
         amountMinor: Long,
         category: String? = null,
-        currency: String = "INR"
+        currency: String = "GHS"
     ): Boolean {
         return try {
             runBlocking {

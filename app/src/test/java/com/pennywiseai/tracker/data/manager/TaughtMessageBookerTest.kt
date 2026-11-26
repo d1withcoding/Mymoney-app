@@ -73,20 +73,19 @@ class TaughtMessageBookerTest {
 
     @Test
     fun `a bank parser that reads the message wins`() {
-        // "HDFCBK" has a real parser, and this is a message it books.
-        val body = "Rs.500.00 debited from HDFC Bank A/c XX1234 on 12-10-26 to VPA shop@upi. Ref 123456789012."
-        val hdfc = "VM-HDFCBK"
-        val parser = com.pennywiseai.parser.core.bank.BankParserFactory.getParsers(hdfc).firstOrNull()
-        assertNotNull("expected a parser for $hdfc", parser)
-        org.junit.Assume.assumeNotNull(parser!!.parse(body, hdfc, 1L))
+        val body = "Payment made for GHS 20.00 to LOUISA BOATENG Current Balance: GHS 1037.64 . Available Balance: GHS 1037.64 Reference: n. Transaction ID: 76664093335. Fee charged: GHS0.00 Tax charged: 0."
+        val sender = "MobileMoney"
+        val parser = com.pennywiseai.parser.core.bank.BankParserFactory.getParsers(sender).firstOrNull()
+        assertNotNull("expected an MTN MoMo parser", parser)
+        org.junit.Assume.assumeNotNull(parser!!.parse(body, sender, 1L))
         val shape = MessageTemplates.build(
-            id = "h", senderKey = "HDFCBK", body = body,
-            selection = TeachSelection(amount = body.indexOf("500.00") until body.indexOf("500.00") + 6),
-            type = TransactionType.EXPENSE, currency = "INR", bankName = "HDFC"
+            id = "h", senderKey = "MOBILEMONEY", body = body,
+            selection = TeachSelection(amount = body.indexOf("20.00") until body.indexOf("20.00") + 5),
+            type = TransactionType.EXPENSE, currency = "GHS", bankName = "MTN MoMo"
         )!!
-        every { store.forSender(hdfc) } returns listOf(shape)
-        assertNull(booker.read(hdfc, body, 1L))
-        assertFalse(booker.formatChanged(hdfc, body, 1L))
+        every { store.forSender(sender) } returns listOf(shape)
+        assertNull(booker.read(sender, body, 1L))
+        assertFalse(booker.formatChanged(sender, body, 1L))
     }
 
     @Test

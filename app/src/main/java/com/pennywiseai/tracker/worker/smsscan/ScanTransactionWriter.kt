@@ -2,7 +2,6 @@ package com.pennywiseai.tracker.worker.smsscan
 
 import android.util.Log
 import com.pennywiseai.parser.core.ParsedTransaction
-import com.pennywiseai.parser.core.bank.BaseIndianBankParser
 import com.pennywiseai.tracker.data.database.PennyWiseDatabase
 import com.pennywiseai.tracker.data.database.entity.AccountBalanceEntity
 import com.pennywiseai.tracker.data.database.entity.CardType
@@ -38,7 +37,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.SendChannel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.sync.withLock
-import kotlinx.datetime.toJavaLocalDateTime
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -122,21 +120,21 @@ internal class ScanTransactionWriter(
     private fun Long.toLocalDateTime(): LocalDateTime =
         LocalDateTime.ofInstant(Instant.ofEpochMilli(this), systemZone)
 
-    suspend fun saveBalanceNotification(
-        info: BaseIndianBankParser.BaseBalanceUpdateInfo,
-        currency: String,
-        sms: ScannedSms
-    ) = BankAccountMergeStore.mutationMutex.withLock {
-        val suffix = info.accountLast4?.let { bankAccountMerges.resolveSuffix(info.bankName, currency, it) }
-        // Balance-only notifications bypass saveTransaction, so apply the same account gates here.
-        if (!ignoredAccountsStore.isIgnored(info.bankName, suffix)) {
-            accountBalanceRepository.insertBalanceUpdate(
-                bankName = info.bankName,
-                accountLast4 = suffix ?: "XXXX",
-                balance = info.balance,
-                timestamp = info.asOfDate?.toJavaLocalDateTime() ?: sms.timestamp.toLocalDateTime(),
-                currency = currency
-            )
+    suspend fun saveBalanceNotification(parsed: ParsedTransaction, sms: ScannedSms) {
+        val balance = parsed.balance ?: return
+        val suffix = parsed.accountLast4?.let {
+            bankAccountMerges.resolveSuffix(parsed.bankName, parsed.currency, it)
+        } ?: "XXXX"
+        BankAccountMergeStore.mutationMutex.withLock {
+            if (!ignoredAccountsStore.isIgnored(parsed.bankName, suffix)) {
+                accountBalanceRepository.insertBalanceUpdate(
+                    bankName = parsed.bankName,
+                    accountLast4 = suffix,
+                    balance = balance,
+                    timestamp = sms.timestamp.toLocalDateTime(),
+                    currency = parsed.currency
+                )
+            }
         }
     }
 

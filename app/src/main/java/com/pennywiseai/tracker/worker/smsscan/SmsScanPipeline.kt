@@ -104,9 +104,9 @@ internal class SmsScanPipeline(
                             if (unrecognizedBatch.size >= UNRECOGNIZED_BATCH_SIZE)
                                 writer.flushUnrecognizedBatch(unrecognizedBatch, isTaught)
                         }
-                        is ParseResult.SpecialNotification -> {
-                            try { result.onSave() }
-                            catch (e: Exception) { Log.e(TAG, "Error saving special notification: ${e.message}") }
+                        is ParseResult.BalanceUpdate -> {
+                            try { writer.saveBalanceNotification(result.parsed, result.sms) }
+                            catch (e: Exception) { Log.e(TAG, "Error saving Ghana wallet balance: ${e.message}") }
                         }
                         is ParseResult.Transaction -> {
                             stats.parsed.incrementAndGet()

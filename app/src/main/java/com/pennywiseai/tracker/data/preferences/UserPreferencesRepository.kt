@@ -281,10 +281,10 @@ open class UserPreferencesRepository internal constructor(
                 hasShownScanTutorial = preferences[PreferencesKeys.HAS_SHOWN_SCAN_TUTORIAL] ?: false,
                 smsScanMonths = preferences[PreferencesKeys.SMS_SCAN_MONTHS] ?: 3,
                 smsScanAllTime = preferences[PreferencesKeys.SMS_SCAN_ALL_TIME] ?: true,
-                baseCurrency = preferences[PreferencesKeys.BASE_CURRENCY] ?: "INR",
+                baseCurrency = preferences[PreferencesKeys.BASE_CURRENCY] ?: "GHS",
                 unifiedCurrencyMode = preferences[PreferencesKeys.UNIFIED_CURRENCY_MODE] ?: false,
                 displayCurrency = preferences[PreferencesKeys.DISPLAY_CURRENCY]
-                    ?: preferences[PreferencesKeys.BASE_CURRENCY] ?: "INR",
+                    ?: preferences[PreferencesKeys.BASE_CURRENCY] ?: "GHS",
                 blurEffectsEnabled = preferences[PreferencesKeys.BLUR_EFFECTS_ENABLED] ?: true,
                 navBarStyle = preferences[PreferencesKeys.NAV_BAR_STYLE]?.let {
                     try { NavBarStyle.valueOf(it) } catch (_: Exception) { NavBarStyle.FLOATING }
@@ -304,7 +304,7 @@ open class UserPreferencesRepository internal constructor(
 
     override val baseCurrency: Flow<String> = dataStore.data
         .map { preferences ->
-            preferences[PreferencesKeys.BASE_CURRENCY] ?: "INR"
+            preferences[PreferencesKeys.BASE_CURRENCY] ?: "GHS"
         }
 
     override val unifiedCurrencyMode: Flow<Boolean> = dataStore.data
@@ -315,7 +315,7 @@ open class UserPreferencesRepository internal constructor(
     override val displayCurrency: Flow<String> = dataStore.data
         .map { preferences ->
             preferences[PreferencesKeys.DISPLAY_CURRENCY]
-                ?: preferences[PreferencesKeys.BASE_CURRENCY] ?: "INR"
+                ?: preferences[PreferencesKeys.BASE_CURRENCY] ?: "GHS"
         }
 
     val isDeveloperModeEnabled: Flow<Boolean> = dataStore.data
@@ -1492,9 +1492,9 @@ data class UserPreferences(
     val hasShownScanTutorial: Boolean = false,
     val smsScanMonths: Int = 3,
     val smsScanAllTime: Boolean = true,
-    val baseCurrency: String = "INR",
+    val baseCurrency: String = "GHS",
     val unifiedCurrencyMode: Boolean = false,
-    val displayCurrency: String = "INR",
+    val displayCurrency: String = "GHS",
     val blurEffectsEnabled: Boolean = true,
     val navBarStyle: NavBarStyle = NavBarStyle.FLOATING,
     val hiddenNavTabs: Set<String> = emptySet(),

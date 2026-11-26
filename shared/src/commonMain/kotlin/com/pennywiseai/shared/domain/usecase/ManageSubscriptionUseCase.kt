@@ -12,7 +12,7 @@ class ManageSubscriptionUseCase(
         merchantName: String,
         amountMinor: Long,
         category: String?,
-        currency: String = "INR"
+        currency: String = "GHS"
     ): Long {
         val now = currentTimeMillis()
         return repository.upsert(

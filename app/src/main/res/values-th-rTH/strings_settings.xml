@@ -106,9 +106,8 @@
     <string name="settings_import_data_subtitle">กู้คืนข้อมูลจากการสำรอง</string>
     <string name="settings_import_csv_title">นำเข้าธุรกรรม (CSV)</string>
     <string name="settings_import_csv_subtitle">นำเข้าจากไฟล์ CSV ที่ส่งออกจาก PennyWise</string>
-    <string name="settings_import_statement_title">นำเข้า Statement</string>
-    <string name="settings_import_statement_subtitle">Statement ธนาคาร (Excel, CSV) หรือ PDF จากแอป UPI</string>
-    <string name="settings_unrecognized_sms_title">SMS ที่ไม่รู้จัก</string>
+
+<string name="settings_unrecognized_sms_title">SMS ที่ไม่รู้จัก</string>
     <string name="settings_unrecognized_sms_subtitle">ดูและรายงานข้อความจากธนาคารที่ยังไม่รองรับ</string>
     <string name="settings_delete_all_title">ลบธุรกรรมทั้งหมด</string>
     <string name="settings_delete_all_subtitle">ล้างประวัติธุรกรรม บัญชีและงบประมาณจะยังอยู่</string>

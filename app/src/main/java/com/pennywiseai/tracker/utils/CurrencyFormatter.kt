@@ -62,6 +62,7 @@ object CurrencyFormatter {
      * Currency symbol mapping for display
      */
     private val CURRENCY_SYMBOLS = mapOf(
+        "GHS" to "GH₵",
         "INR" to "₹",
         "PKR" to "Rs",
         "USD" to "$",
@@ -109,6 +110,7 @@ object CurrencyFormatter {
      * Locale mapping for different currencies
      */
     private val CURRENCY_LOCALES = mapOf(
+        "GHS" to Locale.Builder().setLanguage("en").setRegion("GH").build(),
         "INR" to INDIAN_LOCALE,
         "USD" to Locale.US,
         "EUR" to Locale.GERMANY,
@@ -249,8 +251,8 @@ object CurrencyFormatter {
     }
 
     /**
-     * Defaults the currency to INR, which silently mislabels every non-INR
-     * amount (the "₹600 for a $600 group" bug). Always pass the amount's own
+     * Defaults the currency to GHS, the only selectable currency in this build.
+     * Always pass the amount's own
      * currency. For a total over a possibly-mixed list, bucket with
      * [com.pennywiseai.tracker.utils.sumByCurrency] and render with
      * [formatByCurrency] instead of summing into one figure.
@@ -262,11 +264,11 @@ object CurrencyFormatter {
         level = DeprecationLevel.ERROR
     )
     fun formatCurrency(amount: BigDecimal): String {
-        return formatCurrency(amount, "INR")
+        return formatCurrency(amount, "GHS")
     }
 
     /**
-     * Defaults the currency to INR — see the [BigDecimal] overload above. Always
+     * Defaults the currency to GHS — see the [BigDecimal] overload above. Always
      * pass the amount's own currency.
      */
     @Deprecated(
@@ -275,7 +277,7 @@ object CurrencyFormatter {
         level = DeprecationLevel.ERROR
     )
     fun formatCurrency(amount: Double): String {
-        return formatCurrency(amount.toBigDecimal(), "INR")
+        return formatCurrency(amount.toBigDecimal(), "GHS")
     }
 
     /**
@@ -292,7 +294,7 @@ object CurrencyFormatter {
     fun formatByCurrency(
         totalsByCurrency: Map<String, Money>,
         signPrefix: String = "",
-        fallbackCurrency: String = "INR",
+        fallbackCurrency: String = "GHS",
         maskIfHidden: Boolean = true
     ): String {
         // One mask, not one per currency: "•••• · ••••" would still say how many there are.
@@ -400,13 +402,13 @@ object CurrencyFormatter {
 
     /**
      * Gets the base currency for a bank using the BankParserFactory
-     * Returns INR as default for unknown banks
+     * Returns GHS as default for unknown senders
      */
     fun getBankBaseCurrency(bankName: String?): String {
-        if (bankName == null) return "INR"
+        if (bankName == null) return "GHS"
 
         // Try to find a parser that can handle this bank name
         val parser = BankParserFactory.getParserByName(bankName)
-        return parser?.getCurrency() ?: "INR"
+        return parser?.getCurrency() ?: "GHS"
     }
 }

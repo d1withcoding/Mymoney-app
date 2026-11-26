@@ -46,7 +46,7 @@ class TaughtMessageBooker @Inject constructor(
 
     /** What a taught template reads in this message. A bank parser that reads it always wins. */
     fun read(sender: String, body: String, timestamp: Long): ParsedTransaction? {
-        val forSender = templates.forSender(sender)
+        val forSender = templates.forSender(sender).filter { it.currency.equals("GHS", ignoreCase = true) }
         if (forSender.isEmpty() || builtInReads(sender, body, timestamp)) return null
         val parsed = MessageTemplates.matchAny(forSender, body, sender, timestamp) ?: return null
         val account = LearnedSendersStore.accountToUse(learnedSenders.accountFor(sender), parsed.accountLast4, parsed.currency)
@@ -62,7 +62,7 @@ class TaughtMessageBooker @Inject constructor(
 
     /** A sender the user taught sent money wording no template fits: it may have changed its format. */
     fun formatChanged(sender: String, body: String, timestamp: Long): Boolean =
-        templates.forSender(sender).isNotEmpty() &&
+        templates.forSender(sender).any { it.currency.equals("GHS", ignoreCase = true) } &&
             read(sender, body, timestamp) == null &&
             !builtInReads(sender, body, timestamp) &&
             MessageTemplates.looksLikeMoney(sender, body)

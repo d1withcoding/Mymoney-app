@@ -54,7 +54,7 @@ class RecurringTransactionsViewModel @Inject constructor(
 
     val baseCurrency: StateFlow<String> =
         userPreferencesRepository.baseCurrency
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "INR")
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "GHS")
 
     /**
      * Insert a new template ([id] == 0) or update an existing one. The next due
@@ -151,7 +151,7 @@ data class RecurringFormState(
     val id: Long = 0L,
     val merchantName: String = "",
     val amount: String = "",
-    val currency: String = "INR",
+    val currency: String = "GHS",
     val category: String = "Others",
     val transactionType: TransactionType = TransactionType.EXPENSE,
     val frequency: RecurringFrequency = RecurringFrequency.MONTHLY,

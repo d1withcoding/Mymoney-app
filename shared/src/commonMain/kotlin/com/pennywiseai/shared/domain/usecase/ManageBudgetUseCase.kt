@@ -15,7 +15,7 @@ class ManageBudgetUseCase(
         periodType: String,
         startEpochMillis: Long,
         endEpochMillis: Long,
-        currency: String = "INR"
+        currency: String = "GHS"
     ): Long {
         val now = currentTimeMillis()
         return repository.upsertBudget(

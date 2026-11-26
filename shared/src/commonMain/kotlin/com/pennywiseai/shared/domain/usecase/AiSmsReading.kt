@@ -58,11 +58,11 @@ object AiSmsValidator {
         )
     }
 
-    /** "₹", "Rs.", "INR" → INR; any other ISO code PennyWise formats; else null. */
+    /** Ghana cedi codes and symbols are accepted; other currencies are outside this app's scope. */
     internal fun normalizeCurrency(raw: String): String? {
         val code = raw.trim().uppercase().removeSuffix(".")
-        if (code == "₹" || code == "RS" || code == "INR") return "INR"
-        return code.takeIf { it in SUPPORTED_CURRENCIES }
+        if (code == "₵" || code == "GH₵") return "GHS"
+        return "GHS".takeIf { code == it }
     }
 
     /**
@@ -83,11 +83,7 @@ object AiSmsValidator {
     /** An amount printed in an SMS and the currencies its symbol or code can mean. */
     internal data class PrintedAmount(val amount: String, val currencies: Set<String>)
 
-    /**
-     * Every amount [body] prints next to a currency ("Rs.1,250.50", "₹318", "INR 318",
-     * "75.25 AED"), canonical, with the currency it was printed with. A bare number
-     * (a date, a spaced "XX 4321") isn't money.
-     */
+    /** Finds currency-tagged cedi amounts; a bare number isn't treated as money. */
     internal fun amountsIn(body: String): List<PrintedAmount> =
         MONEY.findAll(body).mapNotNull { m ->
             val number = (m.groups[3] ?: m.groups[4])?.value ?: return@mapNotNull null
@@ -114,26 +110,11 @@ object AiSmsValidator {
     private val NOT_A_SPEND = Regex("""\b(OTP|one[- ]time password|verification code)\b""", RegexOption.IGNORE_CASE)
     private val TYPES = mapOf("expense" to "EXPENSE", "income" to "INCOME", "credit" to "CREDIT", "transfer" to "TRANSFER")
 
-    // The codes the iOS app has a symbol for (CurrencyFormatter.swift).
-    private val SUPPORTED_CURRENCIES = setOf(
-        "INR", "USD", "EUR", "GBP", "JPY", "CNY", "KRW", "THB", "AED", "SAR", "PKR", "NPR", "BDT", "LKR",
-        "SGD", "MYR", "IDR", "PHP", "VND", "TWD", "HKD", "CAD", "AUD", "NZD", "CHF", "SEK", "NOK", "DKK",
-        "PLN", "CZK", "HUF", "RUB", "TRY", "BRL", "MXN", "ZAR", "KES", "NGN", "EGP", "KWD", "BHD", "OMR",
-        "QAR", "ILS", "JOD", "ARS", "CLP", "UYU"
-    )
-
-    // "$" alone could be any dollar; the SMS's other wording can't narrow it, so accept them all.
-    private val SYMBOLS = mapOf(
-        "₹" to setOf("INR"),
-        "€" to setOf("EUR"),
-        "£" to setOf("GBP"),
-        "$" to setOf("USD", "CAD", "AUD", "NZD", "SGD", "HKD", "TWD", "MXN", "ARS", "CLP", "UYU")
-    )
+    private val SYMBOLS = mapOf("₵" to setOf("GHS"), "GH₵" to setOf("GHS"))
 
     // A number with a currency code (1) or symbol (2) right before it (3), or a code (5) right after it (4).
-    private val MONEY = SUPPORTED_CURRENCIES.joinToString("|").let { codes ->
-        val number = """(\d[\d,]*(?:\.\d+)?)"""
-        // Codes stay upper case: "try 2 times" must not read as TRY 2.
-        Regex("""(?:\b([Rr][Ss]|$codes)\.?|([₹$€£]))\s*$number|$number\s*($codes)\b""")
-    }
+    private val MONEY = Regex(
+        """(?:\b(GHS)\.?|(GH₵|₵))\s*(\d[\d,]*(?:\.\d+)?)|(?<![\w.,])(\d[\d,]*(?:\.\d+)?)\s*(GHS)\b""",
+        RegexOption.IGNORE_CASE
+    )
 }

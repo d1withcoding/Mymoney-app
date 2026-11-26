@@ -2,41 +2,15 @@ package com.example
 
 import com.example.feedback.FeedbackService
 import com.example.feedback.configureFeedback
-import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.request.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
 import java.sql.Connection
 import java.sql.DriverManager
 
 fun Application.configureDatabases() {
     val dbConnection: Connection = connectToPostgres(embedded = false)
-    val smsReportService = SmsReportService(dbConnection)
     val feedbackService = FeedbackService(dbConnection)
 
-    // Configure feedback routes
     configureFeedback(feedbackService)
-
-    routing {
-        // SMS Report endpoint
-        post("/api/report") {
-            try {
-                val request = call.receive<CreateSmsReportRequest>()
-                val reportId = smsReportService.createReport(request)
-                call.respond(HttpStatusCode.Created, SmsReportResponse(
-                    success = true,
-                    message = "Report submitted successfully",
-                    reportId = reportId
-                ))
-            } catch (e: Exception) {
-                call.respond(HttpStatusCode.InternalServerError, SmsReportResponse(
-                    success = false,
-                    message = "Failed to submit report: ${e.message}"
-                ))
-            }
-        }
-    }
 }
 
 /**

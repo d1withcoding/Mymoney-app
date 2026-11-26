@@ -29,44 +29,7 @@ fun Application.configureRouting() {
     }
 
     val registry = BankParserRegistry(
-        listOf(
-            HDFCBankParser(), SBIBankParser(), ICICIBankParser(), AxisBankParser(), KotakBankParser(),
-            FederalBankParser(), IDFCFirstBankParser(), IDBIBankParser(), CanaraBankParser(), BankOfBarodaParser(),
-            BankOfIndiaParser(), IndianBankParser(), IndianOverseasBankParser(), CentralBankOfIndiaParser(),
-            CityUnionBankParser(), KarnatakaBankParser(), PNBBankParser(), UnionBankParser(), JKBankParser(),
-            AirtelPaymentsBankParser(), IPPBParser(), JioPaymentsBankParser(), JioPayParser(), JupiterBankParser(),
-            HSBCBankParser(), SliceParser(), PhonePeWalletParser(), LazyPayParser(), AMEXBankParser(), OneCardParser(), SouthIndianBankParser(),
-            UtkarshBankParser(), DBSBankParser(), JuspayParser(),
-            // Pluxee (#685) — the web tester advertises a Pluxee sample, so the
-            // /htmx/parse registry must be able to parse it too.
-            PluxeeBankParser(),
-            // Sri Lanka (#658) — the web tester advertises NDB samples, so the
-            // /htmx/parse registry must be able to parse them too.
-            NDBBankParser(),
-            // ComBank (Sri Lanka, #848) — the web tester advertises its sample too.
-            ComBankParser(),
-            // Ethiopia (#716) — Bank of Abyssinia.
-            BankOfAbyssiniaParser(),
-            // ZamZam Bank (Ethiopia) (#720)
-            ZamZamBankParser(),
-            // Siket Bank (Ethiopia, #717)
-            SiketBankParser(),
-            // Awash Bank (Ethiopia) (#718)
-            AwashBankParser(),
-            // Apollo mobile wallet (Ethiopia) (#719)
-            ApolloParser(),
-            // El Salvador (#755, #756, #757) — Spanish/USD parsers.
-            BancoCuscatlanParser(), BancoPromericaParser(), BancoAgricolaParser(),
-            // Jordan (#955) — the web tester advertises JIB and Safwa samples.
-            JordanIslamicBankParser(), IslamicInternationalArabBankParser(),
-            BankAlEtihadParser(), SafwaIslamicBankParser(),
-            // Orange Money (Jordan) — the web tester advertises its samples.
-            OrangeMoneyJordanParser(),
-            // Mobily Pay (Saudi Arabia, #1134)
-            MobilyPayParser(),
-            // Barq wallet (Saudi Arabia, #1135).
-            BarqParser()
-        )
+        listOf(MtnMomoParser(), TelecelCashParser())
     )
 
     routing {

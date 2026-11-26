@@ -108,9 +108,8 @@
     <string name="settings_import_data_subtitle">बैकअप से डेटा पुनर्स्थापित करें</string>
     <string name="settings_import_csv_title">लेन-देन आयात करें (CSV)</string>
     <string name="settings_import_csv_subtitle">PennyWise के CSV निर्यात से आयात करें</string>
-    <string name="settings_import_statement_title">स्टेटमेंट आयात करें</string>
-    <string name="settings_import_statement_subtitle">बैंक स्टेटमेंट (Excel, CSV) या UPI ऐप की PDF</string>
-    <string name="settings_unrecognized_sms_title">अपरिचित SMS</string>
+
+<string name="settings_unrecognized_sms_title">अपरिचित SMS</string>
     <string name="settings_unrecognized_sms_subtitle">असमर्थित बैंक संदेश देखें और रिपोर्ट करें</string>
     <string name="settings_delete_all_title">सभी लेन-देन हटाएं</string>
     <string name="settings_delete_all_subtitle">अपना लेन-देन इतिहास साफ़ करें — खाते और बजट बने रहेंगे</string>

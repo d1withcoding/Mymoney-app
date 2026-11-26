@@ -88,9 +88,7 @@ struct SpendingTrendsChart: View {
     /// 0.5L one reads "0.5L" (not "50K") next to it.
     private func formatCompact(_ value: Double) -> String {
         let top = Double(maxAmount) / unitFactor
-        let units: [(size: Double, suffix: String)] = CurrencyManager.shared.displayCurrency == "INR"
-            ? [(1e7, "Cr"), (1e5, "L"), (1e3, "K")]
-            : [(1e9, "B"), (1e6, "M"), (1e3, "K")]
+        let units: [(size: Double, suffix: String)] = [(1e9, "B"), (1e6, "M"), (1e3, "K")]
         guard let unit = units.first(where: { top >= $0.size }) else {
             return value.formatted(.number.precision(.fractionLength(0)))
         }

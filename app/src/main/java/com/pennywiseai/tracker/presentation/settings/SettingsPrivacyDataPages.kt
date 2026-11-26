@@ -22,7 +22,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavKey
 import com.pennywiseai.tracker.R
-import com.pennywiseai.tracker.navigation.ImportStatement
 import com.pennywiseai.tracker.presentation.applock.AppLockViewModel
 import com.pennywiseai.tracker.presentation.paywall.UpgradeSheet
 import com.pennywiseai.tracker.ui.ShakeToHideViewModel
@@ -290,22 +289,13 @@ internal fun DataPage(
     SectionHeaderV2(title = stringResource(R.string.settings_group_import))
     SettingsGroup {
         SettingsNavItem(
-            icon = Icons.Default.Description,
-            iconBgColor = indigo_light,
-            iconTint = indigo_dark,
-            title = stringResource(R.string.settings_import_statement_title),
-            subtitle = stringResource(R.string.settings_import_statement_subtitle),
-            onClick = { onNavigate(ImportStatement) },
-            position = ListItemPosition.Top
-        )
-        SettingsNavItem(
             icon = Icons.Default.Download,
             iconBgColor = cyan_light,
             iconTint = cyan_dark,
             title = stringResource(R.string.settings_import_csv_title),
             subtitle = stringResource(R.string.settings_import_csv_subtitle),
             onClick = { csvImportLauncher.launch("*/*") },
-            position = ListItemPosition.Bottom
+            position = ListItemPosition.Top
         )
     }
 

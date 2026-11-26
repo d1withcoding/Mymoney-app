@@ -35,8 +35,8 @@ data class BudgetGroupsUiState(
     val hasGroups: Boolean = false,
     val selectedYear: Int = LocalDate.now().year,
     val selectedMonth: Int = LocalDate.now().monthValue,
-    val currency: String = "INR",
-    val baseCurrency: String = "INR",
+    val currency: String = "GHS",
+    val baseCurrency: String = "GHS",
     val isUnifiedMode: Boolean = false,
     /**
      * True when the list is filtered to budgets whose window overlaps

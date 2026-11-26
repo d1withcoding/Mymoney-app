@@ -113,9 +113,8 @@
     <string name="settings_import_data_subtitle">Восстановить данные из резервной копии</string>
     <string name="settings_import_csv_title">Импорт транзакций (CSV)</string>
     <string name="settings_import_csv_subtitle">Импортировать из CSV PennyWise</string>
-    <string name="settings_import_statement_title">Импортировать отчёт</string>
-    <string name="settings_import_statement_subtitle">Банковские выписки (Excel, CSV) или PDF из UPI-приложений</string>
-    <string name="settings_unrecognized_sms_title">Нераспознанные СМС</string>
+
+<string name="settings_unrecognized_sms_title">Нераспознанные СМС</string>
     <string name="settings_unrecognized_sms_subtitle">Просмотр и отчет о неподдерживаемых банковских сообщениях</string>
     <string name="settings_delete_all_title">Удалить все транзакции</string>
     <string name="settings_delete_all_subtitle">Очистить историю транзакций — оставайтесь аккаунтами и бюджетами</string>

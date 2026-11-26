@@ -7,7 +7,7 @@ data class ManualTransactionInput(
     val merchantName: String,
     val category: String,
     val note: String? = null,
-    val currency: String = "INR",
+    val currency: String = "GHS",
     val transactionType: SharedTransactionType = SharedTransactionType.EXPENSE,
     val occurredAtEpochMillis: Long? = null,
     val bankName: String? = null,

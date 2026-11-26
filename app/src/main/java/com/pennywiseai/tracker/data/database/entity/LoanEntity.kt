@@ -39,7 +39,7 @@ data class LoanEntity(
     val remainingAmount: BigDecimal,
 
     @ColumnInfo(name = "currency", defaultValue = "INR")
-    val currency: String = "INR",
+    val currency: String = "GHS",
 
     @ColumnInfo(name = "status", defaultValue = "ACTIVE")
     val status: LoanStatus = LoanStatus.ACTIVE,

@@ -3,7 +3,6 @@ package com.pennywiseai.tracker.presentation.onboarding
 import android.Manifest
 import android.app.LocaleConfig
 import android.app.LocaleManager
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.LocaleList
@@ -98,7 +97,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pennywiseai.tracker.R
@@ -887,16 +885,6 @@ private fun MissingBankCard() {
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSecondaryContainer
             )
-            TextButton(
-                onClick = {
-                    // ponytail: no browser installed → ActivityNotFoundException is swallowed, nothing else to offer
-                    runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, BANK_REQUEST_URL.toUri())) }
-                },
-                modifier = Modifier.align(Alignment.End),
-                shapes = ButtonDefaults.shapes()
-            ) {
-                Text(stringResource(R.string.onboarding_bank_missing_action))
-            }
         }
     }
 }
@@ -1215,8 +1203,6 @@ private fun currencyLabel(code: String): String {
 // Onboarding-only geometry. These are intentionally larger than any in-app
 // token: full-screen illustrative moments, not list chrome.
 private val HERO_ICON_SIZE = 100.dp
-private const val BANK_REQUEST_URL =
-    "https://github.com/sarim2000/pennywiseai-tracker/issues/new?template=bank_support_request.yml"
 private val PSEUDO_REGIONS = setOf("XA", "XB")
 private val HERO_ICON_SIZE_SMALL = 80.dp
 private val OPTION_TILE_SIZE = 72.dp

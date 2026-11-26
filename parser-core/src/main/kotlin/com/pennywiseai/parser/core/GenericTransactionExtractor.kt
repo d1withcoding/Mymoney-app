@@ -1,8 +1,6 @@
 package com.pennywiseai.parser.core
 
-import com.pennywiseai.parser.core.bank.BankParser
 import java.math.BigDecimal
-import java.util.Currency
 
 /**
  * Reads a likely transaction out of an SMS that no bank parser claims (#994), so
@@ -24,7 +22,7 @@ object GenericTransactionExtractor {
     data class Suggestion(val transaction: ParsedTransaction, val confidence: Int)
 
     fun extract(sender: String, body: String, timestamp: Long = 0L): Suggestion? {
-        if (PERSONAL_NUMBER.matches(sender.replace(" ", "")) || Base.isNonTransaction(body)) return null
+        if (PERSONAL_NUMBER.matches(sender.replace(" ", "")) || isNonTransaction(body)) return null
         // A declined or failed attempt moved no money, so it must never become a suggestion.
         // ("Reversed" is not in the list: a reversal credit returns real money.)
         if (FAILED.containsMatchIn(body)) return null
@@ -41,7 +39,7 @@ object GenericTransactionExtractor {
         fun figure(kind: String) = money.firstOrNull { it.figure == kind && it.currency == main.currency }?.amount
         val balance = figure(BAL)
         val limit = figure(LIMIT)
-        val last4 = Base.last4(body) ?: MASKED_LAST4.find(body)?.groupValues?.get(1)
+        val last4 = extractAccountLast4(body) ?: MASKED_LAST4.find(body)?.groupValues?.get(1)
         val merchant = merchant(body)
 
         val confidence = BASE +
@@ -90,13 +88,7 @@ object GenericTransactionExtractor {
 
     private fun currencyOf(tag: String): String? {
         SYMBOLS[tag]?.let { return it }
-        if (tag.equals("rs", ignoreCase = true)) return "INR"
-        if (tag == "XXX") return null // ISO's "no currency", and the usual account mask
-        return try {
-            Currency.getInstance(tag).currencyCode
-        } catch (e: IllegalArgumentException) {
-            null
-        }
+        return "GHS".takeIf { tag.equals(it, ignoreCase = true) }
     }
 
     /** Money out or in, by the first direction word; null if the message has none. */
@@ -105,7 +97,7 @@ object GenericTransactionExtractor {
 
     /** A person's number, an OTP, a promo or a failed attempt: never a transaction, whatever else it says. */
     internal fun isNeverTransaction(sender: String, body: String): Boolean =
-        PERSONAL_NUMBER.matches(sender.replace(" ", "")) || Base.isNonTransaction(body) || FAILED.containsMatchIn(body)
+        PERSONAL_NUMBER.matches(sender.replace(" ", "")) || isNonTransaction(body) || FAILED.containsMatchIn(body)
 
     /** Says the payment didn't go through or was undone, so a taught shape must not read it as normal. */
     internal fun saysItFailed(text: String): Boolean = FAILED.containsMatchIn(text) || UNDONE.containsMatchIn(text)
@@ -114,27 +106,39 @@ object GenericTransactionExtractor {
     internal fun namesAnAccount(text: String): Boolean = NOT_MERCHANT.containsMatchIn(text)
 
     private fun merchant(body: String): String? = MERCHANT.findAll(body)
-        .map { Base.clean(it.groupValues[1].trim()) }
-        .firstOrNull { !NOT_MERCHANT.containsMatchIn(it) && Base.isValidMerchant(it) }
+        .map { cleanMerchant(it.groupValues[1].trim()) }
+        .firstOrNull { !NOT_MERCHANT.containsMatchIn(it) && isValidMerchant(it) }
 
-    /** BankParser's shared checks, reused rather than copied. */
-    private object Base : BankParser() {
-        override fun getBankName() = ""
-        override fun canHandle(sender: String) = false
-        fun isNonTransaction(body: String) = isNonTransactionMessage(body)
-        fun last4(body: String) = extractAccountLast4(body)
-        fun clean(name: String) = cleanMerchantName(name)
-        fun isValidMerchant(name: String) = isValidMerchantName(name)
+    private fun isNonTransaction(body: String): Boolean {
+        val lower = body.lowercase()
+        return listOf(
+            "otp", "one-time password", "verification code", "offer", "discount",
+            "payment request", "collect request", "has requested", "ignore if already paid",
+            "have received payment"
+        ).any(lower::contains)
     }
 
-    // "₹" alone is INR; "$" is read as USD, the most common dollar in SMS.
-    private val SYMBOLS = mapOf("₹" to "INR", "$" to "USD", "€" to "EUR", "£" to "GBP")
+    private fun extractAccountLast4(body: String): String? = Regex(
+        """(?:account|acct|a/c|card|ending|ends with)\s*(?:no\.?\s*)?(?:\*+|x+|\d{0,12})?(\d{4})\b""",
+        RegexOption.IGNORE_CASE
+    ).find(body)?.groupValues?.get(1)
+
+    private fun cleanMerchant(name: String): String = name
+        .replace(Regex("""\s+(?:on|at)\s+\d{1,2}[/.-]\d{1,2}.*$""", RegexOption.IGNORE_CASE), "")
+        .replace(Regex("""\s+(?:ref|reference)[:\s].*$""", RegexOption.IGNORE_CASE), "")
+        .trim()
+
+    private fun isValidMerchant(name: String): Boolean =
+        name.length >= 2 && name.any(Char::isLetter) && !name.contains('@') &&
+            !NOT_MERCHANT.containsMatchIn(name)
+
+    private val SYMBOLS = mapOf("₵" to "GHS")
 
     private const val NUMBER = """(\d[\d,]{0,15}(?:\.\d{1,2})?)(?!\.?\d)"""
 
     // A code (1) or symbol (2) before the number (3), or a code (5) after it (4).
     // Codes stay upper case so "try 2 times" never reads as TRY 2.
-    private val MONEY = Regex("""(?:\b([Rr][Ss]|[A-Z]{3})\.?|([₹$€£]))\s*$NUMBER|(?<![\w.,])$NUMBER\s*([A-Z]{3})\b""")
+    private val MONEY = Regex("""(?:\b([A-Z]{3})\.?|([₵]))\s*$NUMBER|(?<![\w.,])$NUMBER\s*([A-Z]{3})\b""")
 
     // The figure is a balance / limit when that word is just before it, with no other number between.
     private val BALANCE_BEFORE = Regex("""\b(?:bal|balance)\b[^\d]*$""", RegexOption.IGNORE_CASE)

@@ -245,9 +245,6 @@ fun UnrecognizedSmsScreen(
                             },
                             formatChanged = message.id in formatChanged,
                             onTeach = { viewModel.teachWaiting(message) },
-                            onReport = {
-                                viewModel.reportMessage(message)
-                            },
                             onDelete = {
                                 selectedMessage = message
                                 showDeleteConfirmation = true
@@ -337,7 +334,6 @@ private fun UnrecognizedSmsItem(
     onAddSuggestion: (ParsedTransaction) -> Unit,
     formatChanged: Boolean,
     onTeach: () -> Unit,
-    onReport: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -415,16 +411,6 @@ private fun UnrecognizedSmsItem(
                         contentDescription = stringResource(R.string.unrecognized_delete),
                         modifier = Modifier.size(Dimensions.Icon.inline)
                     )
-                }
-
-                if (!message.reported) {
-                    IconButton(onClick = onReport, shapes = IconButtonDefaults.shapes()) {
-                        Icon(
-                            Icons.Default.BugReport,
-                            contentDescription = stringResource(R.string.unrecognized_report),
-                            modifier = Modifier.size(Dimensions.Icon.inline)
-                        )
-                    }
                 }
 
                 Spacer(modifier = Modifier.weight(1f))

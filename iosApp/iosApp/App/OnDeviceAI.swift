@@ -56,7 +56,7 @@ struct SmsReading {
     var isBankTransaction: Bool
     @Guide(description: "The transaction amount exactly as printed in the message, digits with optional decimals, e.g. 1318.00. Never the balance or the available limit")
     var amount: String
-    @Guide(description: "ISO currency code of the amount, e.g. INR, USD, AED")
+    @Guide(description: "The amount's currency code is GHS.")
     var currency: String
     @Guide(description: "expense: money spent or paid from a bank account. income: money received or credited into it. credit: spent on a credit card. transfer: moved between the user's own accounts", .anyOf(["expense", "income", "credit", "transfer"]))
     var type: String

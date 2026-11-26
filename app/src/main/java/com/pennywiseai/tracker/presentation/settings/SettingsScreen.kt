@@ -1,7 +1,5 @@
 package com.pennywiseai.tracker.presentation.settings
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
@@ -36,7 +33,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavKey
 import com.pennywiseai.tracker.R
-import com.pennywiseai.tracker.core.Constants
 import com.pennywiseai.tracker.navigation.Appearance
 import com.pennywiseai.tracker.navigation.Faq
 import com.pennywiseai.tracker.navigation.SettingsPage
@@ -86,7 +82,6 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
     val isProEntitled by settingsViewModel.isProEntitled.collectAsStateWithLifecycle()
     var showUpgradeSheet by remember { mutableStateOf(false) }
     var showSupportDialog by remember { mutableStateOf(false) }
@@ -229,22 +224,13 @@ fun SettingsScreen(
         SectionHeaderV2(title = stringResource(R.string.settings_hub_advanced))
         SettingsGroup {
             SettingsNavItem(
-                icon = Icons.Default.AutoAwesome,
-                iconBgColor = yellow_light,
-                iconTint = yellow_dark,
-                title = stringResource(R.string.settings_ai_section),
-                subtitle = stringResource(R.string.settings_ai_summary),
-                onClick = { open(SettingsSection.AI) },
-                position = ListItemPosition.Top
-            )
-            SettingsNavItem(
                 icon = Icons.Default.Code,
                 iconBgColor = grey_light,
                 iconTint = grey_dark,
                 title = stringResource(R.string.settings_developer_section),
                 subtitle = stringResource(R.string.settings_developer_summary),
                 onClick = { open(SettingsSection.DEVELOPER) },
-                position = ListItemPosition.Bottom
+                position = ListItemPosition.Single
             )
         }
 
@@ -257,32 +243,7 @@ fun SettingsScreen(
                 title = stringResource(R.string.settings_help_faq_title),
                 subtitle = stringResource(R.string.settings_help_faq_subtitle),
                 onClick = { onNavigate(Faq) },
-                position = ListItemPosition.Top
-            )
-            SettingsNavItem(
-                icon = Icons.AutoMirrored.Filled.MenuBook,
-                iconBgColor = teal_light,
-                iconTint = teal_dark,
-                title = stringResource(R.string.settings_user_guide_title),
-                subtitle = stringResource(R.string.settings_user_guide_subtitle),
-                onClick = {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Links.USER_GUIDE_URL)))
-                },
-                position = ListItemPosition.Middle,
-                trailingIcon = Icons.AutoMirrored.Filled.OpenInNew
-            )
-            SettingsNavItem(
-                icon = Icons.Default.BugReport,
-                iconBgColor = blue_light,
-                iconTint = blue_dark,
-                title = stringResource(R.string.settings_report_issue_title),
-                subtitle = stringResource(R.string.settings_report_issue_subtitle),
-                onClick = {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/sarim2000/pennywiseai-tracker/issues/new/choose"))
-                    context.startActivity(intent)
-                },
-                position = ListItemPosition.Bottom,
-                trailingIcon = Icons.AutoMirrored.Filled.OpenInNew
+                position = ListItemPosition.Single
             )
         }
 

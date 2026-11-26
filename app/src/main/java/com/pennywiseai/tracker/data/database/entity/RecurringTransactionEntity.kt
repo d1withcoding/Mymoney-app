@@ -49,7 +49,7 @@ data class RecurringTransactionEntity(
     val amount: BigDecimal = BigDecimal.ZERO,
 
     @ColumnInfo(name = "currency", defaultValue = "INR")
-    val currency: String = "INR",
+    val currency: String = "GHS",
 
     @ColumnInfo(name = "category", defaultValue = "Others")
     val category: String = "Others",

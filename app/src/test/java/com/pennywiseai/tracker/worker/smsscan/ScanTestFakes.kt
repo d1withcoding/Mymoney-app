@@ -199,8 +199,6 @@ internal class ScanHarness(
     val classifier = SmsScanClassifier(
         recentSinceMillis = 0L,
         taughtTemplates = lazyOf(emptyMap()),
-        subscriptionRepository = subscriptions,
-        saveBalanceNotification = writer::saveBalanceNotification,
     )
 
     fun pipeline(

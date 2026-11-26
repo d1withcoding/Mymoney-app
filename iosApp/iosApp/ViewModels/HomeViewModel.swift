@@ -84,11 +84,6 @@ class HomeViewModel: ObservableObject {
         apply(snapshot: snapshot)
     }
 
-    func importStatementText(_ text: String) {
-        let snapshot = facade.importStatementTextAndLoadHome(statementText: text)
-        apply(snapshot: snapshot)
-    }
-
     func addSubscription(merchantName: String, amountMinor: Int64, category: String, currency: String) {
         let snapshot = facade.addSubscriptionAndLoadHome(
             merchantName: merchantName,

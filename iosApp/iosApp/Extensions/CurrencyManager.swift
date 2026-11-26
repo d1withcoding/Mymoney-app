@@ -5,7 +5,7 @@ import SwiftUI
 final class CurrencyManager: ObservableObject {
     static let shared = CurrencyManager()
 
-    @AppStorage("displayCurrency") var displayCurrency: String = "INR"
+    @AppStorage("displayCurrency") var displayCurrency: String = "GHS"
 
     private init() {}
 

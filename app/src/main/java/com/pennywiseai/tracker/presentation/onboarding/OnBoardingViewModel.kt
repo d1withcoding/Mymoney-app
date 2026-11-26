@@ -61,7 +61,7 @@ data class OnBoardingUiState(
     val selectedAvatarIndex: Int = 0,
     val profileImageUri: Uri? = null,
     val selectedBackgroundColor: Int = 0,
-    val selectedCurrency: String = "INR",
+    val selectedCurrency: String = "GHS",
     /** True once the user changes the pre-selected currency; a guess left as is stays overridable. */
     val currencyPicked: Boolean = false,
     val smsPermissionGranted: Boolean = false,

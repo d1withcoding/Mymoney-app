@@ -10,7 +10,7 @@ struct FAQScreen: View {
                 items: [
                     FAQItem(
                         question: "Why are wallet transactions marked as Credit?",
-                        answer: "Wallet transactions (Google Pay, PhonePe, etc.) are marked as Credit because they're charged to your bank account or credit card first, not direct bank debits. The actual bank debit is a separate transaction."
+                        answer: "MTN MoMo and Telecel Cash messages are parsed as Ghana cedi transactions. Confirm each saved transaction in the transaction list."
                     ),
                     FAQItem(
                         question: "What's the difference between the 5 transaction types?",
@@ -75,30 +75,6 @@ struct FAQScreen: View {
                 ]
             )
 
-            Section {
-                VStack(spacing: AppSpacing.md) {
-                    Text("Still Need Help?")
-                        .font(AppTypography.headline)
-
-                    Text("If you couldn't find what you're looking for, feel free to report an issue on GitHub.")
-                        .font(AppTypography.caption)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-
-                    Button {
-                        if let url = URL(string: AppLinks.newIssue) {
-                            UIApplication.shared.open(url)
-                        }
-                    } label: {
-                        Label("Report an Issue", systemImage: "exclamationmark.bubble")
-                            .font(AppTypography.body)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
-                .padding(.vertical, AppSpacing.sm)
-                .frame(maxWidth: .infinity)
-            }
         }
         .navigationTitle("FAQ")
         .navigationBarTitleDisplayMode(.inline)

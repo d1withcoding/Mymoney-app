@@ -10,13 +10,13 @@ import kotlin.test.assertNull
 
 // Fake banks, fake numbers: bodies shaped like alerts from banks parser-core doesn't know.
 private const val CARD_SPEND =
-    "Dear Customer, INR 1,318.00 spent on your Example SFB Credit Card XX4321 at SWIGGY on 22-10-26. Avl limit INR 50,000.00"
+    "Dear Customer, GHS 1,318.00 spent on your Example SFB Credit Card XX4321 at SWIGGY on 22-10-26. Avl limit GHS 50,000.00"
 private const val OTP =
-    "123456 is your OTP for a txn of Rs.318.00 at SWIGGY on card XX4321. Do not share it with anyone. -Example Bank"
+    "123456 is your OTP for a txn of GHS 318.00 at SWIGGY on card XX4321. Do not share it with anyone. -Example Bank"
 
 private fun reading(
     amount: String = "1318",
-    currency: String = "INR",
+    currency: String = "GHS",
     type: String = "credit",
     isBankTransaction: Boolean = true,
     accountLast4: String? = "4321"
@@ -24,46 +24,39 @@ private fun reading(
 
 class AiSmsValidatorTest {
     @Test
-    fun acceptsAnAmountPrintedInTheSmsInAnyCommonSpelling() {
-        for (spelling in listOf("1318", "1318.00", "1,318", "Rs. 1,318.00", "₹1318", "INR 1318.0")) {
+    fun acceptsAnAmountPrintedInTheSmsInGhanaCediSpelling() {
+        for (spelling in listOf("1318", "1318.00", "1,318", "GHS 1,318.00", "₵1318", "GHS 1318.0")) {
             val parsed = assertNotNull(AiSmsValidator.validate(CARD_SPEND, reading(amount = spelling), null), spelling)
             assertEquals("1318.00", parsed.amount)
         }
         val parsed = AiSmsValidator.validate(CARD_SPEND, reading(), null)!!
         assertEquals("CREDIT", parsed.type)
-        assertEquals("INR", parsed.currency)
+        assertEquals("GHS", parsed.currency)
         assertEquals("4321", parsed.accountLast4)
         assertEquals("Example SFB", parsed.bankName)
     }
 
     @Test
     fun rejectsTheRightAmountInTheWrongCurrency() {
-        // The SMS says INR 1,318: a reading of USD 1318 must not save as dollars.
+        // The SMS says GHS 1,318: a reading of USD 1318 must not save as dollars.
         assertNull(AiSmsValidator.validate(CARD_SPEND, reading(currency = "USD"), null))
         assertNull(AiSmsValidator.validate("Spent 75.25 AED at TEST STORE", reading(amount = "75.25", currency = "SAR"), null))
-        assertNotNull(AiSmsValidator.validate("Spent 75.25 AED at TEST STORE", reading(amount = "75.25", currency = "AED", accountLast4 = null), null))
-        assertNotNull(AiSmsValidator.validate("Spent $12.50 at TEST STORE", reading(amount = "12.50", currency = "USD", accountLast4 = null), null))
+        assertNull(AiSmsValidator.validate("Spent 75.25 AED at TEST STORE", reading(amount = "75.25", currency = "AED", accountLast4 = null), null))
+        assertNull(AiSmsValidator.validate("Spent $12.50 at TEST STORE", reading(amount = "12.50", currency = "USD", accountLast4 = null), null))
     }
 
     @Test
     fun keepsEachCurrencysOwnDecimals() {
-        val jod = AiSmsValidator.validate(
-            "JOD 1.235 spent on your Example Bank card XX4321 at TEST STORE", reading(amount = "1.235", currency = "JOD"), null
-        )
-        assertEquals("1.235", assertNotNull(jod).amount)
-        assertEquals("JOD", jod.currency)
-        assertEquals("12.500", AiSmsValidator.validate("KWD 12.500 spent at TEST STORE", reading(amount = "12.5", currency = "KWD"), null)?.amount)
-        // Dollars have cents, not mils: a third decimal isn't a USD amount.
-        assertNull(AiSmsValidator.validate("USD 12.345 spent at TEST STORE", reading(amount = "12.345", currency = "USD"), null))
+        assertEquals("12.50", AiSmsValidator.validate("GHS 12.50 spent at TEST STORE", reading(amount = "12.5"), null)?.amount)
+        assertNull(AiSmsValidator.validate("GHS 12.345 spent at TEST STORE", reading(amount = "12.345"), null))
     }
 
     @Test
     fun capsIntegerDigitsSoTheMinorAmountFitsALong() {
-        // 16 integer digits x 100 fits; x 1000 for a 3-decimal currency would not, so 15 is its cap.
+        // 16 integer digits x 100 fits; larger values are not safe to store as minor units.
         val big = "1234567890123456"
-        assertNotNull(AiSmsValidator.validate("INR $big spent at TEST STORE", reading(amount = big), null))
-        assertNull(AiSmsValidator.validate("JOD $big spent at TEST STORE", reading(amount = big, currency = "JOD"), null))
-        assertNotNull(AiSmsValidator.validate("JOD ${big.drop(1)} spent at TEST STORE", reading(amount = big.drop(1), currency = "JOD"), null))
+        assertNotNull(AiSmsValidator.validate("GHS $big spent at TEST STORE", reading(amount = big), null))
+        assertNull(AiSmsValidator.validate("GHS ${big}0 spent at TEST STORE", reading(amount = "${big}0"), null))
     }
 
     @Test
@@ -73,10 +66,10 @@ class AiSmsValidatorTest {
         assertNull(AiSmsValidator.validate(CARD_SPEND, reading(amount = "0"), null))
         assertNull(AiSmsValidator.validate(CARD_SPEND, reading(amount = "1318.005"), null))
         // Dates and a spaced card number are numbers in the SMS, but not money.
-        val spaced = "INR 318 spent on card XX 4321 on 22-10-26"
+        val spaced = "GHS 318 spent on card XX 4321 on 22-10-26"
         assertEquals(setOf("318"), AiSmsValidator.amountsIn(spaced).map { it.amount }.toSet())
-        assertEquals(setOf("1250.5", "10000", "75.25"), AiSmsValidator.amountsIn("Rs.1,250.50 debited. Avl Bal Rs 10,000.00. 75.25 AED").map { it.amount }.toSet())
-        assertEquals(setOf("318"), AiSmsValidator.amountsIn("₹318 at shop, try 2 times").map { it.amount }.toSet())
+        assertEquals(setOf("1250.5", "10000"), AiSmsValidator.amountsIn("GHS 1,250.50 debited. Avl Bal GHS 10,000.00. 75.25 AED").map { it.amount }.toSet())
+        assertEquals(setOf("318"), AiSmsValidator.amountsIn("₵318 at shop, try 2 times").map { it.amount }.toSet())
     }
 
     @Test
@@ -90,7 +83,7 @@ class AiSmsValidatorTest {
         assertNull(AiSmsValidator.validate(CARD_SPEND, reading(currency = "XYZ"), null))
         assertNull(AiSmsValidator.validate(CARD_SPEND, reading(currency = "$"), null))
         assertNull(AiSmsValidator.validate(CARD_SPEND, reading(type = "refund"), null))
-        assertEquals("INR", AiSmsValidator.validate(CARD_SPEND, reading(currency = "Rs."), null)?.currency)
+        assertNull(AiSmsValidator.validate(CARD_SPEND, reading(currency = "INR"), null))
     }
 
     @Test
@@ -106,7 +99,7 @@ class AiSmsValidatorTest {
 
         val saved = assertIs<BankSmsImportResult.Saved>(useCase.executeAiReading(CARD_SPEND, 1_000L, reading(), null)).transaction
         assertEquals(131_800L, saved.amountMinor)
-        assertEquals("INR", saved.currency)
+        assertEquals("GHS", saved.currency)
         assertEquals("Swiggy", saved.merchantName)
         assertEquals("Food & Dining", saved.category)
         assertEquals(SharedTransactionType.CREDIT, saved.transactionType)

@@ -174,7 +174,7 @@ final class ChatViewModel: ObservableObject {
     @Published var error: String?
 
     private var session: LanguageModelSession?
-    private var context = ChatToolContext(currency: "INR")
+    private var context = ChatToolContext(currency: "GHS")
     /// Everything the session holds, for the token budget.
     private var contextTexts: [String] = []
     private let facade = PennyWiseSharedFacade.companion.shared
@@ -234,7 +234,7 @@ final class ChatViewModel: ObservableObject {
     /// A new chat gets fresh instructions: today's date, this month, the user's lists (#959).
     private func sessionForTurn() async throws -> LanguageModelSession {
         if let session { return session }
-        let currency = UserDefaults.standard.string(forKey: "displayCurrency") ?? "INR"
+        let currency = UserDefaults.standard.string(forKey: "displayCurrency") ?? "GHS"
         let facade = self.facade
         let instructions = try await Task.detached { try facade.chatSystemPrompt() }.value
         let context = ChatToolContext(currency: currency)
@@ -334,7 +334,7 @@ final class ChatViewModel: ObservableObject {
         lines.append(ChatLine(text: text, isUser: true))
         let result = try? facade.chatProposeAdd(
             amount: amount, merchant: merchant, category: "", type: "EXPENSE", account: "",
-            userMessage: text, currency: UserDefaults.standard.string(forKey: "displayCurrency") ?? "INR"
+            userMessage: text, currency: UserDefaults.standard.string(forKey: "displayCurrency") ?? "GHS"
         )
         lines.append(ChatLine(text: "Here's what I'll add. Check the card below.", isUser: false))
         pending = result?.action

@@ -109,9 +109,8 @@
     <string name="settings_import_data_subtitle">Daten aus Backup wiederherstellen</string>
     <string name="settings_import_csv_title">Importiere Transaktionen (CSV)</string>
     <string name="settings_import_csv_subtitle">Import aus einem PennyWise CSV Export</string>
-    <string name="settings_import_statement_title">Statement importieren</string>
-    <string name="settings_import_statement_subtitle">Kontoauszüge (Excel, CSV) oder PDFs aus UPI-Apps</string>
-    <string name="settings_unrecognized_sms_title">Unbekannte SMS</string>
+
+<string name="settings_unrecognized_sms_title">Unbekannte SMS</string>
     <string name="settings_unrecognized_sms_subtitle">Nicht unterstützte Banknachrichten anzeigen und melden</string>
     <string name="settings_delete_all_title">Alle Transaktionen löschen</string>
     <string name="settings_delete_all_subtitle">Lösche deinen Transaktionsverlauf – Konten und Budgets bleiben erhalten</string>

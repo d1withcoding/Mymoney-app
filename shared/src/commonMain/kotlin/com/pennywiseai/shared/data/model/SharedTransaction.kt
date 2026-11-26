@@ -8,7 +8,7 @@ data class SharedTransaction(
     val transactionType: SharedTransactionType,
     val occurredAtEpochMillis: Long,
     val note: String? = null,
-    val currency: String = "INR",
+    val currency: String = "GHS",
     val transactionHash: String? = null,
     val reference: String? = null,
     val bankName: String? = null,

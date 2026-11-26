@@ -61,7 +61,7 @@ data class BudgetEntity(
     val monthStartDay: Int? = null,
 
     @ColumnInfo(name = "currency", defaultValue = "INR")
-    val currency: String = "INR",
+    val currency: String = "GHS",
 
     @ColumnInfo(name = "is_active", defaultValue = "1")
     val isActive: Boolean = true,

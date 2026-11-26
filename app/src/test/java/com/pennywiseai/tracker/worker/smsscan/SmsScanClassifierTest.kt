@@ -4,11 +4,7 @@ import com.pennywiseai.parser.core.MessageTemplate
 import com.pennywiseai.parser.core.MessageTemplates
 import com.pennywiseai.parser.core.TeachSelection
 import com.pennywiseai.parser.core.TransactionType
-import com.pennywiseai.parser.core.bank.BaseIndianBankParser
 import com.pennywiseai.tracker.data.preferences.LearnedSendersStore
-import com.pennywiseai.tracker.data.repository.SubscriptionRepository
-import io.mockk.mockk
-import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -17,19 +13,12 @@ import java.math.BigDecimal
 
 class SmsScanClassifierTest {
 
-    private val subscriptions = mockk<SubscriptionRepository>(relaxed = true)
-    private val savedBalanceCurrencies = mutableListOf<String>()
-
     private fun classifier(
         templates: Map<String, List<MessageTemplate>> = emptyMap(),
         recentSince: Long = 0L,
     ) = SmsScanClassifier(
         recentSinceMillis = recentSince,
         taughtTemplates = lazyOf(templates),
-        subscriptionRepository = subscriptions,
-        saveBalanceNotification = { _: BaseIndianBankParser.BaseBalanceUpdateInfo, currency: String, _: ScannedSms ->
-            savedBalanceCurrencies += currency
-        },
     )
 
     @Test
@@ -41,8 +30,8 @@ class SmsScanClassifierTest {
     }
 
     @Test
-    fun `an unknown DLT sender is kept for review`() {
-        val result = classifier().classify(scannedSms("AD-NEWBNK-T", "Your statement is ready"))
+    fun `an unknown Ghana MoMo format is kept for review`() {
+        val result = classifier().classify(scannedSms("GhanaWallet", "Your GHS 12.00 statement is ready"))
 
         assertTrue(result is ParseResult.StoreUnrecognized)
     }
@@ -55,26 +44,40 @@ class SmsScanClassifierTest {
     }
 
     @Test
-    fun `a known bank's debit is read as a transaction in its currency`() {
+    fun `an MTN MoMo debit is parsed in Ghana cedis`() {
         val result = classifier().classify(
-            scannedSms("VM-HDFCBK-S", "Rs.500.00 debited from A/c XX1234 on 20-Oct-25 to merchant@upi (UPI Ref No 123456789012)")
+            scannedSms("MobileMoney", "Payment made for GHS 20.00 to LOUISA BOATENG Current Balance: GHS 1037.64 . Available Balance: GHS 1037.64 Reference: n. Transaction ID: 76664093335. Fee charged: GHS0.00 Tax charged: 0.")
         )
 
         val parsed = (result as ParseResult.Transaction).parsed
-        assertEquals(0, BigDecimal("500.00").compareTo(parsed.amount))
-        assertEquals("INR", parsed.currency)
+        assertEquals(0, BigDecimal("20.00").compareTo(parsed.amount))
+        assertEquals("GHS", parsed.currency)
+    }
+
+    @Test
+    fun `Telecel wallet balance is saved as a balance update`() {
+        val result = classifier().classify(
+            scannedSms(
+                "TelecelCash",
+                "0000013325442259 Confirmed. Your Telecel Cash wallet balance is GHS510.56 . Sending money from Telecel Cash to Telecel Cash remains FREE on the Telecel Play App."
+            )
+        )
+
+        assertTrue(result is ParseResult.BalanceUpdate)
+        assertEquals("GHS", (result as ParseResult.BalanceUpdate).parsed.currency)
+        assertEquals(BigDecimal("510.56"), result.parsed.balance)
     }
 
     @Test
     fun `a known bank's non-transaction SMS is dropped, not filed`() {
-        val result = classifier().classify(scannedSms("VM-HDFCBK-S", "123456 is your OTP for login. Do not share it with anyone."))
+        val result = classifier().classify(scannedSms("MobileMoney", "123456 is your OTP for login. Do not share it with anyone."))
 
         assertTrue(result is ParseResult.Discard)
     }
 
     @Test
     fun `a taught sender's message is kept when the parser passes on it`() {
-        val sender = "VM-HDFCBK-S"
+        val sender = "MobileMoney"
         val body = "Juice Bar bill of SAR 75.00 settled"
         val template = MessageTemplates.build(
             id = "t",
@@ -94,29 +97,4 @@ class SmsScanClassifierTest {
         assertFalse(taught.matchesTaughtTemplate(scannedSms(sender, "Your parcel has arrived")))
     }
 
-    @Test
-    fun `a balance-only SMS saves a balance in the account's currency`() {
-        val result = classifier().classify(
-            scannedSms(
-                "AD-INDUSIND-S",
-                "Your A/C 2134***12345 has Avl BAL of INR 1,234.56 as on 05/10/25 04:10 AM. Download IndusMobile from PlayStore - IndusInd Bank",
-            )
-        )
-
-        assertTrue(result is ParseResult.SpecialNotification)
-        runBlocking { (result as ParseResult.SpecialNotification).onSave() }
-        assertEquals(listOf("INR"), savedBalanceCurrencies)
-    }
-
-    @Test
-    fun `a mandate SMS becomes a subscription only while it is recent`() {
-        val sms = scannedSms(
-            "AX-PNBSMS-S",
-            "Your UPI-Mandate is successfully created towards Test Service for Rs.99.00 from A/c No.XXXXXX1234. UMN:abc123@ybl-PNB",
-            timestamp = 1_000L,
-        )
-
-        assertTrue(classifier(recentSince = 500L).classify(sms) is ParseResult.SpecialNotification)
-        assertTrue(classifier(recentSince = 2_000L).classify(sms) is ParseResult.Discard)
-    }
 }

@@ -38,7 +38,7 @@ import kotlin.math.abs
 data class BalancePoint(
     val timestamp: LocalDateTime,
     val balance: BigDecimal,
-    val currency: String = "INR"
+    val currency: String = "GHS"
 )
 
 @Composable

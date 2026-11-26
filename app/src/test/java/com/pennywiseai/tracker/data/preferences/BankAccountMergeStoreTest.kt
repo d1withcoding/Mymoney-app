@@ -1,7 +1,7 @@
 package com.pennywiseai.tracker.data.preferences
 
 import com.pennywiseai.parser.core.TransactionType
-import com.pennywiseai.parser.core.bank.PNBBankParser
+import com.pennywiseai.parser.core.bank.MtnMomoParser
 import com.pennywiseai.tracker.data.backup.AppPreferences
 import com.pennywiseai.tracker.data.database.entity.AccountBalanceEntity
 import kotlinx.serialization.encodeToString
@@ -38,7 +38,8 @@ class BankAccountMergeStoreTest {
     }
 
     @Test fun `invalid mapping and card identifiers remain unchanged`() {
-        val parsed = PNBBankParser().parse("A/c X000 debited INR 125.00 to Example Shop thru UPI:000000000001-PNB", "PNB", 0)!!
+        val body = "Payment made for GHS 125.00 to Example Shop Current Balance: GHS 500.00 . Available Balance: GHS 500.00 Reference: test. Transaction ID: 12345678901. Fee charged: GHS0.00"
+        val parsed = MtnMomoParser().parse(body, "MobileMoney", 0)!!.copy(accountLast4 = "000")
         val key = BankAccountMergeStore.mappingKey(parsed.bankName, parsed.currency, "000")
         assertEquals("1000", BankAccountMergeStore.resolve(parsed, mapOf(key to "1000")).accountLast4)
         assertEquals("000", BankAccountMergeStore.resolve(parsed.copy(isFromCard = true), mapOf(key to "1000")).accountLast4)

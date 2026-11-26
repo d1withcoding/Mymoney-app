@@ -42,7 +42,7 @@ data object Settings : NavKey
 
 /** A page of the Settings hub. */
 @Serializable
-enum class SettingsSection { TRACKING, ACCOUNTS, PLANNING, CURRENCY, FORMATS, NOTIFICATIONS, SECURITY, DATA, AI, DEVELOPER }
+enum class SettingsSection { TRACKING, ACCOUNTS, PLANNING, CURRENCY, FORMATS, NOTIFICATIONS, SECURITY, DATA, DEVELOPER }
 
 @Serializable
 data class SettingsPage(val section: SettingsSection) : NavKey
@@ -52,9 +52,6 @@ data object Categories : NavKey
 
 @Serializable
 data object Analytics : NavKey
-
-@Serializable
-data object Chat : NavKey
 
 @Serializable
 data class TransactionDetail(val transactionId: Long) : NavKey
@@ -148,13 +145,8 @@ data object TransactionGroups : NavKey
 data class TransactionGroupDetail(val groupId: Long) : NavKey
 
 @Serializable
-data object ImportStatement : NavKey
 
 @Serializable
-data object Webhooks : NavKey
-
-@Serializable
-data object AiAccess : NavKey
 
 @Serializable
 data object BackgroundAccess : NavKey
@@ -180,8 +172,7 @@ data class TransactionsWithFilter(
 @Serializable
 data class Review(val kind: String = "MONTH", val weekStart: String? = null) : NavKey
 
-// Screens inside MainScreen's tab stacks (Settings, SettingsPage, Categories, Faq
-// and ImportStatement live only there; UnrecognizedSms also opens on the root stack).
+// Screens inside MainScreen's tab stacks; UnrecognizedSms also opens on the root stack.
 @Serializable
 data object Subscriptions : NavKey
 

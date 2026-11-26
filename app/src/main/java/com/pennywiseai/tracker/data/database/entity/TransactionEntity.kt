@@ -80,7 +80,7 @@ data class TransactionEntity(
     val updatedAt: LocalDateTime = LocalDateTime.now(),
 
     @ColumnInfo(name = "currency", defaultValue = "INR")
-    val currency: String = "INR",
+    val currency: String = "GHS",
 
     @ColumnInfo(name = "from_account")
     val fromAccount: String? = null,

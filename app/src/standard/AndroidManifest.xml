@@ -15,8 +15,7 @@
     automatically for `standardDebug` / `standardRelease`; F-Droid builds
     use only `app/src/main/AndroidManifest.xml`.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <uses-permission android:name="com.android.vending.BILLING" />
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="com.android.vending.BILLING" tools:node="remove" />
 </manifest>

@@ -59,93 +59,89 @@
     <string name="unrecognized_suggestion_credit">%1$s क्रेडिट</string>
     <string name="unrecognized_suggestion_add">थप्नुहोस्</string>
     <!-- ══ Import statement ══ -->
-    <string name="import_statement_title">स्टेटमेन्ट आयात गर्नुहोस्</string>
-    <string name="import_statement_back">पछाडि</string>
-    <string name="import_statement_description">Google Pay, PhonePe, Paytm, slice वा ICICI Bank को PDF स्टेटमेन्ट, वा जुनसुकै बैंकको Excel (.xlsx) वा CSV स्टेटमेन्ट आयात गर्नुहोस्। केही थपिनुअघि के नयाँ छ भनेर तपाईंले देख्नुहुनेछ।</string>
-    <string name="import_statement_select_pdf">PDF स्टेटमेन्ट छान्नुहोस्</string>
-    <string name="import_statement_loading_title">लेनदेन आयात गर्दै...</string>
-    <string name="import_statement_loading_body">स्टेटमेन्ट पढ्दै र दोहोरिएका जाँच्दै</string>
-    <string name="import_statement_complete">आयात पूरा भयो</string>
-    <string name="import_statement_result_imported">आयात गरिएका लेनदेन</string>
-    <string name="import_statement_result_enriched">विवरण थपिएका लेनदेन</string>
-    <string name="import_statement_result_total_parsed">स्टेटमेन्टका पङ्क्तिहरू</string>
-    <string name="import_statement_result_duplicates">दोहोरिएका छोडिए: %1$d</string>
-    <string name="import_statement_result_exact">ठ्याक्कै उस्तै पुनः आयात</string>
-    <string name="import_statement_result_by_reference">UPI रेफरेन्सद्वारा</string>
-    <string name="import_statement_result_by_amount_date">रकम र मितिद्वारा</string>
-    <string name="import_statement_import_another">अर्को आयात गर्नुहोस्</string>
-    <string name="import_statement_done">समाप्त</string>
-    <string name="import_statement_failed">आयात असफल भयो</string>
-    <string name="import_statement_try_again">फेरि प्रयास गर्नुहोस्</string>
-    <string name="import_statement_error_unsupported">यो स्टेटमेन्ट ढाँचा समर्थित छैन। हाल समर्थित: Google Pay, PhonePe, Paytm, slice, ICICI Bank। अरू बैंकका लागि, त्यसको Excel (.xlsx) वा CSV स्टेटमेन्ट आयात गर्नुहोस्।</string>
-    <string name="import_statement_error_no_transactions">स्टेटमेन्टमा कुनै लेनदेन भेटिएन।</string>
-    <string name="import_statement_error_failed">स्टेटमेन्ट आयात गर्न असफल।</string>
-    <string name="import_statement_error_read">यो फाइल पढ्न सकिएन।</string>
-    <string name="import_statement_error_too_large">यो फाइल आयात गर्न धेरै ठूलो छ।</string>
-    <string name="import_statement_error_no_rows">यो फाइलमा कुनै पङ्क्ति छैन।</string>
-    <string name="import_statement_error_too_many_rows">यो स्टेटमेन्टमा %1$d भन्दा बढी पङ्क्तिहरू छन्। छोटो अवधि निर्यात गरेर त्यसलाई आयात गर्नुहोस्।</string>
-    <string name="import_statement_error_date_1904">यो वर्कबुकले 1904 मिति प्रणाली प्रयोग गर्छ। यसलाई .csv मा सेभ गरेर आयात गर्नुहोस्।</string>
-    <string name="import_statement_password_title">पासवर्ड भएको PDF</string>
-    <string name="import_statement_password_body">यो स्टेटमेन्ट लक छ। तपाईंको बैंकले यसका लागि दिएको पासवर्ड हाल्नुहोस्। यो फाइल खोल्न मात्र प्रयोग हुन्छ र सुरक्षित गरिँदैन।</string>
-    <string name="import_statement_password_label">PDF पासवर्ड</string>
-    <string name="import_statement_password_wrong">गलत पासवर्ड। फेरि प्रयास गर्नुहोस्।</string>
-    <string name="import_statement_password_open">खोल्नुहोस्</string>
-    <string name="import_statement_password_cancel">रद्द गर्नुहोस्</string>
-    <string name="import_statement_select_spreadsheet">Excel वा CSV स्टेटमेन्ट छान्नुहोस्</string>
-    <string name="import_statement_xls_hint">पुरानो .xls फाइल हो? पहिले यसलाई .xlsx वा .csv मा सेभ गर्नुहोस्।</string>
-    <string name="import_statement_map_title">कोलम मिलाउनुहोस्</string>
-    <string name="import_statement_map_body">कुन कोलम के हो PennyWise लाई बताउनुहोस्। उही कोलम भएको अर्को स्टेटमेन्टका लागि यसले यो सम्झन्छ।</string>
-    <string name="import_statement_header_row">हेडर पङ्क्ति: %1$d</string>
-    <string name="import_statement_header_row_up">अघिल्लो पङ्क्ति</string>
-    <string name="import_statement_header_row_down">अर्को पङ्क्ति</string>
-    <string name="import_statement_col_date">मिति</string>
-    <string name="import_statement_col_date_format">मिति ढाँचा</string>
-    <string name="import_statement_date_auto">आफैं पत्ता लगाउनुहोस्</string>
-    <string name="import_statement_date_auto_found">आफैं पत्ता लगाउनुहोस् (%1$s)</string>
-    <string name="import_statement_col_description">विवरण</string>
-    <string name="import_statement_amount_split">डेबिट र क्रेडिट</string>
-    <string name="import_statement_amount_single">एउटै रकम</string>
-    <string name="import_statement_col_debit">डेबिट (पैसा गएको)</string>
-    <string name="import_statement_col_credit">क्रेडिट (पैसा आएको)</string>
-    <string name="import_statement_col_amount">रकम (ऋणात्मक वा Dr = पैसा गएको)</string>
-    <string name="import_statement_col_type">Dr/Cr कोलम (वैकल्पिक)</string>
-    <string name="import_statement_col_balance">बालान्स (वैकल्पिक)</string>
-    <string name="import_statement_col_reference">रेफरेन्स / UTR (वैकल्पिक)</string>
-    <string name="import_statement_date_excel">Excel मिति</string>
-    <string name="import_statement_col_none">कुनै पनि होइन</string>
-    <string name="import_statement_column_label">कोलम %1$s</string>
-    <string name="import_statement_account">खाता</string>
-    <string name="import_statement_account_none">कुनै खातासँग जोडिएको छैन</string>
-    <string name="import_statement_sample_title">पङ्क्तिहरू कसरी पढिन्छन्</string>
-    <string name="import_statement_sample_count">%1$d लेनदेन भेटिए, %2$d पङ्क्ति छोडिए (खाली, कुल, फुटर)</string>
-    <string name="import_statement_sample_empty">यो मिलानमा अझै कुनै लेनदेन छैन। हेडर पङ्क्ति, मिति कोलम र त्यसको ढाँचा, अनि रकमका कोलमहरू जाँच्नुहोस्।</string>
-    <string name="import_statement_preview_button">आयातको पूर्वावलोकन</string>
-    <string name="import_statement_cancel">रद्द गर्नुहोस्</string>
-    <string name="import_statement_preview_title">आयात गर्नुअघि जाँच्नुहोस्</string>
-    <string name="import_statement_preview_new">नयाँ</string>
-    <string name="import_statement_preview_matched">PennyWise मा पहिले नै छ</string>
-    <string name="import_statement_preview_account">खाता: %1$s</string>
-    <string name="import_statement_preview_new_rows">नयाँ लेनदेन</string>
-    <string name="import_statement_preview_new_rows_hint">थप्न नचाहेकामा टिक हटाउनुहोस्।</string>
-    <string name="import_statement_preview_all_matched">यो स्टेटमेन्टका सबै पङ्क्ति PennyWise मा पहिले नै छन्।</string>
-    <plurals name="import_statement_confirm">
-        <item quantity="one">%1$d लेनदेन आयात गर्नुहोस्</item>
-        <item quantity="other">%1$d लेनदेन आयात गर्नुहोस्</item>
-    </plurals>
-    <string name="import_statement_confirm_nothing">जारी राख्नुहोस्</string>
-    <string name="import_statement_edit_mapping">कोलम मिलान सम्पादन गर्नुहोस्</string>
-    <string name="import_statement_balance_title">अन्तिम बालान्स जाँच</string>
-    <string name="import_statement_balance_subtitle">%2$s मा %1$s</string>
-    <string name="import_statement_balance_statement">स्टेटमेन्ट अनुसार</string>
-    <string name="import_statement_balance_app">PennyWise अनुसार</string>
-    <string name="import_statement_balance_difference">फरक</string>
-    <string name="import_statement_balance_unknown_note">PennyWise सँग यो खाताको %1$s वा त्योभन्दा अघिको बालान्स छैन, त्यसैले अहिले तुलना गर्ने केही छैन।</string>
-    <string name="import_statement_balance_match">बालान्स मिल्छ।</string>
-    <string name="import_statement_balance_set">बालान्स %1$s मा सेट गर्नुहोस्</string>
-    <string name="import_statement_balance_set_note">स्टेटमेन्टको बालान्स र स्टेटमेन्ट सकिएपछि PennyWise ले रेकर्ड गरेको रकम।</string>
-    <string name="import_statement_balance_applied">बालान्स %1$s मा अपडेट भयो।</string>
-    <string name="import_statement_balance_newer">यो स्टेटमेन्टपछि तपाईंको बैंकले नयाँ बालान्स पठाएको छ, त्यसैले PennyWise ले त्यही राख्छ।</string>
-    <!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
     <string name="upgrade_subtitle_member">सबै Pro सुविधा सक्रिय छन्</string>
     <string name="upgrade_subtitle_upgrade">लाइसेन्स कीले सबै कुरा अनलक</string>
     <string name="upgrade_enter_license_key">लाइसेन्स की हाल्नुहोस्</string>

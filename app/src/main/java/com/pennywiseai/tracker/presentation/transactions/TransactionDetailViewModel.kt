@@ -44,7 +44,6 @@ import com.pennywiseai.tracker.ui.UiText
 import com.pennywiseai.tracker.ui.components.SplitItem
 import com.pennywiseai.tracker.ui.components.pickerDefault
 import com.pennywiseai.tracker.utils.CurrencyFormatter
-import com.pennywiseai.tracker.utils.SmsReportUrlBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
@@ -79,7 +78,7 @@ class TransactionDetailViewModel @Inject constructor(
     private val _transaction = MutableStateFlow<TransactionEntity?>(null)
     val transaction: StateFlow<TransactionEntity?> = _transaction.asStateFlow()
 
-    private val _primaryCurrency = MutableStateFlow("INR")
+    private val _primaryCurrency = MutableStateFlow("GHS")
     val primaryCurrency: StateFlow<String> = _primaryCurrency.asStateFlow()
 
     private val _convertedAmount = MutableStateFlow<BigDecimal?>(null)
@@ -448,7 +447,7 @@ class TransactionDetailViewModel @Inject constructor(
             if (!bankName.isNullOrEmpty()) {
                 com.pennywiseai.tracker.utils.CurrencyFormatter.getBankBaseCurrency(bankName)
             } else {
-                transaction.currency.takeIf { it.isNotEmpty() } ?: "INR"
+                transaction.currency.takeIf { it.isNotEmpty() } ?: "GHS"
             }
         }
         _primaryCurrency.value = primaryCurrency
@@ -1136,15 +1135,6 @@ class TransactionDetailViewModel @Inject constructor(
         } else {
             _errorMessage.value = null
         }
-    }
-
-    fun getReportUrl(): String {
-        val txn = _transaction.value ?: return ""
-        val smsBody = txn.smsBody ?: "Transaction: ${txn.merchantName} - ${txn.amount}"
-        android.util.Log.d("TransactionDetailVM", "Generating report URL for transaction")
-        val url = SmsReportUrlBuilder.buildUrl(context, smsBody, txn.smsSender)
-        android.util.Log.d("TransactionDetailVM", "Report URL: ${url.take(200)}...")
-        return url
     }
 
     fun showDeleteDialog() {

@@ -59,92 +59,88 @@
     <string name="unrecognized_suggestion_credit">Crédit de %1$s</string>
     <string name="unrecognized_suggestion_add">Ajouter</string>
     <!-- ══ Import statement ══ -->
-    <string name="import_statement_title">Importer un relevé</string>
-    <string name="import_statement_back">Précédent</string>
-    <string name="import_statement_description">Importez un relevé PDF de Google Pay, PhonePe, Paytm, slice ou ICICI Bank, ou le relevé Excel (.xlsx) ou CSV de n\'importe quelle banque. Vous verrez les nouveautés avant que quoi que ce soit soit ajouté.</string>
-    <string name="import_statement_select_pdf">Sélectionner le relevé PDF</string>
-    <string name="import_statement_loading_title">Importation des transactions...</string>
-    <string name="import_statement_loading_body">Lecture du relevé et recherche des doublons</string>
-    <string name="import_statement_complete">Importation terminée</string>
-    <string name="import_statement_result_imported">Transactions importées</string>
-    <string name="import_statement_result_enriched">Transactions enrichies</string>
-    <string name="import_statement_result_total_parsed">Lignes du relevé</string>
-    <string name="import_statement_result_duplicates">Doublons ignorés : %1$d</string>
-    <string name="import_statement_result_exact">Réimportations exactes</string>
-    <string name="import_statement_result_by_reference">Par référence UPI</string>
-    <string name="import_statement_result_by_amount_date">Par montant &amp; date</string>
-    <string name="import_statement_import_another">Importer un autre</string>
-    <string name="import_statement_done">Fait</string>
-    <string name="import_statement_failed">Importation échouée</string>
-    <string name="import_statement_try_again">Réessayez</string>
-    <string name="import_statement_error_unsupported">Format de relevé non pris en charge. Actuellement pris en charge : Google Pay, PhonePe, Paytm, slice, ICICI Bank. Pour toute autre banque, importez son relevé Excel (.xlsx) ou CSV.</string>
-    <string name="import_statement_error_no_transactions">Aucune transaction trouvée dans le relevé.</string>
-    <string name="import_statement_error_failed">Échec de l\'importation du relevé.</string>
-    <string name="import_statement_error_read">Impossible de lire ce fichier.</string>
-    <string name="import_statement_error_too_large">Ce fichier est trop volumineux pour être importé.</string>
-    <string name="import_statement_error_no_rows">Ce fichier ne contient aucune ligne.</string>
-    <string name="import_statement_error_too_many_rows">Ce relevé contient plus de %1$d lignes. Exportez une période plus courte et importez-la.</string>
-    <string name="import_statement_error_date_1904">Ce classeur utilise le système de dates 1904. Enregistrez-le en .csv et importez-le.</string>
-    <string name="import_statement_password_title">PDF protégé par mot de passe</string>
-    <string name="import_statement_password_body">Ce relevé est verrouillé. Saisissez le mot de passe que votre banque vous a donné pour ce fichier. Il sert uniquement à ouvrir le fichier et n\'est pas enregistré.</string>
-    <string name="import_statement_password_label">Mot de passe du PDF</string>
-    <string name="import_statement_password_wrong">Mot de passe incorrect. Réessayez.</string>
-    <string name="import_statement_password_open">Ouvrir</string>
-    <string name="import_statement_password_cancel">Abandonner</string>
-    <string name="import_statement_select_spreadsheet">Sélectionner un relevé Excel ou CSV</string>
-    <string name="import_statement_xls_hint">Ancien fichier .xls ? Enregistrez-le d\'abord en .xlsx ou .csv.</string>
-    <string name="import_statement_map_title">Associer les colonnes</string>
-    <string name="import_statement_map_body">Indiquez à PennyWise à quoi correspond chaque colonne. Il s\'en souviendra pour le prochain relevé avec les mêmes colonnes.</string>
-    <string name="import_statement_header_row">Ligne d\'en-tête : %1$d</string>
-    <string name="import_statement_header_row_up">Ligne précédente</string>
-    <string name="import_statement_header_row_down">Ligne suivante</string>
-    <string name="import_statement_col_date_format">Format de date</string>
-    <string name="import_statement_date_auto">Détection auto</string>
-    <string name="import_statement_date_auto_found">Détection auto (%1$s)</string>
-    <string name="import_statement_col_description">Libellé</string>
-    <string name="import_statement_amount_split">Débit et crédit</string>
-    <string name="import_statement_amount_single">Montant unique</string>
-    <string name="import_statement_col_debit">Débit (sorties)</string>
-    <string name="import_statement_col_credit">Crédit (entrées)</string>
-    <string name="import_statement_col_amount">Montant (négatif ou Dr = sortie)</string>
-    <string name="import_statement_col_type">Colonne Dr/Cr (facultatif)</string>
-    <string name="import_statement_col_balance">Solde (facultatif)</string>
-    <string name="import_statement_col_reference">Référence / UTR (facultatif)</string>
-    <string name="import_statement_date_excel">Date Excel</string>
-    <string name="import_statement_col_none">Aucune</string>
-    <string name="import_statement_column_label">Colonne %1$s</string>
-    <string name="import_statement_account">Compte</string>
-    <string name="import_statement_account_none">Non lié à un compte</string>
-    <string name="import_statement_sample_title">Lecture des lignes</string>
-    <string name="import_statement_sample_count">%1$d transactions trouvées, %2$d lignes ignorées (vides, totaux, pieds de page)</string>
-    <string name="import_statement_sample_empty">Aucune transaction avec cette association pour l\'instant. Vérifiez la ligne d\'en-tête, la colonne Date et son format, ainsi que les colonnes de montant.</string>
-    <string name="import_statement_preview_button">Aperçu de l\'import</string>
-    <string name="import_statement_cancel">Abandonner</string>
-    <string name="import_statement_preview_title">Vérifier avant d\'importer</string>
-    <string name="import_statement_preview_new">Nouveau</string>
-    <string name="import_statement_preview_matched">Déjà dans PennyWise</string>
-    <string name="import_statement_preview_account">Compte : %1$s</string>
-    <string name="import_statement_preview_new_rows">Nouvelles transactions</string>
-    <string name="import_statement_preview_new_rows_hint">Décochez celles que vous ne voulez pas ajouter.</string>
-    <string name="import_statement_preview_all_matched">Toutes les lignes de ce relevé sont déjà dans PennyWise.</string>
-    <plurals name="import_statement_confirm">
-        <item quantity="one">Importer %1$d transaction</item>
-        <item quantity="other">Importer %1$d transactions</item>
-    </plurals>
-    <string name="import_statement_confirm_nothing">Continuer</string>
-    <string name="import_statement_edit_mapping">Modifier l\'association des colonnes</string>
-    <string name="import_statement_balance_title">Vérification du solde de clôture</string>
-    <string name="import_statement_balance_subtitle">%1$s au %2$s</string>
-    <string name="import_statement_balance_statement">Selon le relevé</string>
-    <string name="import_statement_balance_app">Selon PennyWise</string>
-    <string name="import_statement_balance_difference">Écart</string>
-    <string name="import_statement_balance_unknown_note">PennyWise n\'a aucun solde pour ce compte au %1$s ou avant, il n\'y a donc encore rien à comparer.</string>
-    <string name="import_statement_balance_match">Les soldes correspondent.</string>
-    <string name="import_statement_balance_set">Définir le solde à %1$s</string>
-    <string name="import_statement_balance_set_note">Solde du relevé plus ce que PennyWise a enregistré après la fin du relevé.</string>
-    <string name="import_statement_balance_applied">Solde mis à jour : %1$s.</string>
-    <string name="import_statement_balance_newer">Votre banque a indiqué un solde plus récent depuis ce relevé, PennyWise conserve donc celui-ci.</string>
-    <!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
     <string name="upgrade_title">PennyWise Pro</string>
     <string name="upgrade_subtitle_member">Toutes les fonctionnalités Pro sont activées</string>
     <string name="upgrade_subtitle_upgrade">Tout déverrouillé avec une clé de licence</string>

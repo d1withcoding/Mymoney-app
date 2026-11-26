@@ -56,92 +56,89 @@
     <string name="unrecognized_suggestion_credit">เงินเข้า %1$s</string>
     <string name="unrecognized_suggestion_add">เพิ่ม</string>
     <!-- ══ Import statement ══ -->
-    <string name="import_statement_title">นำเข้า Statement</string>
-    <string name="import_statement_back">กลับ</string>
-    <string name="import_statement_description">นำเข้า Statement แบบ PDF จาก Google Pay, PhonePe, Paytm, slice หรือ ICICI Bank หรือไฟล์ Excel (.xlsx) หรือ CSV ของธนาคารไหนก็ได้ คุณจะเห็นรายการใหม่ก่อนที่จะมีการเพิ่มอะไรเข้าไป</string>
-    <string name="import_statement_select_pdf">เลือก Statement แบบ PDF</string>
-    <string name="import_statement_loading_title">กำลังนำเข้าธุรกรรม...</string>
-    <string name="import_statement_loading_body">กำลังอ่าน Statement และตรวจหารายการซ้ำ</string>
-    <string name="import_statement_complete">นำเข้าเสร็จแล้ว</string>
-    <string name="import_statement_result_imported">ธุรกรรมที่นำเข้า</string>
-    <string name="import_statement_result_enriched">ธุรกรรมที่เติมข้อมูล</string>
-    <string name="import_statement_result_total_parsed">แถวใน Statement</string>
-    <string name="import_statement_result_duplicates">ข้ามรายการซ้ำ: %1$d</string>
-    <string name="import_statement_result_exact">นำเข้าซ้ำแบบตรงทุกอย่าง</string>
-    <string name="import_statement_result_by_reference">ตามเลขอ้างอิง UPI</string>
-    <string name="import_statement_result_by_amount_date">ตามจำนวนเงินและวันที่</string>
-    <string name="import_statement_import_another">นำเข้าไฟล์อื่น</string>
-    <string name="import_statement_done">เสร็จสิ้น</string>
-    <string name="import_statement_failed">นำเข้าไม่สำเร็จ</string>
-    <string name="import_statement_try_again">ลองอีกครั้ง</string>
-    <string name="import_statement_error_unsupported">ไม่รองรับรูปแบบ Statement นี้ ตอนนี้รองรับ Google Pay, PhonePe, Paytm, slice, ICICI Bank สำหรับธนาคารอื่น ให้นำเข้าไฟล์ Excel (.xlsx) หรือ CSV แทน</string>
-    <string name="import_statement_error_no_transactions">ไม่พบธุรกรรมใน Statement</string>
-    <string name="import_statement_error_failed">นำเข้า Statement ไม่สำเร็จ</string>
-    <string name="import_statement_error_read">อ่านไฟล์นี้ไม่ได้</string>
-    <string name="import_statement_error_too_large">ไฟล์นี้ใหญ่เกินกว่าจะนำเข้าได้</string>
-    <string name="import_statement_error_no_rows">ไฟล์นี้ไม่มีแถวข้อมูล</string>
-    <string name="import_statement_error_too_many_rows">Statement นี้มีมากกว่า %1$d แถว ส่งออกช่วงเวลาที่สั้นลงแล้วนำเข้าไฟล์นั้น</string>
-    <string name="import_statement_error_date_1904">เวิร์กบุ๊กนี้ใช้ระบบวันที่แบบ 1904 บันทึกเป็น .csv แล้วนำเข้าไฟล์นั้น</string>
-    <string name="import_statement_password_title">PDF มีรหัสผ่าน</string>
-    <string name="import_statement_password_body">Statement นี้ถูกล็อกไว้ ใส่รหัสผ่านที่ธนาคารให้มา ใช้แค่เปิดไฟล์และจะไม่ถูกบันทึก</string>
-    <string name="import_statement_password_label">รหัสผ่าน PDF</string>
-    <string name="import_statement_password_wrong">รหัสผ่านไม่ถูกต้อง ลองอีกครั้ง</string>
-    <string name="import_statement_password_open">เปิด</string>
-    <string name="import_statement_password_cancel">ยกเลิก</string>
-    <string name="import_statement_select_spreadsheet">เลือก Statement แบบ Excel หรือ CSV</string>
-    <string name="import_statement_xls_hint">ไฟล์ .xls แบบเก่า? บันทึกเป็น .xlsx หรือ .csv ก่อน</string>
-    <string name="import_statement_map_title">จับคู่คอลัมน์</string>
-    <string name="import_statement_map_body">บอก PennyWise ว่าคอลัมน์ไหนคืออะไร แอปจะจำไว้ใช้กับ Statement ครั้งหน้าที่มีคอลัมน์แบบเดียวกัน</string>
-    <string name="import_statement_header_row">แถวหัวตาราง: %1$d</string>
-    <string name="import_statement_header_row_up">แถวก่อนหน้า</string>
-    <string name="import_statement_header_row_down">แถวถัดไป</string>
-    <string name="import_statement_col_date">วันที่</string>
-    <string name="import_statement_col_date_format">รูปแบบวันที่</string>
-    <string name="import_statement_date_auto">ตรวจหาอัตโนมัติ</string>
-    <string name="import_statement_date_auto_found">ตรวจหาอัตโนมัติ (%1$s)</string>
-    <string name="import_statement_col_description">คำอธิบาย</string>
-    <string name="import_statement_amount_split">เงินออกและเงินเข้า</string>
-    <string name="import_statement_amount_single">จำนวนเงินเดียว</string>
-    <string name="import_statement_col_debit">เดบิต (เงินออก)</string>
-    <string name="import_statement_col_credit">เครดิต (เงินเข้า)</string>
-    <string name="import_statement_col_amount">จำนวนเงิน (ติดลบหรือ Dr = เงินออก)</string>
-    <string name="import_statement_col_type">คอลัมน์ Dr/Cr (ไม่บังคับ)</string>
-    <string name="import_statement_col_balance">ยอดคงเหลือ (ไม่บังคับ)</string>
-    <string name="import_statement_col_reference">เลขอ้างอิง / UTR (ไม่บังคับ)</string>
-    <string name="import_statement_date_excel">วันที่แบบ Excel</string>
-    <string name="import_statement_col_none">ไม่มี</string>
-    <string name="import_statement_column_label">คอลัมน์ %1$s</string>
-    <string name="import_statement_account">บัญชี</string>
-    <string name="import_statement_account_none">ไม่ผูกกับบัญชีใด</string>
-    <string name="import_statement_sample_title">ตัวอย่างการอ่านแถว</string>
-    <string name="import_statement_sample_count">พบธุรกรรม %1$d รายการ ข้าม %2$d แถว (แถวว่าง ยอดรวม ท้ายตาราง)</string>
-    <string name="import_statement_sample_empty">ยังไม่พบธุรกรรมจากการจับคู่นี้ ตรวจสอบแถวหัวตาราง คอลัมน์วันที่และรูปแบบ รวมถึงคอลัมน์จำนวนเงิน</string>
-    <string name="import_statement_preview_button">ดูตัวอย่างก่อนนำเข้า</string>
-    <string name="import_statement_cancel">ยกเลิก</string>
-    <string name="import_statement_preview_title">ตรวจสอบก่อนนำเข้า</string>
-    <string name="import_statement_preview_new">ใหม่</string>
-    <string name="import_statement_preview_matched">มีใน PennyWise แล้ว</string>
-    <string name="import_statement_preview_account">บัญชี: %1$s</string>
-    <string name="import_statement_preview_new_rows">ธุรกรรมใหม่</string>
-    <string name="import_statement_preview_new_rows_hint">เอาเครื่องหมายถูกออกจากรายการที่ไม่อยากเพิ่ม</string>
-    <string name="import_statement_preview_all_matched">ทุกแถวใน Statement นี้มีอยู่ใน PennyWise แล้ว</string>
-    <plurals name="import_statement_confirm">
-        <item quantity="other">นำเข้า %1$d ธุรกรรม</item>
-    </plurals>
-    <string name="import_statement_confirm_nothing">ดำเนินการต่อ</string>
-    <string name="import_statement_edit_mapping">แก้ไขการจับคู่คอลัมน์</string>
-    <string name="import_statement_balance_title">ตรวจยอดคงเหลือปลายงวด</string>
-    <string name="import_statement_balance_subtitle">%1$s ณ %2$s</string>
-    <string name="import_statement_balance_statement">ตาม Statement</string>
-    <string name="import_statement_balance_app">ตาม PennyWise</string>
-    <string name="import_statement_balance_difference">ส่วนต่าง</string>
-    <string name="import_statement_balance_unknown_note">PennyWise ยังไม่มียอดคงเหลือของบัญชีนี้ ณ หรือก่อนวันที่ %1$s เลยยังไม่มีอะไรให้เทียบ</string>
-    <string name="import_statement_balance_match">ยอดคงเหลือตรงกัน</string>
-    <string name="import_statement_balance_set">ตั้งยอดคงเหลือเป็น %1$s</string>
-    <string name="import_statement_balance_set_note">ยอดคงเหลือตาม Statement บวกกับรายการที่ PennyWise บันทึกหลังจาก Statement สิ้นสุด</string>
-    <string name="import_statement_balance_applied">อัปเดตยอดคงเหลือเป็น %1$s แล้ว</string>
-    <string name="import_statement_balance_newer">ธนาคารของคุณแจ้งยอดคงเหลือที่ใหม่กว่า Statement นี้แล้ว PennyWise จึงใช้ยอดนั้นต่อไป</string>
-    <!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
     <string name="upgrade_subtitle_member">ใช้ความสามารถ Pro ได้ทั้งหมด</string>
     <string name="upgrade_subtitle_upgrade">ปลดล็อกทุกอย่างด้วยคีย์ใบอนุญาต</string>
     <string name="upgrade_enter_license_key">ใส่คีย์ใบอนุญาต</string>

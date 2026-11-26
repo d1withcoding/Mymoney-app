@@ -1,13 +1,10 @@
 import SwiftUI
-import PDFKit
 import Shared
 
 struct SettingsScreen: View {
     @ObservedObject private var appLockManager = AppLockManager.shared
     @StateObject private var exportImportManager = ExportImportManager()
     @State private var showingDocumentPicker = false
-    @State private var showingStatementPicker = false
-    @State private var statementImportResult: String? = nil
     @Environment(\.isAmoledActive) private var isAmoled
     @Environment(\.scenePhase) private var scenePhase
     @State private var aiStatus = OnDeviceAI.status
@@ -34,8 +31,7 @@ struct SettingsScreen: View {
                     }
                 }
 
-                // The picker existed but nothing navigated to it, so every user
-                // was stuck on the INR default for display formatting.
+                // GHS is the only currency offered by this Ghana-focused build.
                 NavigationLink {
                     CurrencyPickerScreen()
                 } label: {
@@ -169,32 +165,12 @@ struct SettingsScreen: View {
                     }
                 }
 
-                Button {
-                    showingStatementPicker = true
-                } label: {
-                    Label {
-                        VStack(alignment: .leading, spacing: AppSpacing.xs) {
-                            Text("Import Bank Statement")
-                                .font(AppTypography.body)
-                            Text("Import GPay, PhonePe, or slice PDF")
-                                .font(AppTypography.caption)
-                                .foregroundStyle(.secondary)
-                        }
-                    } icon: {
-                        Image(systemName: "doc.text.magnifyingglass")
-                            .foregroundStyle(.orange)
-                    }
-                }
-                // Action rows read like the NavigationLink rows around them:
-                // primary title, secondary subtitle, not accent-tinted text.
-                .tint(.primary)
-
                 NavigationLink {
                     BankSmsSetupScreen()
                 } label: {
                     Label {
                         VStack(alignment: .leading, spacing: AppSpacing.xs) {
-                            Text("Auto-add bank SMS")
+                            Text("Auto-add Ghana mobile money SMS")
                                 .font(AppTypography.body)
                             Text("Save bank texts with a Shortcuts automation")
                                 .font(AppTypography.caption)
@@ -320,26 +296,6 @@ struct SettingsScreen: View {
                     }
                 }
 
-                Button {
-                    if let url = URL(string: AppLinks.newIssue) {
-                        UIApplication.shared.open(url)
-                    }
-                } label: {
-                    Label {
-                        VStack(alignment: .leading, spacing: AppSpacing.xs) {
-                            Text("Report an Issue")
-                                .font(AppTypography.body)
-                                .foregroundStyle(.primary)
-                            Text("Open a bug report on GitHub")
-                                .font(AppTypography.caption)
-                                .foregroundStyle(.secondary)
-                        }
-                    } icon: {
-                        Image(systemName: "ladybug.fill")
-                            .foregroundStyle(.orange)
-                    }
-                }
-                .tint(.primary)
             }
 
             // MARK: - About
@@ -374,21 +330,6 @@ struct SettingsScreen: View {
                 exportImportManager.importBackup(from: url)
             }
         }
-        .sheet(isPresented: $showingStatementPicker) {
-            PDFDocumentPicker { url in
-                importBankStatement(from: url)
-            }
-        }
-        .alert("Import Result", isPresented: Binding(
-            get: { statementImportResult != nil },
-            set: { if !$0 { statementImportResult = nil } }
-        )) {
-            Button("OK") { statementImportResult = nil }
-        } message: {
-            if let result = statementImportResult {
-                Text(result)
-            }
-        }
         .overlay {
             if let message = exportImportManager.statusMessage {
                 VStack {
@@ -410,9 +351,5 @@ struct SettingsScreen: View {
                 }
             }
         }
-    }
-
-    private func importBankStatement(from url: URL) {
-        statementImportResult = StatementImportService.importPDF(at: url)
     }
 }

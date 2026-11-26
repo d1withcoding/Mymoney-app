@@ -462,12 +462,12 @@ class MessageTemplateTest {
 
     @Test
     fun `guesses an English message`() {
-        val guess = MessageTemplates.guess(sender, "Purchased SAR 50.00 at Juice Bar card ending 1234 on 12/10/26. Balance SAR 900.00")
-        val body = "Purchased SAR 50.00 at Juice Bar card ending 1234 on 12/10/26. Balance SAR 900.00"
+        val guess = MessageTemplates.guess(sender, "Purchased GHS 50.00 at Juice Bar card ending 1234 on 12/10/26. Balance GHS 900.00")
+        val body = "Purchased GHS 50.00 at Juice Bar card ending 1234 on 12/10/26. Balance GHS 900.00"
         assertEquals("50.00", textOf(body, guess.amount), "the balance is not the amount")
         assertEquals("1234", textOf(body, guess.account))
         assertEquals(TransactionType.EXPENSE, guess.type)
-        assertEquals("SAR", guess.currency)
+        assertEquals("GHS", guess.currency)
     }
 
     @TestFactory

@@ -10,7 +10,6 @@ import com.pennywiseai.tracker.presentation.split.SplitBillViewModel
 import com.pennywiseai.tracker.presentation.split.SplitSection
 import com.pennywiseai.tracker.presentation.split.canSplit
 import androidx.compose.ui.res.stringResource
-import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -275,21 +274,6 @@ fun TransactionDetailScreen(
                                         transaction?.let { onDuplicateTransaction(it.id) }
                                     }
                                 )
-                                DropdownMenuItem(
-                                    text = { Text(stringResource(R.string.txn_detail_menu_report_issue)) },
-                                    leadingIcon = {
-                                        Icon(Icons.Default.BugReport, contentDescription = null)
-                                    },
-                                    onClick = {
-                                        showActionsMenu = false
-                                        val reportUrl = viewModel.getReportUrl()
-                                        runCatching {
-                                            context.startActivity(
-                                                Intent(Intent.ACTION_VIEW, Uri.parse(reportUrl))
-                                            )
-                                        }
-                                    }
-                                )
                                 HorizontalDivider()
                                 DropdownMenuItem(
                                     text = {
@@ -432,7 +416,7 @@ fun TransactionDetailScreen(
         val inferredDirection = if (txType == TransactionType.INCOME) LoanDirection.BORROWED else LoanDirection.LENT
         MarkAsLoanBottomSheet(
             transactionAmount = transaction?.amount ?: BigDecimal.ZERO,
-            transactionCurrency = transaction?.currency ?: "INR",
+            transactionCurrency = transaction?.currency ?: "GHS",
             direction = inferredDirection,
             recentPersonNames = recentPersonNames,
             onDismiss = { viewModel.hideMarkAsLoanSheet() },

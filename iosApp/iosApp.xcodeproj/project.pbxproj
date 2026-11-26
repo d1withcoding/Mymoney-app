@@ -53,7 +53,6 @@
 		JJ0004002D39B001007A8A11 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = JJ0001002D39B001007A8A11 /* CurrencyManager.swift */; };
 		JJ0005002D39B001007A8A11 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = JJ0002002D39B001007A8A11 /* CurrencyFormatter.swift */; };
 		JJ0006002D39B001007A8A11 /* CurrencyPickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = JJ0003002D39B001007A8A11 /* CurrencyPickerScreen.swift */; };
-		JJ0009002D39B001007A8A11 /* StatementImportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = JJ0008002D39B001007A8A11 /* StatementImportService.swift */; };
 		LL0002002D39B001007A8A11 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = LL0001002D39B001007A8A11 /* ThemeManager.swift */; };
 		LL0004002D39B001007A8A11 /* AppearanceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = LL0003002D39B001007A8A11 /* AppearanceScreen.swift */; };
 		MM0003002D39B001007A8A11 /* FAQScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = MM0001002D39B001007A8A11 /* FAQScreen.swift */; };
@@ -66,7 +65,6 @@
 		QQ0006002D39B001007A8A11 /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = QQ0001002D39B001007A8A11 /* OnboardingScreen.swift */; };
 		QQ0007002D39B001007A8A11 /* WelcomeStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = QQ0002002D39B001007A8A11 /* WelcomeStep.swift */; };
 		QQ0008002D39B001007A8A11 /* ProfileStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = QQ0003002D39B001007A8A11 /* ProfileStep.swift */; };
-		QQ0009002D39B001007A8A11 /* ImportStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = QQ0004002D39B001007A8A11 /* ImportStep.swift */; };
 		QQ0010002D39B001007A8A11 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = QQ0005002D39B001007A8A11 /* OnboardingViewModel.swift */; };
 		RR0004002D39B001007A8A11 /* SubscriptionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = RR0001002D39B001007A8A11 /* SubscriptionsScreen.swift */; };
 		RR0005002D39B001007A8A11 /* AddEditSubscriptionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = RR0002002D39B001007A8A11 /* AddEditSubscriptionScreen.swift */; };
@@ -133,7 +131,6 @@
 		JJ0001002D39B001007A8A11 /* CurrencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
 		JJ0002002D39B001007A8A11 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
 		JJ0003002D39B001007A8A11 /* CurrencyPickerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerScreen.swift; sourceTree = "<group>"; };
-		JJ0008002D39B001007A8A11 /* StatementImportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementImportService.swift; sourceTree = "<group>"; };
 		LL0001002D39B001007A8A11 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		LL0003002D39B001007A8A11 /* AppearanceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceScreen.swift; sourceTree = "<group>"; };
 		MM0001002D39B001007A8A11 /* FAQScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQScreen.swift; sourceTree = "<group>"; };
@@ -146,7 +143,6 @@
 		QQ0001002D39B001007A8A11 /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
 		QQ0002002D39B001007A8A11 /* WelcomeStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeStep.swift; sourceTree = "<group>"; };
 		QQ0003002D39B001007A8A11 /* ProfileStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStep.swift; sourceTree = "<group>"; };
-		QQ0004002D39B001007A8A11 /* ImportStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStep.swift; sourceTree = "<group>"; };
 		QQ0005002D39B001007A8A11 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		RR0001002D39B001007A8A11 /* SubscriptionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsScreen.swift; sourceTree = "<group>"; };
 		RR0002002D39B001007A8A11 /* AddEditSubscriptionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditSubscriptionScreen.swift; sourceTree = "<group>"; };
@@ -365,7 +361,6 @@
 				BB0013002D39B001007A8A11 /* AmountFormatting.swift */,
 				JJ0001002D39B001007A8A11 /* CurrencyManager.swift */,
 				JJ0002002D39B001007A8A11 /* CurrencyFormatter.swift */,
-				JJ0008002D39B001007A8A11 /* StatementImportService.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -387,7 +382,6 @@
 				QQ0001002D39B001007A8A11 /* OnboardingScreen.swift */,
 				QQ0002002D39B001007A8A11 /* WelcomeStep.swift */,
 				QQ0003002D39B001007A8A11 /* ProfileStep.swift */,
-				QQ0004002D39B001007A8A11 /* ImportStep.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -593,7 +587,6 @@
 				JJ0004002D39B001007A8A11 /* CurrencyManager.swift in Sources */,
 				JJ0005002D39B001007A8A11 /* CurrencyFormatter.swift in Sources */,
 				JJ0006002D39B001007A8A11 /* CurrencyPickerScreen.swift in Sources */,
-				JJ0009002D39B001007A8A11 /* StatementImportService.swift in Sources */,
 				NN0003002D39B001007A8A11 /* AppLockManager.swift in Sources */,
 				NN0004002D39B001007A8A11 /* LockScreenView.swift in Sources */,
 				LL0002002D39B001007A8A11 /* ThemeManager.swift in Sources */,
@@ -606,7 +599,6 @@
 				QQ0006002D39B001007A8A11 /* OnboardingScreen.swift in Sources */,
 				QQ0007002D39B001007A8A11 /* WelcomeStep.swift in Sources */,
 				QQ0008002D39B001007A8A11 /* ProfileStep.swift in Sources */,
-				QQ0009002D39B001007A8A11 /* ImportStep.swift in Sources */,
 				QQ0010002D39B001007A8A11 /* OnboardingViewModel.swift in Sources */,
 				RR0004002D39B001007A8A11 /* SubscriptionsScreen.swift in Sources */,
 				RR0005002D39B001007A8A11 /* AddEditSubscriptionScreen.swift in Sources */,

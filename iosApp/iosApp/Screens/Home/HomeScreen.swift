@@ -15,8 +15,6 @@ struct HomeScreen: View {
     @State private var selectedDetail: SharedRecentTransactionItem?
     @State private var appeared = false
     @State private var fabExpanded = false
-    @State private var showImportPicker = false
-    @State private var importResult: String?
     @State private var pendingDelete: SharedRecentTransactionItem?
     @Environment(\.isAmoledActive) private var isAmoled
 
@@ -96,15 +94,6 @@ struct HomeScreen: View {
         .sheet(item: $selectedDetail) { item in
             TransactionDetailSheet(item: item, onUpdate: { viewModel.loadHome() })
         }
-        .fileImporter(
-            isPresented: $showImportPicker,
-            allowedContentTypes: [.pdf]
-        ) { result in
-            if case .success(let url) = result {
-                importResult = StatementImportService.importPDF(at: url)
-                viewModel.loadHome()
-            }
-        }
         // Same confirmation as the detail screen's Delete.
         .alert(
             "Delete Transaction",
@@ -120,17 +109,6 @@ struct HomeScreen: View {
             Button("Cancel", role: .cancel) {}
         } message: { item in
             Text("Are you sure you want to delete the transaction \"\(item.merchantName)\"?")
-        }
-        .alert(
-            "Statement Import",
-            isPresented: Binding(
-                get: { importResult != nil },
-                set: { if !$0 { importResult = nil } }
-            )
-        ) {
-            Button("OK", role: .cancel) { importResult = nil }
-        } message: {
-            Text(importResult ?? "")
         }
     }
 
@@ -173,7 +151,7 @@ struct HomeScreen: View {
         EmptyStateView(
             title: "No Transactions Yet",
             systemImage: "tray",
-            message: "Add one by hand or import a statement."
+            message: "Add one by hand or connect your Ghana mobile money SMS automation."
         ) {
             Button("Add Transaction") { showAddTransaction = true }
                 .buttonStyle(.borderedProminent)
@@ -232,16 +210,10 @@ struct HomeScreen: View {
     // MARK: - Floating Add Button
 
     /// Android-style speed dial: + expands into labeled actions instead of
-    /// jumping straight to one form, so statement import is one tap away.
+    /// jumping straight to one form.
     private var addButton: some View {
         VStack(alignment: .trailing, spacing: AppSpacing.md) {
             if fabExpanded {
-                fabAction(
-                    label: "Import Statement",
-                    systemImage: "doc.text.fill"
-                ) {
-                    showImportPicker = true
-                }
                 fabAction(
                     label: "Add Transaction",
                     systemImage: "square.and.pencil"

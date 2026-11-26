@@ -108,9 +108,8 @@
     <string name="settings_import_data_subtitle">Rejesha data kutoka kwenye nakala</string>
     <string name="settings_import_csv_title">Ingiza Miamala (CSV)</string>
     <string name="settings_import_csv_subtitle">Ingiza kutoka faili ya CSV ya PennyWise</string>
-    <string name="settings_import_statement_title">Ingiza Taarifa ya Benki</string>
-    <string name="settings_import_statement_subtitle">Taarifa za benki (Excel, CSV) au PDF za app za UPI</string>
-    <string name="settings_unrecognized_sms_title">SMS Zisizotambuliwa</string>
+
+<string name="settings_unrecognized_sms_title">SMS Zisizotambuliwa</string>
     <string name="settings_unrecognized_sms_subtitle">Ona na uripoti ujumbe wa benki usioungwa mkono</string>
     <string name="settings_delete_all_title">Futa Miamala Yote</string>
     <string name="settings_delete_all_subtitle">Futa historia ya miamala yako — akaunti na bajeti zinabaki</string>

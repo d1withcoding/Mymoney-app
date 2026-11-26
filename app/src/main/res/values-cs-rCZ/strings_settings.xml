@@ -113,9 +113,8 @@
     <string name="settings_import_data_subtitle">Obnovit data ze zálohy</string>
     <string name="settings_import_csv_title">Importovat transakce (CSV)</string>
     <string name="settings_import_csv_subtitle">Import z PennyWise CSV exportu</string>
-    <string name="settings_import_statement_title">Prohlášení o importu</string>
-    <string name="settings_import_statement_subtitle">Bankovní výpisy (Excel, CSV) nebo PDF z UPI aplikací</string>
-    <string name="settings_unrecognized_sms_title">Nerozpoznané SMS</string>
+
+<string name="settings_unrecognized_sms_title">Nerozpoznané SMS</string>
     <string name="settings_unrecognized_sms_subtitle">Zobrazit a nahlásit nepodporované bankovní zprávy</string>
     <string name="settings_delete_all_title">Odstranit všechny transakce</string>
     <string name="settings_delete_all_subtitle">Vymazat historii transakcí – účty a rozpočty zůstávají</string>

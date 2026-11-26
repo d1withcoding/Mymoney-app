@@ -46,7 +46,7 @@ class SchedulerPlacementBoundaryTest {
     private companion object {
         const val APP = "com.pennywiseai.tracker"
 
-        val SCHEDULERS = listOf("SmsScanManager", "WebhookSyncScheduler")
+        val SCHEDULERS = listOf("SmsScanManager")
 
         val FORBIDDEN = listOf("androidx.work", "$APP.worker")
 

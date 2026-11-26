@@ -507,7 +507,7 @@ private fun TotalSubscriptionsSummary(
         amount = when {
             !isUnified -> CurrencyFormatter.formatByCurrency(
                 totalByCurrency,
-                fallbackCurrency = currency ?: "INR"
+                fallbackCurrency = currency ?: "GHS"
             )
             currency != null -> CurrencyFormatter.formatCurrency(totalAmount, currency)
             AmountPrivacy.hidden -> AmountPrivacy.MASK

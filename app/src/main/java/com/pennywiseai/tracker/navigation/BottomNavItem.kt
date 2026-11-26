@@ -2,7 +2,6 @@ package com.pennywiseai.tracker.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Chat
 import androidx.compose.material.icons.automirrored.filled.ReceiptLong
 import androidx.compose.material.icons.filled.Analytics
 import androidx.compose.material.icons.filled.Home
@@ -32,17 +31,11 @@ sealed class BottomNavItem(
         icon = Icons.Default.Analytics
     )
 
-    data object Chat : BottomNavItem(
-        route = "chat",
-        titleRes = R.string.nav_chat,
-        icon = Icons.AutoMirrored.Filled.Chat
-    )
-
     companion object {
         // Getters, not vals: a companion val naming the subclasses can be read
         // before they're initialised and come back null.
         /** Every tab, in bar order. */
-        val all: List<BottomNavItem> get() = listOf(Home, Transactions, Analytics, Chat)
+        val all: List<BottomNavItem> get() = listOf(Home, Transactions, Analytics)
 
         /** Tabs the user can hide from the bar (#912). Home always stays. */
         val hideable: List<BottomNavItem> get() = all - Home

@@ -59,93 +59,89 @@
     <string name="unrecognized_suggestion_credit">%1$s Gutschrift</string>
     <string name="unrecognized_suggestion_add">Hinzufügen</string>
     <!-- ══ Import statement ══ -->
-    <string name="import_statement_title">Statement importieren</string>
-    <string name="import_statement_back">Zurück</string>
-    <string name="import_statement_description">Importieren Sie einen PDF-Kontoauszug von Google Pay, PhonePe, Paytm, slice oder ICICI Bank oder einen Excel- (.xlsx) oder CSV-Kontoauszug einer beliebigen Bank. Sie sehen, was neu ist, bevor etwas hinzugefügt wird.</string>
-    <string name="import_statement_select_pdf">PDF-Auszug auswählen</string>
-    <string name="import_statement_loading_title">Transaktionen werden importiert...</string>
-    <string name="import_statement_loading_body">Kontoauszug wird gelesen und auf Duplikate geprüft</string>
-    <string name="import_statement_complete">Import abgeschlossen</string>
-    <string name="import_statement_result_imported">Transaktionen importiert</string>
-    <string name="import_statement_result_enriched">Transaktionen bereichert</string>
-    <string name="import_statement_result_total_parsed">Zeilen im Kontoauszug</string>
-    <string name="import_statement_result_duplicates">Duplikate übersprungen: %1$d</string>
-    <string name="import_statement_result_exact">Exakte Re-Importe</string>
-    <string name="import_statement_result_by_reference">Nach UPI-Referenz</string>
-    <string name="import_statement_result_by_amount_date">Nach Betrag &amp; Datum</string>
-    <string name="import_statement_import_another">Weitere importieren</string>
-    <string name="import_statement_done">Fertig</string>
-    <string name="import_statement_failed">Import fehlgeschlagen</string>
-    <string name="import_statement_try_again">Erneut versuchen</string>
-    <string name="import_statement_error_unsupported">Nicht unterstütztes Kontoauszugsformat. Derzeit unterstützt: Google Pay, PhonePe, Paytm, slice, ICICI Bank. Für jede andere Bank importieren Sie deren Excel- (.xlsx) oder CSV-Kontoauszug.</string>
-    <string name="import_statement_error_no_transactions">Keine Transaktionen im Kontoauszug gefunden.</string>
-    <string name="import_statement_error_failed">Import des Kontoauszugs fehlgeschlagen.</string>
-    <string name="import_statement_error_read">Diese Datei konnte nicht gelesen werden.</string>
-    <string name="import_statement_error_too_large">Diese Datei ist zu groß für den Import.</string>
-    <string name="import_statement_error_no_rows">Diese Datei enthält keine Zeilen.</string>
-    <string name="import_statement_error_too_many_rows">Dieser Kontoauszug hat mehr als %1$d Zeilen. Exportieren Sie einen kürzeren Zeitraum und importieren Sie diesen.</string>
-    <string name="import_statement_error_date_1904">Diese Arbeitsmappe verwendet das 1904-Datumssystem. Speichern Sie sie als .csv und importieren Sie diese.</string>
-    <string name="import_statement_password_title">Passwortgeschützte PDF</string>
-    <string name="import_statement_password_body">Dieser Kontoauszug ist geschützt. Geben Sie das Passwort ein, das Sie von Ihrer Bank dafür erhalten haben. Es wird nur zum Öffnen der Datei verwendet und nicht gespeichert.</string>
-    <string name="import_statement_password_label">PDF-Passwort</string>
-    <string name="import_statement_password_wrong">Falsches Passwort. Versuchen Sie es erneut.</string>
-    <string name="import_statement_password_open">Öffnen</string>
-    <string name="import_statement_password_cancel">Abbrechen</string>
-    <string name="import_statement_select_spreadsheet">Excel- oder CSV-Kontoauszug auswählen</string>
-    <string name="import_statement_xls_hint">Alte .xls-Datei? Speichern Sie sie zuerst als .xlsx oder .csv.</string>
-    <string name="import_statement_map_title">Spalten zuordnen</string>
-    <string name="import_statement_map_body">Sagen Sie PennyWise, welche Spalte was enthält. Die Zuordnung wird für den nächsten Kontoauszug mit denselben Spalten gespeichert.</string>
-    <string name="import_statement_header_row">Kopfzeile: %1$d</string>
-    <string name="import_statement_header_row_up">Vorherige Zeile</string>
-    <string name="import_statement_header_row_down">Nächste Zeile</string>
-    <string name="import_statement_col_date">Datum</string>
-    <string name="import_statement_col_date_format">Datumsformat</string>
-    <string name="import_statement_date_auto">Automatisch erkennen</string>
-    <string name="import_statement_date_auto_found">Automatisch erkennen (%1$s)</string>
-    <string name="import_statement_col_description">Beschreibung</string>
-    <string name="import_statement_amount_split">Soll &amp; Haben</string>
-    <string name="import_statement_amount_single">Ein Betrag</string>
-    <string name="import_statement_col_debit">Soll (Geld raus)</string>
-    <string name="import_statement_col_credit">Haben (Geld rein)</string>
-    <string name="import_statement_col_amount">Betrag (negativ oder Dr = Geld raus)</string>
-    <string name="import_statement_col_type">Dr/Cr-Spalte (optional)</string>
-    <string name="import_statement_col_balance">Kontostand (optional)</string>
-    <string name="import_statement_col_reference">Referenz / UTR (optional)</string>
-    <string name="import_statement_date_excel">Excel-Datum</string>
-    <string name="import_statement_col_none">Keine</string>
-    <string name="import_statement_column_label">Spalte %1$s</string>
-    <string name="import_statement_account">Konto</string>
-    <string name="import_statement_account_none">Mit keinem Konto verknüpft</string>
-    <string name="import_statement_sample_title">So werden die Zeilen gelesen</string>
-    <string name="import_statement_sample_count">%1$d Transaktionen gefunden, %2$d Zeilen übersprungen (leer, Summen, Fußzeilen)</string>
-    <string name="import_statement_sample_empty">Mit dieser Zuordnung noch keine Transaktionen. Prüfen Sie die Kopfzeile, die Datumsspalte und ihr Format sowie die Betragsspalten.</string>
-    <string name="import_statement_preview_button">Import-Vorschau</string>
-    <string name="import_statement_cancel">Abbrechen</string>
-    <string name="import_statement_preview_title">Vor dem Import prüfen</string>
-    <string name="import_statement_preview_new">Neu</string>
-    <string name="import_statement_preview_matched">Bereits in PennyWise</string>
-    <string name="import_statement_preview_account">Konto: %1$s</string>
-    <string name="import_statement_preview_new_rows">Neue Transaktionen</string>
-    <string name="import_statement_preview_new_rows_hint">Entfernen Sie das Häkchen bei allen, die nicht hinzugefügt werden sollen.</string>
-    <string name="import_statement_preview_all_matched">Jede Zeile dieses Kontoauszugs ist bereits in PennyWise.</string>
-    <plurals name="import_statement_confirm">
-        <item quantity="one">%1$d Transaktion importieren</item>
-        <item quantity="other">%1$d Transaktionen importieren</item>
-    </plurals>
-    <string name="import_statement_confirm_nothing">Weiter</string>
-    <string name="import_statement_edit_mapping">Spaltenzuordnung bearbeiten</string>
-    <string name="import_statement_balance_title">Abgleich des Schlusssaldos</string>
-    <string name="import_statement_balance_subtitle">%1$s am %2$s</string>
-    <string name="import_statement_balance_statement">Laut Kontoauszug</string>
-    <string name="import_statement_balance_app">Laut PennyWise</string>
-    <string name="import_statement_balance_difference">Differenz</string>
-    <string name="import_statement_balance_unknown_note">PennyWise hat für dieses Konto am oder vor dem %1$s keinen Kontostand, daher gibt es noch nichts zum Vergleichen.</string>
-    <string name="import_statement_balance_match">Die Salden stimmen überein.</string>
-    <string name="import_statement_balance_set">Kontostand auf %1$s setzen</string>
-    <string name="import_statement_balance_set_note">Saldo laut Kontoauszug plus das, was PennyWise nach dem Ende des Kontoauszugs erfasst hat.</string>
-    <string name="import_statement_balance_applied">Kontostand auf %1$s aktualisiert.</string>
-    <string name="import_statement_balance_newer">Ihre Bank hat seit diesem Kontoauszug einen neueren Kontostand gemeldet, daher behält PennyWise diesen.</string>
-    <!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
     <string name="upgrade_title">PennyWise Pro</string>
     <string name="upgrade_subtitle_member">Alle Pro-Fähigkeiten aktiv</string>
     <string name="upgrade_subtitle_upgrade">Alles entsperrt mit einem Lizenzschlüssel</string>

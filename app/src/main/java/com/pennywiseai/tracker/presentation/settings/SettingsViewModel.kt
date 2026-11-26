@@ -12,7 +12,6 @@ import com.pennywiseai.tracker.R
 import com.pennywiseai.tracker.backup.folder.FolderBackupWriter
 import com.pennywiseai.tracker.billing.EntitlementGate
 import com.pennywiseai.tracker.core.Constants
-import com.pennywiseai.tracker.core.Constants.Links
 import com.pennywiseai.tracker.core.DateFormatStyle
 import com.pennywiseai.tracker.core.NumberFormatStyle
 import com.pennywiseai.tracker.data.backup.BackupExporter
@@ -33,7 +32,6 @@ import com.pennywiseai.tracker.ui.UiText
 import com.pennywiseai.tracker.utils.AppDates
 import com.pennywiseai.tracker.utils.CurrencyFormatter
 import com.pennywiseai.tracker.utils.CurrencyUtils
-import com.pennywiseai.tracker.utils.SmsReportUrlBuilder
 import com.pennywiseai.tracker.worker.ScheduledFolderBackupScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -536,32 +534,6 @@ class SettingsViewModel @Inject constructor(
             userPreferencesRepository.updateSmsScanAllTime(false)
             userPreferencesRepository.updateSmsScanUseCustomDate(true)
             userPreferencesRepository.updateSmsScanCustomDate(normalizedDate)
-        }
-    }
-
-    fun openUnrecognizedSmsReport(context: Context) {
-        viewModelScope.launch {
-            try {
-                val firstUnreported = unrecognizedSmsRepository.getFirstUnreported()
-
-                if (firstUnreported != null) {
-                    val url = SmsReportUrlBuilder.buildUrl(context, firstUnreported.smsBody, firstUnreported.sender)
-                    Log.d("SettingsViewModel", "Full URL length: ${url.length}")
-
-                    // Open in browser
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    context.startActivity(intent)
-
-                    // Mark as reported
-                    unrecognizedSmsRepository.markAsReported(listOf(firstUnreported.id))
-
-                    Log.d("SettingsViewModel", "Opened report for unrecognized SMS from: ${firstUnreported.sender}")
-                } else {
-                    Log.d("SettingsViewModel", "No unreported SMS messages found")
-                }
-            } catch (e: Exception) {
-                Log.e("SettingsViewModel", "Error opening unrecognized SMS report", e)
-            }
         }
     }
 

@@ -12,17 +12,16 @@ class SharedTextAmountTest {
 
     @Test
     fun `currency-tagged amount wins over other numbers`() {
-        assertEquals(BigDecimal("1200.50"), amount("Paid Rs. 1,200.50 to Cafe on 03-10-26. UPI Ref 412345678901"))
-        assertEquals(BigDecimal("450"), amount("You paid ₹450 to Swiggy"))
-        assertEquals(BigDecimal("99"), amount("INR 99 debited from A/c XX1234"))
-        assertEquals(BigDecimal("125000"), amount("Salary of Rs 1,25,000 credited"))
+        assertEquals(BigDecimal("1200.50"), amount("Paid GHS 1,200.50 to Cafe on 03-10-26."))
+        assertEquals(BigDecimal("450"), amount("You paid GH₵450 to Swiggy"))
+        assertEquals(BigDecimal("99"), amount("GHS 99 debited from A/c XX1234"))
     }
 
     @Test
     fun `tag names the currency`() {
-        assertEquals("USD", currency("Paid $12 to the app store"))
-        assertEquals("INR", currency("You paid ₹450 to Swiggy"))
-        assertEquals("AED", currency("AED 75 at the mall"))
+        assertNull(currency("Paid $12 to the app store"))
+        assertEquals("GHS", currency("You paid ₵450 to Swiggy"))
+        assertNull(currency("AED 75 at the mall"))
         assertNull(currency("450 swiggy"))
     }
 
@@ -45,7 +44,7 @@ class SharedTextAmountTest {
 
     @Test
     fun `an amount is never truncated`() {
-        assertNull(amount("$12.345"))
-        assertEquals(BigDecimal("450"), amount("Paid Rs 450."))
+        assertNull(amount("GHS 12.345"))
+        assertEquals(BigDecimal("450"), amount("Paid GHS 450."))
     }
 }

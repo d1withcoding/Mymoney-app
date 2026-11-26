@@ -27,7 +27,7 @@ data class SharedAccountBalanceEntity(
     @ColumnInfo(name = "account_type")
     val accountType: String? = null,
     @ColumnInfo(name = "currency")
-    val currency: String = "INR",
+    val currency: String = "GHS",
     @ColumnInfo(name = "created_at_epoch_millis")
     val createdAtEpochMillis: Long
 )

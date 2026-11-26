@@ -17,7 +17,7 @@ struct AddBankSmsIntent: AppIntent {
     @Parameter(title: "Message", inputOptions: String.IntentInputOptions(multiline: true))
     var message: String
 
-    @Parameter(title: "Sender", description: "The bank's sender ID, e.g. AX-HDFCBK-S. Optional.")
+    @Parameter(title: "Sender", description: "The mobile money sender ID, e.g. MobileMoney. Optional.")
     var sender: String?
 
     static var parameterSummary: some ParameterSummary {
@@ -68,7 +68,7 @@ struct LogExpenseIntent: AppIntent {
     /// Goes through the same manual-add path as the add-transaction screen.
     static func log(amount: Double, merchant: String, category: String?) -> String {
         let name = merchant.trimmingCharacters(in: .whitespacesAndNewlines)
-        let currency = UserDefaults.standard.string(forKey: "displayCurrency") ?? "INR"
+        let currency = UserDefaults.standard.string(forKey: "displayCurrency") ?? "GHS"
         // A Shortcut can pass a calculated value: reject NaN/inf/huge before Int64() traps on it.
         guard let amountMinor = AmountFormatter.minorUnits(amount, currency: currency), amountMinor >= 1, !name.isEmpty else {
             return "Give an amount above zero and a merchant"

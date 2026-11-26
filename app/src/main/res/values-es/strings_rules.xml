@@ -59,93 +59,89 @@
     <string name="unrecognized_suggestion_credit">Crédito de %1$s</string>
     <string name="unrecognized_suggestion_add">Agregar</string>
     <!-- ══ Import statement ══ -->
-    <string name="import_statement_title">Importar estado de cuenta</string>
-    <string name="import_statement_back">Atrás</string>
-    <string name="import_statement_description">Importa un estado de cuenta en PDF de Google Pay, PhonePe, Paytm, slice o ICICI Bank, o el estado de cuenta en Excel (.xlsx) o CSV de cualquier banco. Verás lo que es nuevo antes de que se agregue nada.</string>
-    <string name="import_statement_select_pdf">Seleccionar estado de cuenta en PDF</string>
-    <string name="import_statement_loading_title">Importando transacciones...</string>
-    <string name="import_statement_loading_body">Leyendo el estado de cuenta y buscando duplicados</string>
-    <string name="import_statement_complete">Importación completada</string>
-    <string name="import_statement_result_imported">Transacciones importadas</string>
-    <string name="import_statement_result_enriched">Transacciones completadas</string>
-    <string name="import_statement_result_total_parsed">Filas del estado de cuenta</string>
-    <string name="import_statement_result_duplicates">Duplicados omitidos: %1$d</string>
-    <string name="import_statement_result_exact">Reimportaciones exactas</string>
-    <string name="import_statement_result_by_reference">Por referencia UPI</string>
-    <string name="import_statement_result_by_amount_date">Por monto y fecha</string>
-    <string name="import_statement_import_another">Importar otro</string>
-    <string name="import_statement_done">Listo</string>
-    <string name="import_statement_failed">La importación falló</string>
-    <string name="import_statement_try_again">Reintentar</string>
-    <string name="import_statement_error_unsupported">Formato de estado de cuenta no compatible. Por ahora se admiten: Google Pay, PhonePe, Paytm, slice, ICICI Bank. Para cualquier otro banco, importa su estado de cuenta en Excel (.xlsx) o CSV.</string>
-    <string name="import_statement_error_no_transactions">No se encontraron transacciones en el estado de cuenta.</string>
-    <string name="import_statement_error_failed">No se pudo importar el estado de cuenta.</string>
-    <string name="import_statement_error_read">No se pudo leer este archivo.</string>
-    <string name="import_statement_error_too_large">Este archivo es demasiado grande para importarlo.</string>
-    <string name="import_statement_error_no_rows">Este archivo no tiene filas.</string>
-    <string name="import_statement_error_too_many_rows">Este estado de cuenta tiene más de %1$d filas. Exporta un periodo más corto e impórtalo.</string>
-    <string name="import_statement_error_date_1904">Este libro usa el sistema de fechas 1904. Guárdalo como .csv e impórtalo.</string>
-    <string name="import_statement_password_title">PDF protegido con contraseña</string>
-    <string name="import_statement_password_body">Este estado de cuenta está bloqueado. Ingresa la contraseña que te dio tu banco. Solo se usa para abrir el archivo y no se guarda.</string>
-    <string name="import_statement_password_label">Contraseña del PDF</string>
-    <string name="import_statement_password_wrong">Contraseña incorrecta. Vuelve a intentarlo.</string>
-    <string name="import_statement_password_open">Abrir</string>
-    <string name="import_statement_password_cancel">Cancelar</string>
-    <string name="import_statement_select_spreadsheet">Seleccionar estado de cuenta en Excel o CSV</string>
-    <string name="import_statement_xls_hint">¿Archivo .xls antiguo? Guárdalo primero como .xlsx o .csv.</string>
-    <string name="import_statement_map_title">Asignar columnas</string>
-    <string name="import_statement_map_body">Indica a PennyWise qué es cada columna. Lo recordará para el próximo estado de cuenta con las mismas columnas.</string>
-    <string name="import_statement_header_row">Fila de encabezado: %1$d</string>
-    <string name="import_statement_header_row_up">Fila anterior</string>
-    <string name="import_statement_header_row_down">Fila siguiente</string>
-    <string name="import_statement_col_date">Fecha</string>
-    <string name="import_statement_col_date_format">Formato de fecha</string>
-    <string name="import_statement_date_auto">Detectar automáticamente</string>
-    <string name="import_statement_date_auto_found">Detectar automáticamente (%1$s)</string>
-    <string name="import_statement_col_description">Descripción</string>
-    <string name="import_statement_amount_split">Débito y crédito</string>
-    <string name="import_statement_amount_single">Un solo monto</string>
-    <string name="import_statement_col_debit">Débito (dinero que sale)</string>
-    <string name="import_statement_col_credit">Crédito (dinero que entra)</string>
-    <string name="import_statement_col_amount">Monto (negativo o Dr = dinero que sale)</string>
-    <string name="import_statement_col_type">Columna Dr/Cr (opcional)</string>
-    <string name="import_statement_col_balance">Saldo (opcional)</string>
-    <string name="import_statement_col_reference">Referencia / UTR (opcional)</string>
-    <string name="import_statement_date_excel">Fecha de Excel</string>
-    <string name="import_statement_col_none">Ninguna</string>
-    <string name="import_statement_column_label">Columna %1$s</string>
-    <string name="import_statement_account">Cuenta</string>
-    <string name="import_statement_account_none">Sin vincular a una cuenta</string>
-    <string name="import_statement_sample_title">Cómo se leen las filas</string>
-    <string name="import_statement_sample_count">%1$d transacciones encontradas, %2$d filas omitidas (vacías, totales, pies de página)</string>
-    <string name="import_statement_sample_empty">Aún no hay transacciones con esta asignación. Revisa la fila de encabezado, la columna Fecha y su formato, y las columnas de monto.</string>
-    <string name="import_statement_preview_button">Vista previa de la importación</string>
-    <string name="import_statement_cancel">Cancelar</string>
-    <string name="import_statement_preview_title">Revisa antes de importar</string>
-    <string name="import_statement_preview_new">Nuevas</string>
-    <string name="import_statement_preview_matched">Ya están en PennyWise</string>
-    <string name="import_statement_preview_account">Cuenta: %1$s</string>
-    <string name="import_statement_preview_new_rows">Transacciones nuevas</string>
-    <string name="import_statement_preview_new_rows_hint">Desmarca las que no quieras agregar.</string>
-    <string name="import_statement_preview_all_matched">Todas las filas de este estado de cuenta ya están en PennyWise.</string>
-    <plurals name="import_statement_confirm">
-        <item quantity="one">Importar %1$d transacción</item>
-        <item quantity="other">Importar %1$d transacciones</item>
-    </plurals>
-    <string name="import_statement_confirm_nothing">Continuar</string>
-    <string name="import_statement_edit_mapping">Editar asignación de columnas</string>
-    <string name="import_statement_balance_title">Verificación del saldo final</string>
-    <string name="import_statement_balance_subtitle">%1$s al %2$s</string>
-    <string name="import_statement_balance_statement">Según el estado de cuenta</string>
-    <string name="import_statement_balance_app">Según PennyWise</string>
-    <string name="import_statement_balance_difference">Diferencia</string>
-    <string name="import_statement_balance_unknown_note">PennyWise no tiene un saldo para esta cuenta en o antes del %1$s, así que aún no hay con qué compararlo.</string>
-    <string name="import_statement_balance_match">Los saldos coinciden.</string>
-    <string name="import_statement_balance_set">Fijar saldo en %1$s</string>
-    <string name="import_statement_balance_set_note">Saldo del estado de cuenta más lo que PennyWise registró después de que terminó el estado de cuenta.</string>
-    <string name="import_statement_balance_applied">Saldo actualizado a %1$s.</string>
-    <string name="import_statement_balance_newer">Tu banco informó un saldo más reciente después de este estado de cuenta, así que PennyWise conserva ese.</string>
-    <!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ══ Upgrade sheet (Pro) — wording is Play-policy reviewed (#802); keep as-is ══ -->
     <string name="upgrade_subtitle_member">Todas las funciones Pro activas</string>
     <string name="upgrade_subtitle_upgrade">Todo desbloqueado con una clave de licencia</string>
     <string name="upgrade_enter_license_key">Ingresar clave de licencia</string>

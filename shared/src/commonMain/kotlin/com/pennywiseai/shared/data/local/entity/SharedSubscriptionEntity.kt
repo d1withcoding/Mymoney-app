@@ -23,7 +23,7 @@ data class SharedSubscriptionEntity(
     @ColumnInfo(name = "category")
     val category: String? = null,
     @ColumnInfo(name = "currency")
-    val currency: String = "INR",
+    val currency: String = "GHS",
     @ColumnInfo(name = "created_at_epoch_millis")
     val createdAtEpochMillis: Long,
     @ColumnInfo(name = "updated_at_epoch_millis")

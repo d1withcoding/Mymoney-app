@@ -1,7 +1,5 @@
 package com.pennywiseai.tracker.presentation.home
 
-import android.content.Intent
-import android.net.Uri
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,18 +10,15 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.pennywiseai.tracker.R
-import com.pennywiseai.tracker.core.Constants
 import com.pennywiseai.tracker.data.preferences.HomeSection
 import com.pennywiseai.tracker.ui.components.cards.GroupedRow
 import com.pennywiseai.tracker.ui.components.cards.ListItemPosition
@@ -123,41 +118,6 @@ internal fun HomeMenuSheet(
                 onClick = {
                     onDismiss()
                     onReadMessagesAgain()
-                }
-            )
-
-            // Join Discord (Middle)
-            MenuListItem(
-                headline = stringResource(R.string.home_menu_discord),
-                icon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_discord),
-                        contentDescription = null,
-                        modifier = Modifier.size(Dimensions.Icon.medium)
-                    )
-                },
-                position = ListItemPosition.Middle,
-                onClick = {
-                    onDismiss()
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Links.DISCORD_URL))
-                    context.startActivity(intent)
-                }
-            )
-
-            // Rate on Play Store (Bottom)
-            MenuListItem(
-                headline = stringResource(R.string.home_menu_rate),
-                icon = { Icon(Icons.Default.Star, contentDescription = null) },
-                position = ListItemPosition.Bottom,
-                onClick = {
-                    onDismiss()
-                    try {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${context.packageName}"))
-                        context.startActivity(intent)
-                    } catch (_: android.content.ActivityNotFoundException) {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=${context.packageName}"))
-                        context.startActivity(intent)
-                    }
                 }
             )
 

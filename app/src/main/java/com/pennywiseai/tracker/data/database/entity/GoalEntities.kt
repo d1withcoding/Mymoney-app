@@ -40,7 +40,7 @@ data class GoalEntity(
 
     /** The goal's one currency. Immutable once the goal has a Contribution. */
     @ColumnInfo(name = "currency")
-    val currency: String = "INR",
+    val currency: String = "GHS",
 
     @ColumnInfo(name = "due_date")
     @Contextual

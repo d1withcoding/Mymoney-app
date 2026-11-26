@@ -247,8 +247,6 @@ class OptimizedSmsReaderWorker @AssistedInject constructor(
             val classifier = SmsScanClassifier(
                 recentSinceMillis = recentSinceMillis,
                 taughtTemplates = taughtTemplates,
-                subscriptionRepository = subscriptionRepository,
-                saveBalanceNotification = writer::saveBalanceNotification,
             )
             val pipeline = SmsScanPipeline(
                 source = source,

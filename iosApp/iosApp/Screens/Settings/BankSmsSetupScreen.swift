@@ -2,7 +2,7 @@ import SwiftUI
 import Shared
 import UserNotifications
 
-/// Settings › Auto-add bank SMS: how to point a Shortcuts automation at
+/// Settings › Auto-add Ghana mobile money SMS: how to point a Shortcuts automation at
 /// AddBankSmsIntent, plus a dry run on a sample message.
 struct BankSmsSetupScreen: View {
     @Environment(\.isAmoledActive) private var isAmoled
@@ -10,14 +10,10 @@ struct BankSmsSetupScreen: View {
     @State private var notificationStatus: UNAuthorizationStatus = .authorized
     @State private var copied: String?
 
-    // Most-used Indian banks first. `phrase` appears in the bank's transaction texts (checked
-    // against parser-core's sample SMS); `id` is what the parser matches as the sender (canHandle).
+    // Ghana mobile money senders supported by parser-core.
     private static let banks: [(bank: String, phrase: String, id: String)] = [
-        ("Kotak Mahindra Bank", "Kotak", "KOTAK"),
-        ("HDFC Bank", "HDFC Bank", "HDFCBK"),
-        ("ICICI Bank", "ICICI Bank", "ICICIB"),
-        ("State Bank of India", "SBI", "SBI"),
-        ("Axis Bank", "Axis Bank", "AXISBK")
+        ("MTN MoMo", "MobileMoney", "MobileMoney"),
+        ("Telecel Cash", "TelecelCash", "TelecelCash")
     ]
 
     // The Message trigger's Sender only takes contacts, so the trigger matches on text instead.
@@ -32,7 +28,7 @@ struct BankSmsSetupScreen: View {
     var body: some View {
         List {
             Section {
-                Text("iPhone apps can't read your texts, but a Shortcuts automation can pass each bank SMS to PennyWise. It's read and saved on this phone only.")
+                Text("iPhone apps can't read your texts, but a Shortcuts automation can pass MTN MoMo or Telecel Cash messages to PennyWise. They're read and saved on this phone only.")
                     .font(AppTypography.body)
                     .foregroundStyle(.secondary)
             }
@@ -70,7 +66,7 @@ struct BankSmsSetupScreen: View {
             } header: {
                 Text("Your bank")
             } footer: {
-                Text("Make one automation per bank. PennyWise reads 160+ banks; for another bank, use its name as it appears in its texts and the ID they come from.")
+                Text("Make one automation for each supported Ghana mobile money service.")
             }
 
             Section {
@@ -82,14 +78,14 @@ struct BankSmsSetupScreen: View {
             } header: {
                 Text("Try it")
             } footer: {
-                Text("Runs a made-up HDFC Bank SMS through the same steps as the automation, then removes it again.")
+                Text("Runs a synthetic MTN MoMo message through the same steps as the automation, then removes it again.")
             }
 
             if notificationStatus == .notDetermined || notificationStatus == .denied {
                 Section {
                     Button("Allow notifications") { requestNotifications() }
                 } footer: {
-                    Text("Get an alert like \u{201C}Spent ₹450 at GroceryMart\u{201D} each time a bank SMS is saved.")
+                    Text("Get an alert when a Ghana mobile money transaction is saved.")
                 }
             }
         }
@@ -126,9 +122,8 @@ struct BankSmsSetupScreen: View {
     @MainActor private func runSample() async {
         // A fresh made-up reference each time, so a second test isn't a duplicate.
         let ref = (0..<12).map { _ in String(Int.random(in: 0...9)) }.joined()
-        let date = Date().formatted(.dateTime.day(.twoDigits).month(.twoDigits).year(.twoDigits))
-        let sample = "Sent Rs.450.00 From HDFC Bank A/C *0000 To GroceryMart On \(date) Ref \(ref) Not You? Call 18000000000/SMS BLOCK UPI to 7000000000"
-        let outcome = await BankSmsImport.run(sender: "AX-HDFCBK-S", body: sample)
+        let sample = "Payment made for GHS 45.00 to GROCERY MART Current Balance: GHS 455.00 . Available Balance: GHS 455.00 Reference: \(ref). Transaction ID: 76664093335. Fee charged: GHS0.00 Tax charged: 0."
+        let outcome = await BankSmsImport.run(sender: "MobileMoney", body: sample)
         if let id = outcome.savedTransactionId {
             let removed = PennyWiseSharedFacade.companion.shared.deleteTransaction(transactionId: id)
             testResult = removed

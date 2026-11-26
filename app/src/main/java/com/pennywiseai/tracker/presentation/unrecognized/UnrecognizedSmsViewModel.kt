@@ -1,8 +1,6 @@
 package com.pennywiseai.tracker.presentation.unrecognized
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +12,6 @@ import com.pennywiseai.parser.core.TransactionType
 import com.pennywiseai.parser.core.bank.BankParserFactory
 import com.pennywiseai.tracker.R
 import com.pennywiseai.tracker.core.Constants
-import com.pennywiseai.tracker.core.Constants.Links
 import com.pennywiseai.tracker.data.database.entity.UnrecognizedSmsEntity
 import com.pennywiseai.tracker.data.manager.TaughtMessageBooker
 import com.pennywiseai.tracker.data.notification.BankNotificationConfig
@@ -24,7 +21,6 @@ import com.pennywiseai.tracker.data.preferences.TrackedNotificationAppsStore
 import com.pennywiseai.tracker.data.repository.SmsInboxReader
 import com.pennywiseai.tracker.data.repository.UnrecognizedSmsRepository
 import com.pennywiseai.tracker.domain.model.Suggestion
-import com.pennywiseai.tracker.utils.SmsReportUrlBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -221,26 +217,6 @@ class UnrecognizedSmsViewModel @Inject constructor(
 
     fun toggleShowReported() {
         _showReported.value = !_showReported.value
-    }
-
-    fun reportMessage(message: UnrecognizedSmsEntity) {
-        viewModelScope.launch {
-            try {
-                val url = SmsReportUrlBuilder.buildUrl(context, message.smsBody, message.sender)
-                Log.d("UnrecognizedSmsViewModel", "Full URL length: ${url.length}")
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                }
-                context.startActivity(intent)
-
-                // Mark as reported
-                unrecognizedSmsRepository.markAsReported(listOf(message.id))
-
-                Log.d("UnrecognizedSmsViewModel", "Opened report for message from: ${message.sender}")
-            } catch (e: Exception) {
-                Log.e("UnrecognizedSmsViewModel", "Error opening report", e)
-            }
-        }
     }
 
     fun deleteMessage(message: UnrecognizedSmsEntity) {
